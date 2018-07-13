@@ -37,23 +37,36 @@ describe('isValidPublic', () => {
         pubKey = Buffer.from(pubKey, 'hex');
         expect(minterUtil.isValidPublic(pubKey, true)).toBe(false);
     });
-    test('should work otherwise', () => {
+    test('should fail on ethereum public', () => {
         let pubKey = '3a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a001cf066d56a8156fc201cd5df8a36ef694eecd258903fca7086c1fae7441e1d';
         pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey)).toBe(true);
+        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
     });
     // minter tests
-    test('should work with minter public', () => {
+    test('should fail with minter uncompressed public', () => {
         let pubKey = 'f9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3cb8a015b8031d02e79456aedb361fa20ec1a119d6009e5c08e9d1eeb5b29ad92';
+        pubKey = Buffer.from(pubKey, 'hex');
+        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
+    });
+    test('should work with minter public', () => {
+        let pubKey = '28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
         pubKey = Buffer.from(pubKey, 'hex');
         expect(minterUtil.isValidPublic(pubKey)).toBe(true);
     });
     test('should work with minter string public', () => {
-        const pubKey = 'Mpf9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3cb8a015b8031d02e79456aedb361fa20ec1a119d6009e5c08e9d1eeb5b29ad92';
+        const pubKey = 'Mp28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
+        expect(minterUtil.isValidPublic(pubKey)).toBe(true);
+    });
+    test('should work with minter string public 2', () => {
+        let pubKey = 'Mp21e1d043c6d9c0bb0929ab8d1dd9f3948de0f5ad7234ce773a501441d204aa9e';
         expect(minterUtil.isValidPublic(pubKey)).toBe(true);
     });
     test('should fail with wrong string prefix', () => {
-        const pubKey = '0xf9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3cb8a015b8031d02e79456aedb361fa20ec1a119d6009e5c08e9d1eeb5b29ad92';
+        const pubKey = 'mp28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
+        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
+    });
+    test('should fail with wrong string prefix', () => {
+        const pubKey = '0x28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
         expect(minterUtil.isValidPublic(pubKey)).toBe(false);
     });
 });

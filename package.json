@@ -1,6 +1,6 @@
 {
   "name": "minterjs-util",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Utils for Minter",
   "main": "src/index.js",
   "files": [
@@ -25,8 +25,8 @@
     "url": "https://github.com/MinterTeam/minterjs-util/issues"
   },
   "dependencies": {
-    "ethereumjs-util": "^5.2.0",
-    "safe-buffer": "^5.1.2"
+    "safe-buffer": "^5.1.2",
+    "secp256k1": "^3.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
