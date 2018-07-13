@@ -34,7 +34,8 @@ module.exports = {
     'no-param-reassign': 0,
     'no-underscore-dangle': 0,
     'no-else-return': 0,
-    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
+    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    'no-use-before-define' : 0,
   },
   overrides: [
     {

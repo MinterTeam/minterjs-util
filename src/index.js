@@ -1,5 +1,6 @@
 import secp256k1 from 'secp256k1';
 import {Buffer} from 'safe-buffer';
+import ethUtil from 'ethereumjs-util';
 
 /**
  * Replace Minter prefixes with hex prefix
@@ -24,14 +25,22 @@ export function mPrefixStrip(value) {
  */
 export function mToBuffer(value) {
     if (typeof value !== 'string') {
-        throw new Error('Type error: string expected')
+        throw new Error('Type error: string expected');
     }
     if (!isMinterPrefixed(value)) {
-        throw new Error('Not minter prefixed')
+        throw new Error('Not minter prefixed');
     }
     value = mPrefixStrip(value);
 
     return Buffer.from(value, 'hex');
+}
+
+export function toBuffer(value) {
+    if (typeof value === 'string' && isMinterPrefixed(value)) {
+        return mToBuffer(value);
+    }
+
+    return ethUtil.toBuffer(value);
 }
 
 /**
@@ -51,15 +60,21 @@ export function isValidPublic(publicKey) {
         return false;
     }
     // add first byte
-    const compressed = Buffer.concat([Buffer.from([3]), publicKey])
+    const compressed = Buffer.concat([Buffer.from([3]), publicKey]);
 
     return secp256k1.publicKeyVerify(compressed);
 }
 
-export function isMinterPrefixed (value) {
+export function isMinterPrefixed(value) {
     return /^(Mx|Mp|Mt|Mc|Mh)[0-9a-fA-F]+$/.test(value);
 }
 
+/**
+ * Checks only prefix, length and hex body.
+ * Don't check secp256k1 curve.
+ * @param {string} publicKey
+ * @return {boolean}
+ */
 export function isValidPublicKeyString(publicKey) {
     return /^Mp[0-9a-fA-F]{64}$/.test(publicKey);
 }
