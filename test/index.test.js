@@ -88,14 +88,13 @@ describe('.isValidAddress()', () => {
 
 describe('.isValidCheck()', () => {
     test('should work with check', () => {
-        expect(minterUtil.isValidCheck('Mc2f015c60e0be116b1f0cd534704db9c92118fb6a')).toBe(true);
-        expect(minterUtil.isValidCheck('Mc52908400098527886E0F7030069857D2E4169EE7')).toBe(true);
+        expect(minterUtil.isValidCheck('Mcf89b01830f423f8a4d4e5400000000000000843b9aca00b8419b3beac2c6ad88a8bd54d24912754bb820e58345731cb1b9bc0885ee74f9e50a58a80aa990a29c98b05541b266af99d3825bb1e5ed4e540c6e2f7c9b40af9ecc011ca0387fd67ec41be0f1cf92c7d0181368b4c67ab07df2d2384192520d74ff77ace6a04ba0e7ad7b34c64223fe59584bc464d53fcdc7091faaee5df0451254062cfb37')).toBe(true);
+        expect(minterUtil.isValidCheck('Mc00')).toBe(true);
     });
     test('should fail on invalid input', () => {
         expect(minterUtil.isValidCheck('2f015c60e0be116b1f0cd534704db9c92118fb6a')).toBe(false);
-        expect(minterUtil.isValidCheck('Mc2f015c60e0be116b1f0cd534704db9c92118fb6')).toBe(false);
-        expect(minterUtil.isValidCheck('Mc2f015c60e0be116b1f0cd534704db9c92118fb6aa')).toBe(false);
         expect(minterUtil.isValidCheck('MC52908400098527886E0F7030069857D2E4169EE7')).toBe(false);
+        expect(minterUtil.isValidCheck('Mc')).toBe(false);
         expect(minterUtil.isValidCheck('x2f015c60e0be116b1f0cd534704db9c92118fb6a')).toBe(false);
         expect(minterUtil.isValidCheck('0x52908400098527886E0F7030069857D2E4169EE7')).toBe(false);
     });

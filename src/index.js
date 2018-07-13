@@ -84,5 +84,5 @@ export function isValidAddress(address) {
 }
 
 export function isValidCheck(check) {
-    return /^Mc[0-9a-fA-F]{40}$/.test(check);
+    return /^Mc[0-9a-fA-F]+$/.test(check);
 }
