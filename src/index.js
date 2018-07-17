@@ -44,6 +44,19 @@ export function toBuffer(value) {
 }
 
 /**
+ * Returns the Minter public key of a given private key
+ * @param {Buffer|string} privateKey A private key must be 32 bytes wide
+ * @return {Buffer}
+ */
+export function privateToPublic(privateKey) {
+    if (typeof privateKey === 'string') {
+        privateKey = Buffer.from(privateKey, 'hex');
+    }
+    // use the X coordinate and skip first byte (depending on Y's value, 0x02 for even, 0x03 for odd)
+    return secp256k1.publicKeyCreate(privateKey, true).slice(1);
+}
+
+/**
  * Checks if the public key satisfies the rules of the curve secp256k1
  * and the requirements of Minter.
  * @param {string|Buffer} publicKey - Compressed key without first byte, starts with `Mp` if is string
