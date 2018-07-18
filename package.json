@@ -1,6 +1,6 @@
 {
   "name": "minterjs-util",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Utils for Minter",
   "main": "src/index.js",
   "files": [

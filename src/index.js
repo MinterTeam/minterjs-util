@@ -1,3 +1,4 @@
+import assert from 'assert';
 import secp256k1 from 'secp256k1';
 import {Buffer} from 'safe-buffer';
 import ethUtil from 'ethereumjs-util';
@@ -44,16 +45,50 @@ export function toBuffer(value) {
 }
 
 /**
- * Returns the Minter public key of a given private key
- * @param {Buffer|string} privateKey A private key must be 32 bytes wide
+ * Returns the ethereum address of a given public key.
+ * Accepts "Ethereum public keys" and SEC1 encoded keys.
+ * @param {Buffer} publicKey
  * @return {Buffer}
  */
-export function privateToPublic(privateKey) {
-    if (typeof privateKey === 'string') {
-        privateKey = Buffer.from(privateKey, 'hex');
+export function publicToAddress (publicKey) {
+    publicKey = toBuffer(publicKey);
+    if (publicKey.length === 32) {
+        throw new Error ('Mp... public can\'t be converted to address because first byte is dropped')
     }
-    // use the X coordinate and skip first byte (depending on Y's value, 0x02 for even, 0x03 for odd)
-    return secp256k1.publicKeyCreate(privateKey, true).slice(1);
+    if (publicKey.length === 33) {
+        // compressed to uncompressed
+        publicKey = secp256k1.publicKeyConvert(publicKey, false).slice(1);
+    }
+    if (publicKey.length === 65) {
+        // uncompressed to Ethereum
+        publicKey = publicKey.slice(1);
+    }
+    assert(publicKey.length === 64);
+    // Only take the lower 160bits of the hash
+    return ethUtil.keccak(publicKey).slice(-20);
+}
+
+/**
+ * Return Minter style public key string
+ * @param {Buffer} publicKey
+ * @return {string}
+ */
+export function publicToString (publicKey) {
+    if (!Buffer.isBuffer(publicKey)) {
+        throw new Error('Public key should be of type Buffer');
+    }
+    if (publicKey.length === 64) {
+        // Ethereum style to uncompressed
+        publicKey = Buffer.concat([Buffer.from([4]), publicKey])
+    }
+    if (publicKey.length === 65) {
+        // uncompressed to compressed
+        publicKey = secp256k1.publicKeyConvert(publicKey, true);
+    }
+
+    assert(publicKey.length === 33);
+
+    return 'Mp' + publicKey.slice(1).toString('hex');
 }
 
 /**
@@ -72,7 +107,7 @@ export function isValidPublic(publicKey) {
     if (publicKey.length !== 32) {
         return false;
     }
-    // add first byte
+    // convert Minter to compressed: add first byte
     const compressed = Buffer.concat([Buffer.from([3]), publicKey]);
 
     return secp256k1.publicKeyVerify(compressed);
