@@ -20,23 +20,24 @@ describe('.mPrefixStrip()', () => {
 });
 
 describe('.publicToAddress()', () => {
-    const publicKey = ethUtil.privateToPublic(PRIVATE_KEY);
-    const validAddress = Buffer.from('7633980c000139dd3bd24a3f54e06474fa941e16', 'hex')
+    const validAddress = Buffer.from('7633980c000139dd3bd24a3f54e06474fa941e16', 'hex');
     test('correct public from private', () => {
-        expect(publicKey.toString('hex')).toEqual('f9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3cb8a015b8031d02e79456aedb361fa20ec1a119d6009e5c08e9d1eeb5b29ad92')
-    })
+        const publicKey = ethUtil.privateToPublic(PRIVATE_KEY);
+        expect(publicKey.toString('hex')).toEqual('f9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3cb8a015b8031d02e79456aedb361fa20ec1a119d6009e5c08e9d1eeb5b29ad92');
+    });
     test('should work with etherium style public', () => {
-        const address = minterUtil.publicToAddress(publicKey)
+        const publicKey = ethUtil.privateToPublic(PRIVATE_KEY);
+        const address = minterUtil.publicToAddress(publicKey);
         expect(address).toEqual(validAddress);
     });
     test('should work with compressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, true)
-        const address = minterUtil.publicToAddress(publicKey)
+        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, true);
+        const address = minterUtil.publicToAddress(publicKey);
         expect(address).toEqual(validAddress);
     });
     test('should work with uncompressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, false)
-        const address = minterUtil.publicToAddress(publicKey)
+        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, false);
+        const address = minterUtil.publicToAddress(publicKey);
         expect(address).toEqual(validAddress);
     });
     test('should throw on Minter style public', () => {
@@ -48,21 +49,21 @@ describe('.publicToAddress()', () => {
 });
 
 describe('.publicToString()', () => {
-    const publicKey = ethUtil.privateToPublic(PRIVATE_KEY);
     const validPublicString = 'Mpf9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3';
     test('should work', () => {
+        const publicKey = ethUtil.privateToPublic(PRIVATE_KEY);
         const publicKeyString = minterUtil.publicToString(publicKey);
         expect(publicKeyString).toHaveLength(64 + 2);
         expect(publicKeyString).toEqual(validPublicString);
     });
     test('should work with compressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, true)
-        const publicKeyString = minterUtil.publicToString(publicKey)
+        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, true);
+        const publicKeyString = minterUtil.publicToString(publicKey);
         expect(publicKeyString).toEqual(validPublicString);
     });
     test('should work with uncompressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, false)
-        const publicKeyString = minterUtil.publicToString(publicKey)
+        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, false);
+        const publicKeyString = minterUtil.publicToString(publicKey);
         expect(publicKeyString).toEqual(validPublicString);
     });
     test('should throw on string', () => {

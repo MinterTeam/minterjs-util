@@ -50,10 +50,10 @@ export function toBuffer(value) {
  * @param {Buffer} publicKey
  * @return {Buffer}
  */
-export function publicToAddress (publicKey) {
+export function publicToAddress(publicKey) {
     publicKey = toBuffer(publicKey);
     if (publicKey.length === 32) {
-        throw new Error ('Mp... public can\'t be converted to address because first byte is dropped')
+        throw new Error('Mp... public can\'t be converted to address because first byte is dropped');
     }
     if (publicKey.length === 33) {
         // compressed to uncompressed
@@ -73,13 +73,13 @@ export function publicToAddress (publicKey) {
  * @param {Buffer} publicKey
  * @return {string}
  */
-export function publicToString (publicKey) {
+export function publicToString(publicKey) {
     if (!Buffer.isBuffer(publicKey)) {
         throw new Error('Public key should be of type Buffer');
     }
     if (publicKey.length === 64) {
         // Ethereum style to uncompressed
-        publicKey = Buffer.concat([Buffer.from([4]), publicKey])
+        publicKey = Buffer.concat([Buffer.from([4]), publicKey]);
     }
     if (publicKey.length === 65) {
         // uncompressed to compressed
@@ -88,7 +88,7 @@ export function publicToString (publicKey) {
 
     assert(publicKey.length === 33);
 
-    return 'Mp' + publicKey.slice(1).toString('hex');
+    return `Mp${publicKey.slice(1).toString('hex')}`;
 }
 
 /**
