@@ -27,18 +27,18 @@
     "url": "https://github.com/MinterTeam/minterjs-util/issues"
   },
   "dependencies": {
-    "ethereumjs-util": "^5.2.0",
+    "ethereumjs-util": "^6.0.0",
     "safe-buffer": "^5.1.2",
-    "secp256k1": "^3.5.0"
+    "secp256k1": "^3.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-jest": "^23.4.0",
+    "babel-jest": "^23.6.0",
     "babel-preset-env": "^1.7.0",
     "coveralls": "^3.0.2",
-    "eslint": "^5.1.0",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "jest": "^23.4.1"
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "jest": "^23.6.0"
   }
 }
