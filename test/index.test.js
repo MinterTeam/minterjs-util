@@ -1,7 +1,7 @@
 import {Buffer} from 'safe-buffer';
 import secp256k1 from 'secp256k1';
 import ethUtil from 'ethereumjs-util';
-import * as minterUtil from '../src/index';
+import * as minterUtil from '~/src/index';
 
 const PRIVATE_KEY = Buffer.from('5fa3a8b186f6cc2d748ee2d8c0eb7a905a7b73de0f2c34c5e7857c3b46f187da', 'hex');
 
