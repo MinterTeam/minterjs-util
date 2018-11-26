@@ -6,7 +6,7 @@ const DECIMALS = 18;
 /**
  * @param {number,string,BigNumber} num
  * @param to
- * @return {BigNumber}
+ * @return {string}
  */
 function convert(num, to) {
     if (num === '0x') {
@@ -16,9 +16,9 @@ function convert(num, to) {
     const pow = new BigNumber(10).pow(DECIMALS);
 
     if (to === 'pip') {
-        return new BigNumber(num).multipliedBy(pow).integerValue();
+        return new BigNumber(num).multipliedBy(pow).integerValue().toString();
     } else if (to === 'bip') {
-        return new BigNumber(num).dividedBy(pow);
+        return new BigNumber(num).dividedBy(pow).toString();
     }
 
     throw String('Unknown type');
@@ -27,7 +27,7 @@ function convert(num, to) {
 /**
  * Multiply value by 10^18
  * @param {number,string,BigNumber} num
- * @return {BigNumber}
+ * @return {string}
  */
 function convertToPip(num) {
     return convert(num, 'pip');
@@ -36,7 +36,7 @@ function convertToPip(num) {
 /**
  * Multiply value by 10^-18
  * @param {number,string,BigNumber} num
- * @return {BigNumber}
+ * @return {string}
  */
 function convertFromPip(num) {
     return convert(num, 'bip');
