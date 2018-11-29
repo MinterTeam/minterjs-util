@@ -1,3 +1,6 @@
+## 0.2.1 - 2018-11-29
+- add option to convert to hex value
+
 ## 0.2.0 - 2018-11-26
 - **BREAKING** update converter to return `string` instead of `BigNumber`
 

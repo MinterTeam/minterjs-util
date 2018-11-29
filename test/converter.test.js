@@ -27,6 +27,10 @@ describe('converter', () => {
         expect(convert(bips, 'pip')).toEqual('0');
     });
 
+    test('convert to hex', () => {
+        expect(convert(1, 'pip', 'hex')).toEqual('de0b6b3a7640000');
+    });
+
     test('convert to unknown type', () => {
         const bips = 12345;
 
