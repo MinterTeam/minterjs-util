@@ -1,3 +1,6 @@
+## 0.2.2 - 2018-11-30
+- fix converter to not produce exponential values
+
 ## 0.2.1 - 2018-11-29
 - add option to convert to hex value
 

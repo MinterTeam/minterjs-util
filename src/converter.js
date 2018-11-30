@@ -28,7 +28,7 @@ function convert(num, to, format) {
     if (format === 'hex') {
         return result.toString(16);
     } else {
-        return result.toString();
+        return result.toString(10);
     }
 }
 

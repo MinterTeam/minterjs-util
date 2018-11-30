@@ -13,12 +13,12 @@ describe('converter', () => {
 
     test('convert to bip', () => {
         const pips = 1234;
-        expect(convert(pips, 'bip')).toEqual((0.000000000000001234).toString());
+        expect(convert(pips, 'bip')).toEqual(('0.000000000000001234'));
     });
 
     test('pip to bip', () => {
         const pips = 1234;
-        expect(convertFromPip(pips)).toEqual((0.000000000000001234).toString());
+        expect(convertFromPip(pips)).toEqual(('0.000000000000001234'));
     });
 
     test('convert 0x', () => {
@@ -29,6 +29,11 @@ describe('converter', () => {
 
     test('convert to hex', () => {
         expect(convert(1, 'pip', 'hex')).toEqual('de0b6b3a7640000');
+    });
+
+    test('do not produce exponential', () => {
+        const bips = 1234567890;
+        expect(convertToPip(bips)).toEqual('1234567890000000000000000000');
     });
 
     test('convert to unknown type', () => {
