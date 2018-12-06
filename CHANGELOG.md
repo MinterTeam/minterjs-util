@@ -1,3 +1,6 @@
+# 0.2.3 - 2018-12-06
+- add `privateToAddressString()` methods
+
 ## 0.2.2 - 2018-11-30
 - fix converter to not produce exponential values
 

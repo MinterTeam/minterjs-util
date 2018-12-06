@@ -1,5 +1,5 @@
 import { Buffer } from 'safe-buffer';
-import {toBuffer as ethToBuffer} from 'ethereumjs-util';
+import {toBuffer as ethToBuffer, privateToAddress as ethPrivateToAddress} from 'ethereumjs-util';
 
 /**
  * Replace Minter prefixes with hex prefix
@@ -34,12 +34,28 @@ export function mToBuffer(value) {
     return Buffer.from(value, 'hex');
 }
 
+/**
+ * Attempts to turn a value into a `Buffer`.
+ * Supports Minter prefixed hex strings.
+ * Otherwise use `ethereumjs-util.toBuffer`. As input it supports `Buffer`, `String`, `Number`, null/undefined, `BN` and other objects with a `toArray()` method.
+ * @param {*} value
+ * @return {Buffer}
+ */
 export function toBuffer(value) {
     if (typeof value === 'string' && isMinterPrefixed(value)) {
         return mToBuffer(value);
     }
 
     return ethToBuffer(value);
+}
+
+/**
+ * Returns the Minter style address string of a given private key
+ * @param {Buffer} privateKey A private key must be 256 bits wide
+ * @return {string}
+ */
+export function privateToAddressString(privateKey) {
+    return `Mx${ethPrivateToAddress(privateKey).toString('hex')}`;
 }
 
 export function isMinterPrefixed(value) {
