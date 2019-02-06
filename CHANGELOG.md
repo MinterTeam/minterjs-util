@@ -1,3 +1,6 @@
+# 0.3.1 - 2019-02-06
+- add `nonBinaryArrayTransform` option to `defineProperties()`
+
 # 0.3.0 - 2019-02-06
 - add `defineProperties()` method
 - update deps

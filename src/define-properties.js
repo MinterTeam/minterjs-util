@@ -13,8 +13,8 @@ const _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symb
  * * `allowLess` - if the field can be less than the length
  * * `allowEmpty`
  * * `allowNonBinaryArray` - if the field can be non binary array
- * * `nonBinaryArrayMap` - function to transform each item of the non binary array
- * @param {*} data data to be validated against the definitions
+ * * `nonBinaryArrayTransform` - function to transform each item of the non binary array
+ * @param {*} [data] data to be validated against the definitions
  */
 export default function definePropertiesNonBinary(self, fields, data) {
     self.raw = [];
@@ -43,7 +43,11 @@ export default function definePropertiesNonBinary(self, fields, data) {
         }
         function setter(v) {
             if (field.allowNonBinaryArray && Array.isArray(v)) {
-                v = v.map((item) => ethUtil.toBuffer(item));
+                if (field.nonBinaryArrayTransform && typeof field.nonBinaryArrayTransform === 'function') {
+                    v = v.map((item) => field.nonBinaryArrayTransform(item));
+                } else {
+                    v = v.map((item) => ethUtil.toBuffer(item));
+                }
             } else {
                 v = ethUtil.toBuffer(v);
 
