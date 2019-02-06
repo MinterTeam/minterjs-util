@@ -1,3 +1,7 @@
+# 0.3.0 - 2019-02-06
+- add `defineProperties()` method
+- update deps
+
 # 0.2.3 - 2018-12-06
 - add `privateToAddressString()` methods
 
