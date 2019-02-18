@@ -1,4 +1,6 @@
-import ethUtil from 'ethereumjs-util';
+import {
+    baToJSON, rlp, toBuffer, stripZeros, stripHexPrefix,
+} from 'ethereumjs-util';
 import {Buffer} from 'safe-buffer';
 import assert from 'assert';
 
@@ -29,11 +31,11 @@ export default function definePropertiesNonBinary(self, fields, data) {
             });
             return obj;
         }
-        return ethUtil.baToJSON(this.raw);
+        return baToJSON(this.raw);
     };
 
     self.serialize = function serialize() {
-        return ethUtil.rlp.encode(self.raw);
+        return rlp.encode(self.raw);
     };
 
     fields.forEach((field, i) => {
@@ -46,17 +48,17 @@ export default function definePropertiesNonBinary(self, fields, data) {
                 if (field.nonBinaryArrayTransform && typeof field.nonBinaryArrayTransform === 'function') {
                     v = v.map((item) => field.nonBinaryArrayTransform(item));
                 } else {
-                    v = v.map((item) => ethUtil.toBuffer(item));
+                    v = v.map((item) => toBuffer(item));
                 }
             } else {
-                v = ethUtil.toBuffer(v);
+                v = toBuffer(v);
 
                 if (v.toString('hex') === '00' && !field.allowZero) {
                     v = Buffer.allocUnsafe(0);
                 }
 
                 if (field.allowLess && field.length) {
-                    v = ethUtil.stripZeros(v);
+                    v = stripZeros(v);
                     assert(field.length >= v.length, `The field ${field.name} must not have more ${field.length} bytes`);
                 } else if (!(field.allowZero && v.length === 0) && field.length) {
                     assert(field.length === v.length, `The field ${field.name} must have byte length of ${field.length}`);
@@ -91,11 +93,11 @@ export default function definePropertiesNonBinary(self, fields, data) {
     // if the constuctor is passed data
     if (data) {
         if (typeof data === 'string') {
-            data = Buffer.from(ethUtil.stripHexPrefix(data), 'hex');
+            data = Buffer.from(stripHexPrefix(data), 'hex');
         }
 
         if (Buffer.isBuffer(data)) {
-            data = ethUtil.rlp.decode(data);
+            data = rlp.decode(data);
         }
 
         if (Array.isArray(data)) {
@@ -105,7 +107,7 @@ export default function definePropertiesNonBinary(self, fields, data) {
 
             // make sure all the items are buffers
             data.forEach((d, i) => {
-                self[self._fields[i]] = ethUtil.toBuffer(d);
+                self[self._fields[i]] = toBuffer(d);
             });
         } else if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
             const keys = Object.keys(data);
