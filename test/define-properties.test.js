@@ -1,7 +1,8 @@
 /**
  * copied from https://github.com/ethereumjs/ethereumjs-util/blob/master/test/defineFields.js
  */
-import ethUtil from 'ethereumjs-util';
+import {Buffer} from 'safe-buffer';
+import {zeros} from 'ethereumjs-util';
 import {defineProperties} from '../src/index';
 
 const assert = require('assert');
@@ -28,7 +29,7 @@ describe('define', () => {
         name: 'r',
         length: 32,
         allowLess: true,
-        default: ethUtil.zeros(32),
+        default: zeros(32),
     }];
 
     it('should trim zeros', () => {

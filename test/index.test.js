@@ -1,6 +1,6 @@
 import {Buffer} from 'safe-buffer';
 import secp256k1 from 'secp256k1';
-import ethUtil from 'ethereumjs-util';
+import {privateToPublic} from 'ethereumjs-util';
 import * as minterUtil from '~/src/index';
 
 const PRIVATE_KEY = Buffer.from('5fa3a8b186f6cc2d748ee2d8c0eb7a905a7b73de0f2c34c5e7857c3b46f187da', 'hex');
@@ -22,11 +22,11 @@ describe('mPrefixStrip()', () => {
 describe('publicToAddress()', () => {
     const validAddress = Buffer.from('7633980c000139dd3bd24a3f54e06474fa941e16', 'hex');
     test('correct public from private', () => {
-        const publicKey = ethUtil.privateToPublic(PRIVATE_KEY);
+        const publicKey = privateToPublic(PRIVATE_KEY);
         expect(publicKey.toString('hex')).toEqual('f9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3cb8a015b8031d02e79456aedb361fa20ec1a119d6009e5c08e9d1eeb5b29ad92');
     });
     test('should work with etherium style public', () => {
-        const publicKey = ethUtil.privateToPublic(PRIVATE_KEY);
+        const publicKey = privateToPublic(PRIVATE_KEY);
         const address = minterUtil.publicToAddress(publicKey);
         expect(address).toEqual(validAddress);
     });
@@ -51,7 +51,7 @@ describe('publicToAddress()', () => {
 describe('publicToString()', () => {
     const validPublicString = 'Mpf9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3';
     test('should work', () => {
-        const publicKey = ethUtil.privateToPublic(PRIVATE_KEY);
+        const publicKey = privateToPublic(PRIVATE_KEY);
         const publicKeyString = minterUtil.publicToString(publicKey);
         expect(publicKeyString).toHaveLength(64 + 2);
         expect(publicKeyString).toEqual(validPublicString);

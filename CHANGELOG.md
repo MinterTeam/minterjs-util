@@ -1,6 +1,9 @@
-# 0.3.2 - 2019-02-18
+# 0.3.3 - 2019-02-18
 - update deps
 - fix ethereumjs-util
+
+# 0.3.2 - 2019-02-18
+- broken version
 
 # 0.3.1 - 2019-02-06
 - add `nonBinaryArrayTransform` option to `defineProperties()`
