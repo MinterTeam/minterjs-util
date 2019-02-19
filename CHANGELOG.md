@@ -1,3 +1,8 @@
+# 0.4.0 - 2019-02-19
+- **BREAKING** converting from pip to bip in hex format will throw an error
+- **BREAKING** converting invalid number will throw instead of returning `NaN`
+- replace `bignumber.js` dependency with `big.js` to reduce size
+
 # 0.3.3 - 2019-02-18
 - update deps
 - fix ethereumjs-util

@@ -1,40 +1,56 @@
-import {BigNumber} from 'bignumber.js';
+import Big from 'big.js';
+import BN from 'bn.js';
 
 const DECIMALS = 18;
 
 
 /**
- * @param {number,string,BigNumber} num
+ * @param {number,string,Big} num
  * @param {'pip'|'bip'} to
  * @param {'hex'} [format]
  * @return {string}
  */
 function convert(num, to, format) {
-    if (num === '0x') {
-        num = '0x0';
+    if (to === 'bip' && format === 'hex') {
+        throw new Error('Converting from pip to hex format doesn\'t supported');
     }
 
-    const pow = new BigNumber(10).pow(DECIMALS);
+    // if num is prefixed hex string
+    if (typeof num === 'string' && num.indexOf('0x') === 0) {
+        if (num === '0x') {
+            num = '0x0';
+        }
+
+        // convert prefixed hex to decimal string
+        num = new BN(num.substr(2), 16).toString(10);
+    }
+
+    // if num is not numeric string
+    if (typeof num === 'string' && !isNumericString(num)) {
+        throw new Error('Invalid number');
+    }
+
+
+    const pow = new Big(10).pow(DECIMALS);
 
     let result;
     if (to === 'pip') {
-        result = new BigNumber(num).multipliedBy(pow).integerValue();
+        result = new Big(num).times(pow).round().toFixed();
+        if (format === 'hex') {
+            return new BN(result, 10).toString(16);
+        } else {
+            return result;
+        }
     } else if (to === 'bip') {
-        result = new BigNumber(num).dividedBy(pow);
+        return new Big(num).div(pow).toFixed();
     } else {
-        throw String('Unknown type');
-    }
-
-    if (format === 'hex') {
-        return result.toString(16);
-    } else {
-        return result.toString(10);
+        throw new Error('Unknown type');
     }
 }
 
 /**
  * Multiply value by 10^18
- * @param {number,string,BigNumber} num
+ * @param {number,string,Big} num
  * @param {'hex'} [format]
  * @return {string}
  */
@@ -44,12 +60,20 @@ function convertToPip(num, format) {
 
 /**
  * Multiply value by 10^-18
- * @param {number,string,BigNumber} num
- * @param {'hex'} [format]
+ * @param {number,string,Big} num
  * @return {string}
  */
-function convertFromPip(num, format) {
-    return convert(num, 'bip', format);
+function convertFromPip(num) {
+    return convert(num, 'bip');
+}
+
+/**
+ * @param {string} str
+ * @return {boolean}
+ */
+function isNumericString(str) {
+    const NUMERIC = /^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i;
+    return NUMERIC.test(str);
 }
 
 export default {

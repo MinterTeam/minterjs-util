@@ -27,6 +27,13 @@ describe('converter', () => {
         expect(convert(bips, 'pip')).toEqual('0');
     });
 
+    test('convert hex', () => {
+        const bips = '0xb';
+        expect(convert(bips, 'pip')).toEqual('11000000000000000000');
+        const bips2 = '0x0b';
+        expect(convert(bips2, 'pip')).toEqual('11000000000000000000');
+    });
+
     test('convert to hex', () => {
         expect(convert(1, 'pip', 'hex')).toEqual('de0b6b3a7640000');
     });
@@ -36,9 +43,18 @@ describe('converter', () => {
         expect(convertToPip(bips)).toEqual('1234567890000000000000000000');
     });
 
-    test('convert to unknown type', () => {
+    test('convert to unknown type fails', () => {
         const bips = 12345;
 
         expect(() => convert(bips, 'mnb')).toThrow();
+    });
+
+    test('convert to bip hex fails', () => {
+        expect(() => convert(1, 'bip', 'hex')).toThrow();
+    });
+
+    test('convert invalid number fails', () => {
+        const bips = '123asd';
+        expect(() => convert(bips, 'pip')).toThrow();
     });
 });
