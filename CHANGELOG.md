@@ -1,3 +1,6 @@
+# 0.5.0 - 2019-02-20
+- **BREAKING** converting to hex now pad to even (`11` will become `0b` instead of `b`)
+
 # 0.4.0 - 2019-02-19
 - **BREAKING** converting from pip to bip in hex format will throw an error
 - **BREAKING** converting invalid number will throw instead of returning `NaN`

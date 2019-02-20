@@ -1,5 +1,6 @@
 import Big from 'big.js';
 import BN from 'bn.js';
+import {padToEven} from 'ethereumjs-util';
 
 const DECIMALS = 18;
 
@@ -25,10 +26,11 @@ function convert(num, to, format) {
         num = new BN(num.substr(2), 16).toString(10);
     }
 
+    // `big.js` already throws on invalid numbers
     // if num is not numeric string
-    if (typeof num === 'string' && !isNumericString(num)) {
-        throw new Error('Invalid number');
-    }
+    // if (typeof num === 'string' && !isNumericString(num)) {
+    //     throw new Error('Invalid number');
+    // }
 
 
     const pow = new Big(10).pow(DECIMALS);
@@ -37,7 +39,7 @@ function convert(num, to, format) {
     if (to === 'pip') {
         result = new Big(num).times(pow).round().toFixed();
         if (format === 'hex') {
-            return new BN(result, 10).toString(16);
+            return padToEven(new BN(result, 10).toString(16));
         } else {
             return result;
         }
@@ -71,10 +73,10 @@ function convertFromPip(num) {
  * @param {string} str
  * @return {boolean}
  */
-function isNumericString(str) {
-    const NUMERIC = /^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i;
-    return NUMERIC.test(str);
-}
+// function isNumericString(str) {
+//     const NUMERIC = /^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i;
+//     return NUMERIC.test(str);
+// }
 
 export default {
     convert,

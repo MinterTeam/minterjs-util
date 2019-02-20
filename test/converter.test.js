@@ -35,7 +35,11 @@ describe('converter', () => {
     });
 
     test('convert to hex', () => {
-        expect(convert(1, 'pip', 'hex')).toEqual('de0b6b3a7640000');
+        expect(convert(1, 'pip', 'hex')).toEqual('0de0b6b3a7640000');
+    });
+
+    test('convert to hex should pad to even', () => {
+        expect(convert('0.000000000000000011', 'pip', 'hex')).toEqual('0b');
     });
 
     test('do not produce exponential', () => {

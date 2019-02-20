@@ -1,6 +1,6 @@
 {
   "name": "minterjs-util",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Utils for Minter",
   "main": "src/index.js",
   "files": [
@@ -42,7 +42,7 @@
     "@babel/preset-env": "^7.3.1",
     "babel-jest": "^24.1.0",
     "coveralls": "^3.0.2",
-    "eslint": "^5.14.0",
+    "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.16.0",
