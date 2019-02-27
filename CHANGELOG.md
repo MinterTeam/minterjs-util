@@ -1,3 +1,6 @@
+# 0.6.0 - 2019-02-27
+- add UMD and commonjs builds
+
 # 0.5.0 - 2019-02-20
 - **BREAKING** converting to hex now pad to even (`11` will become `0b` instead of `b`)
 

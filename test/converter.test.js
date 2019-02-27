@@ -1,4 +1,4 @@
-import {convert, convertToPip, convertFromPip} from '~/src/converter';
+import {convert, convertToPip, convertFromPip} from '~/src';
 
 describe('converter', () => {
     test('convert to pip', () => {

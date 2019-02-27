@@ -3,7 +3,7 @@
  */
 import {Buffer} from 'safe-buffer';
 import {zeros} from 'ethereumjs-util';
-import {defineProperties} from '../src/index';
+import {defineProperties} from '~/src';
 
 const assert = require('assert');
 
