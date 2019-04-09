@@ -3,6 +3,7 @@ import {convert, convertFromPip, convertToPip} from './converter';
 import {
     mPrefixToHex, mPrefixStrip, mToBuffer, toBuffer, privateToAddressString, isMinterPrefixed, isValidAddress, isValidCheck, isValidPublicKeyString,
 } from './prefix';
+import {getFeeValue} from './fee';
 import defineProperties from './define-properties';
 
 export {
@@ -21,5 +22,6 @@ export {
     isValidCheck,
     isValidPublicKeyString,
     isValidPublic,
+    getFeeValue,
     defineProperties,
 };

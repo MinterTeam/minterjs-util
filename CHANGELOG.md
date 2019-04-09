@@ -1,3 +1,6 @@
+# 0.7.0 - 2019-04-09
+- Added: `getFeeValue` method 
+
 # 0.6.1 - 2019-02-28
 - fix package.json "browser" field
 
