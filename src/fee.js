@@ -7,11 +7,13 @@ export function getFeeValue(txType, payloadLength = 0, {coinSymbolLength, multis
     if (typeof txType === 'number') {
         txType = `0x${txType.toString(16).toUpperCase()}`;
     }
+    // coinSymbolLength should be specified when txType is TX_TYPE_CREATE_COIN
     if (txType === TX_TYPE_CREATE_COIN && !coinSymbolLength) {
-        throw new Error('coinSymbolLength should be specified when txType is TX_TYPE_CREATE_COIN');
+        return false;
     }
+    // multisendCount should be specified when txType is TX_TYPE_MULTISEND
     if (txType === TX_TYPE_MULTISEND && !multisendCount) {
-        throw new Error('multisendCount should be specified when txType is TX_TYPE_MULTISEND');
+        return false;
     }
 
     const baseUnits = BASE_FEES[txType];

@@ -1,3 +1,6 @@
+# 0.7.1 - 2019-04-10
+- Changed: `getFeeValue` returns `false` instead of throwing 
+
 # 0.7.0 - 2019-04-09
 - Added: `getFeeValue` method 
 

@@ -17,7 +17,7 @@ describe('getFeeValue', () => {
     });
 
     test('create coin throws without coinSymbolLength', () => {
-        expect(() => getFeeValue(TX_TYPE_CREATE_COIN, 0)).toThrow();
+        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0)).toEqual(false);
     });
 
     test('multisend', () => {
@@ -25,6 +25,6 @@ describe('getFeeValue', () => {
     });
 
     test('multisend throws without multisendCount', () => {
-        expect(() => getFeeValue(TX_TYPE_MULTISEND, 0)).toThrow();
+        expect(getFeeValue(TX_TYPE_MULTISEND, 0)).toEqual(false);
     });
 });
