@@ -27,6 +27,7 @@ export function getFeeValue(txType, payloadLength = 0, {coinSymbolLength, multis
 }
 
 // value in base coin (not in units)
+// @See https://github.com/MinterTeam/minter-go-node/blob/master/core/transaction/create_coin.go#L93
 export const COIN_SYMBOL_FEES = {
     3: 1000000,
     4: 100000,
