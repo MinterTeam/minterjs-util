@@ -16,8 +16,8 @@ describe('getFeeValue', () => {
         expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 3})).toEqual(1000000);
     });
 
-    test('create coin throws without coinSymbolLength', () => {
-        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0)).toEqual(false);
+    test('create coin without coinSymbolLength', () => {
+        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0)).toEqual(100);
     });
 
     test('multisend', () => {

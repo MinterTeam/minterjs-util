@@ -1,4 +1,7 @@
-# 0.7.2 -2019-05-12
+# 0.7.3 - 2019-05-12
+- Fixed: update CreateCoin fee to return minimal fee when `coinSymbolLength` is not specified
+
+# 0.7.2 - 2019-05-12
 - Fixed: update CreateCoin tx commission according to minter-node [v0.19.0](https://github.com/MinterTeam/minter-go-node/blob/master/CHANGELOG.md#0190)
 
 # 0.7.1 - 2019-04-10
