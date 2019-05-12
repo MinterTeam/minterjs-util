@@ -11,9 +11,9 @@ describe('getFeeValue', () => {
     });
 
     test('create coin', () => {
-        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 7})).toEqual(101);
-        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 10})).toEqual(101);
-        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 3})).toEqual(1000001);
+        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 7})).toEqual(100);
+        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 10})).toEqual(100);
+        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 3})).toEqual(1000000);
     });
 
     test('create coin throws without coinSymbolLength', () => {
