@@ -1,3 +1,6 @@
+# 0.8.0 - 2019-05-14
+- Moved: `defineProperties` to [minterjs-tx](https://github.com/MinterTeam/minterjs-tx) package
+
 # 0.7.3 - 2019-05-12
 - Fixed: update CreateCoin fee to return minimal fee when `coinSymbolLength` is not specified
 
