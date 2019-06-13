@@ -79,3 +79,7 @@ export function isValidAddress(address) {
 export function isValidCheck(check) {
     return /^Mc[0-9a-fA-F]+$/.test(check);
 }
+
+export function isValidTransaction(tx) {
+    return /^Mt[0-9a-fA-F]{64}$/.test(tx);
+}

@@ -1,3 +1,6 @@
+# 0.9.0 - 2019-06-13
+- Added: `isValidTransaction` methods
+
 # 0.8.1 - 2019-06-05
 - update deps
 

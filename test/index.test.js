@@ -173,6 +173,22 @@ describe('isValidCheck()', () => {
     });
 });
 
+describe('isValidTransaction()', () => {
+    test('should work with check', () => {
+        expect(minterUtil.isValidTransaction('Mtbf2c75192768b8843d456bf74056e415f2f692c926b9b05354182e7e4ee8d1d8')).toBe(true);
+        expect(minterUtil.isValidTransaction('MtBF2C75192768B8843D456BF74056E415F2F692C926B9B05354182E7E4EE8D1D8')).toBe(true);
+    });
+    test('should fail on invalid input', () => {
+        expect(minterUtil.isValidTransaction('Mtbf2c75192768b8843d456bf74056e415f2f692c926b9b05354182e7e4ee8d1d')).toBe(false);
+        expect(minterUtil.isValidTransaction('Mtbf2c75192768b8843d456bf74056e415f2f692c926b9b05354182e7e4ee8d1d88')).toBe(false);
+        expect(minterUtil.isValidTransaction('bf2c75192768b8843d456bf74056e415f2f692c926b9b05354182e7e4ee8d1d8')).toBe(false);
+        expect(minterUtil.isValidTransaction('MTbf2c75192768b8843d456bf74056e415f2f692c926b9b05354182e7e4ee8d1d8')).toBe(false);
+        expect(minterUtil.isValidTransaction('Mt')).toBe(false);
+        expect(minterUtil.isValidTransaction('xbf2c75192768b8843d456bf74056e415f2f692c926b9b05354182e7e4ee8d1d8')).toBe(false);
+        expect(minterUtil.isValidTransaction('0xbf2c75192768b8843d456bf74056e415f2f692c926b9b05354182e7e4ee8d1d8')).toBe(false);
+    });
+});
+
 describe('isValidPublicKeyString()', () => {
     test('should work with public key', () => {
         expect(minterUtil.isValidPublicKeyString('Mp28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544')).toBe(true);
