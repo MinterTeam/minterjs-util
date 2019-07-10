@@ -1,3 +1,6 @@
+# 0.10.0 - 2019-07-10
+- add coin math functions
+
 # 0.9.1 - 2019-07-08
 - update deps
 

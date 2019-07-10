@@ -4,6 +4,9 @@ import {
     mPrefixToHex, mPrefixStrip, mToBuffer, toBuffer, privateToAddressString, isMinterPrefixed, isValidAddress, isValidCheck, isValidTransaction, isValidPublicKeyString,
 } from './prefix';
 import {getFeeValue} from './fee';
+import {
+    sellCoin, sellCoinByBip, buyCoin, buyCoinByCoin,
+} from './coin-math';
 
 export {
     convert,
@@ -23,4 +26,8 @@ export {
     isValidPublicKeyString,
     isValidPublic,
     getFeeValue,
+    sellCoin,
+    sellCoinByBip,
+    buyCoin,
+    buyCoinByCoin,
 };
