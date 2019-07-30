@@ -19,6 +19,16 @@ It is complemented by the following packages:
 
 `npm install minterjs-util`
 
+or from browser
+
+```html
+<script src="https://unpkg.com/minterjs-util"></script>
+<script>
+const pips = minterUtil.convertFromPip(1);
+const fee = minterUtil.getFeeValue('0x01');
+</script>
+```
+
 ## License
 
 MIT License

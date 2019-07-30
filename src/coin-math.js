@@ -65,5 +65,5 @@ function isCoinValid(coin) {
  * @typedef {Object} Coin
  * @property {number|null} supply
  * @property {number|null} crr
- * @property {number|null} reserve
+ * @property {number|null} reserve - from 0 to 1
  */

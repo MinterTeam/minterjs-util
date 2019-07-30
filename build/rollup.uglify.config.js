@@ -1,34 +1,11 @@
-import json from 'rollup-plugin-json';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import builtins from 'rollup-plugin-node-builtins';
-import globals from 'rollup-plugin-node-globals';
-import { terser } from 'rollup-plugin-terser';
-import babel from 'rollup-plugin-babel';
+import baseConfig from './rollup.config';
 
-export default {
-    input: 'src/index.js',
-    plugins: [
-        json(),
-        resolve({
-            browser: true,
-        }),
-        commonjs({
-            namedExports: {
-                'node_modules/ethereumjs-util/dist/index.js': [ 'stripHexPrefix', 'padToEven' ]
-            }
-        }),
-        // globals(),
-        // builtins(),
-        babel({
-            babelrc: false,
-            presets: [['@babel/preset-env', { modules: false }]],
-        }),
-        terser(), // uglifyjs alternative with es6 support
-    ],
-    output: {
-        file: 'dist/index.min.js',
-        format: 'umd',
-        name: 'minterUtil',
-    }
-};
+import { terser } from 'rollup-plugin-terser';
+
+
+const config = Object.assign({}, baseConfig, {output: Object.assign({}, baseConfig.output)});
+
+config.plugins.push(terser()); // uglifyjs alternative with es6 support
+config.output.file = config.output.file.replace(/\.js$/, '.min.js');
+
+export default config;

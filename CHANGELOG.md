@@ -1,3 +1,7 @@
+## 0.10.1 - 2019-07-30
+- fix browser usage of UMD module
+- tweak bundle tests
+
 # 0.10.0 - 2019-07-10
 - add coin math functions
 

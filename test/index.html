@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../dist/index.js" onerror="alert('Error')"></script>
+    <script>
+        try {
+            console.log(minterUtil);
+            console.log(minterUtil.convertToPip(1));
+        } catch (e) {
+            console.log(e);
+            alert('Error');
+        }
+
+
+        if (!Object.keys(minterUtil).length) {
+            alert('Error');
+        } else {
+            alert('Ok');
+        }
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

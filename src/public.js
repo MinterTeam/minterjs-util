@@ -1,9 +1,8 @@
 import secp256k1 from 'secp256k1';
 import {keccak} from 'ethereumjs-util';
 import { Buffer } from 'safe-buffer';
+import assert from 'assert';
 import { isValidPublicKeyString, mToBuffer, toBuffer } from './prefix';
-
-const assert = require('assert');
 
 /**
  * Returns the ethereum address of a given public key.
