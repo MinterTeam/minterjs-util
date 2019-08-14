@@ -1,3 +1,7 @@
+## 0.11.0 - 2019-08-14
+- **BREAKING** update `getFeeValue`, `payloadLength` param changed to `payload` string and moved to options object, `coinSymbolLength` param changed to `coinSymbol` string  
+- **BREAKING** update `getCoinSymbolFee`, `coinSymbolLength` param changed to `coinSymbol` string 
+
 ## 0.10.1 - 2019-07-30
 - fix browser usage of UMD module
 - tweak bundle tests

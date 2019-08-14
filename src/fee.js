@@ -1,15 +1,35 @@
+import { Buffer } from 'safe-buffer';
+import {padToEven, isHexString, getBinarySize} from 'ethjs-util';
 import {
     TX_TYPE_SEND, TX_TYPE_SELL, TX_TYPE_SELL_ALL, TX_TYPE_BUY, TX_TYPE_CREATE_COIN, TX_TYPE_DECLARE_CANDIDACY, TX_TYPE_SET_CANDIDATE_ON, TX_TYPE_SET_CANDIDATE_OFF, TX_TYPE_DELEGATE, TX_TYPE_UNBOND, TX_TYPE_REDEEM_CHECK, TX_TYPE_CREATE_MULTISIG, TX_TYPE_MULTISEND, TX_TYPE_EDIT_CANDIDATE,
 } from 'minterjs-tx/src/tx-types';
 
-export function getFeeValue(txType, payloadLength = 0, {coinSymbolLength, multisendCount} = {}) {
+/**
+ *
+ * @param txType
+ * @param {string|Buffer} [payload]
+ * @param {string} [coinSymbol]
+ * @param {number} [multisendCount]
+ * @return {boolean|number}
+ */
+export function getFeeValue(txType, {payload, coinSymbol, multisendCount} = {}) {
     // txType to string
-    if (typeof txType === 'number') {
-        txType = `0x${txType.toString(16).toUpperCase()}`;
+    if (!isHexString(txType)) {
+        txType = `0x${padToEven(txType.toString(16)).toUpperCase()}`;
     }
     // multisendCount should be specified when txType is TX_TYPE_MULTISEND
     if (txType === TX_TYPE_MULTISEND && !multisendCount) {
         return false;
+    }
+
+
+    let payloadLength;
+    if (!payload) {
+        payloadLength = 0;
+    } else if (Buffer.isBuffer(payload)) {
+        payloadLength = payload.length;
+    } else {
+        payloadLength = getBinarySize(payload.toString());
     }
 
     const baseUnits = BASE_FEES[txType];
@@ -18,17 +38,17 @@ export function getFeeValue(txType, payloadLength = 0, {coinSymbolLength, multis
     // multisend fee = base fee + extra fee based on count
     const multisendExtraCountFee = txType === TX_TYPE_MULTISEND ? multisendCount * 5 : 0;
     // coin symbol extra fee, value in base coin (not in units)
-    const coinSymbolFee = txType === TX_TYPE_CREATE_COIN ? getCoinSymbolFee(coinSymbolLength) : 0;
+    const coinSymbolFee = txType === TX_TYPE_CREATE_COIN ? getCoinSymbolFee(coinSymbol) : 0;
     return (baseUnits + payloadLength * 2 + multisendExtraCountFee) / COIN_UNIT_PART + coinSymbolFee;
 }
 
 //
 /**
- * @param tickerLength
+ * @param {string} ticker
  * @return {number} - value in base coin (not in units)
  */
-export function getCoinSymbolFee(tickerLength) {
-    return COIN_SYMBOL_FEES[tickerLength] || 100;
+export function getCoinSymbolFee(ticker) {
+    return COIN_SYMBOL_FEES[ticker && ticker.length] || 100;
 }
 
 // value in base coin (not in units)

@@ -2,29 +2,37 @@ import {TX_TYPE_SEND, TX_TYPE_CREATE_COIN, TX_TYPE_MULTISEND} from 'minterjs-tx'
 import { getFeeValue } from '~/src';
 
 describe('getFeeValue', () => {
+    test('number tx type', () => {
+        expect(getFeeValue(1)).toEqual(0.01);
+    });
+
     test('send without payload', () => {
         expect(getFeeValue(TX_TYPE_SEND)).toEqual(0.01);
     });
 
     test('send with payload', () => {
-        expect(getFeeValue(TX_TYPE_SEND, 3)).toEqual(0.016);
+        expect(getFeeValue(TX_TYPE_SEND, {payload: 'asd'})).toEqual(0.016);
+    });
+
+    test('send with unicode payload', () => {
+        expect(getFeeValue(TX_TYPE_SEND, {payload: 'asé'})).toEqual(0.018);
     });
 
     test('create coin', () => {
-        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 7})).toEqual(100);
-        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 10})).toEqual(100);
-        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0, {coinSymbolLength: 3})).toEqual(1000000);
+        expect(getFeeValue(TX_TYPE_CREATE_COIN, {coinSymbol: 'ABCDEFG'})).toEqual(100);
+        expect(getFeeValue(TX_TYPE_CREATE_COIN, {coinSymbol: 'ABCDEFGHIJ'})).toEqual(100);
+        expect(getFeeValue(TX_TYPE_CREATE_COIN, {coinSymbol: 'ABC'})).toEqual(1000000);
     });
 
     test('create coin without coinSymbolLength', () => {
-        expect(getFeeValue(TX_TYPE_CREATE_COIN, 0)).toEqual(100);
+        expect(getFeeValue(TX_TYPE_CREATE_COIN)).toEqual(100);
     });
 
     test('multisend', () => {
-        expect(getFeeValue(TX_TYPE_MULTISEND, 0, {multisendCount: 5})).toEqual(0.035);
+        expect(getFeeValue(TX_TYPE_MULTISEND, {multisendCount: 5})).toEqual(0.035);
     });
 
     test('multisend throws without multisendCount', () => {
-        expect(getFeeValue(TX_TYPE_MULTISEND, 0)).toEqual(false);
+        expect(getFeeValue(TX_TYPE_MULTISEND)).toEqual(false);
     });
 });

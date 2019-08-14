@@ -29,6 +29,33 @@ const fee = minterUtil.getFeeValue('0x01');
 </script>
 ```
 
+### getFeeValue()
+Params:
+- txType: number or string, tx type
+- options: object
+- options.payload: string or Buffer, tx payload
+- options.coinSymbol: string, coin symbol if tx is coin creation
+- options.multisendCount: number, count of recipients if tx is multisend
+```
+import { getFeeValue } from 'minterjs-util';
+import {TX_TYPE_SEND, TX_TYPE_CREATE_COIN, TX_TYPE_MULTISEND} from 'minterjs-tx';
+
+getFeeValue(1); 
+// 0.01
+
+getFeeValue(TX_TYPE_SEND);
+// 0.01
+
+getFeeValue(TX_TYPE_SEND, {payload: 'asé'});
+// 0.018
+
+getFeeValue(TX_TYPE_CREATE_COIN, {coinSymbol: 'ABCDEFG'});
+// 100
+
+getFeeValue(TX_TYPE_MULTISEND, {multisendCount: 5});
+// 0.035
+```
+
 ## License
 
 MIT License
