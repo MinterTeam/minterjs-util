@@ -1,3 +1,6 @@
+## 0.12.0 - 2019-08-15
+- **BREAKING** coin math functions now return string instead of number
+
 ## 0.11.0 - 2019-08-14
 - **BREAKING** update `getFeeValue`, `payloadLength` param changed to `payload` string and moved to options object, `coinSymbolLength` param changed to `coinSymbol` string  
 - **BREAKING** update `getCoinSymbolFee`, `coinSymbolLength` param changed to `coinSymbol` string 
