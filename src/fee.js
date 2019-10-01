@@ -17,9 +17,9 @@ export function getFeeValue(txType, {payload, coinSymbol, multisendCount} = {}) 
     if (!isHexString(txType)) {
         txType = `0x${padToEven(txType.toString(16)).toUpperCase()}`;
     }
-    // multisendCount should be specified when txType is TX_TYPE_MULTISEND
-    if (txType === TX_TYPE_MULTISEND && !multisendCount) {
-        return false;
+
+    if (txType === TX_TYPE_MULTISEND && !(multisendCount >= 1)) {
+        throw new Error('`multisendCount` should be positive integer when tx type is TX_TYPE_MULTISEND');
     }
 
 
@@ -36,7 +36,7 @@ export function getFeeValue(txType, {payload, coinSymbol, multisendCount} = {}) 
     const COIN_UNIT = 0.001;
     const COIN_UNIT_PART = 1 / COIN_UNIT; // negate js math quirks, ex.: 18 * 0.001 = 0.018000000000000002
     // multisend fee = base fee + extra fee based on count
-    const multisendExtraCountFee = txType === TX_TYPE_MULTISEND ? multisendCount * 5 : 0;
+    const multisendExtraCountFee = txType === TX_TYPE_MULTISEND ? (multisendCount - 1) * 5 : 0;
     // coin symbol extra fee, value in base coin (not in units)
     const coinSymbolFee = txType === TX_TYPE_CREATE_COIN ? getCoinSymbolFee(coinSymbol) : 0;
     return (baseUnits + payloadLength * 2 + multisendExtraCountFee) / COIN_UNIT_PART + coinSymbolFee;

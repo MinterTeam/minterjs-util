@@ -1,9 +1,5 @@
 import Big from 'big.js';
 
-Big.DP = 40;
-Big.NE = -40;
-Big.PE = 40;
-
 /**
  * Sell COIN, calculate received BIP
  * @param {Coin} coin

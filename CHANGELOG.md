@@ -1,3 +1,7 @@
+## 0.13.0 - 2019-10-01
+- **BREAKING** throws on invalid `multisendCount` param
+- fix multisend fee calculation
+
 ## 0.12.0 - 2019-08-15
 - **BREAKING** coin math functions now return string instead of number
 

@@ -29,10 +29,12 @@ describe('getFeeValue', () => {
     });
 
     test('multisend', () => {
-        expect(getFeeValue(TX_TYPE_MULTISEND, {multisendCount: 5})).toEqual(0.035);
+        expect(getFeeValue(TX_TYPE_MULTISEND, {multisendCount: 1})).toEqual(0.01);
+        expect(getFeeValue(TX_TYPE_MULTISEND, {multisendCount: 2})).toEqual(0.015);
+        expect(getFeeValue(TX_TYPE_MULTISEND, {multisendCount: 5})).toEqual(0.03);
     });
 
     test('multisend throws without multisendCount', () => {
-        expect(getFeeValue(TX_TYPE_MULTISEND)).toEqual(false);
+        expect(() => getFeeValue(TX_TYPE_MULTISEND)).toThrow();
     });
 });
