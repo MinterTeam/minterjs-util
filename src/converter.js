@@ -1,6 +1,6 @@
 import Big from 'big.js';
 import BN from 'bn.js';
-import {padToEven} from 'ethereumjs-util';
+import {padToEven} from 'ethjs-util';
 
 const DECIMALS = 18;
 

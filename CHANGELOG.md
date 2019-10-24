@@ -1,3 +1,6 @@
+## 0.13.1 - 2019-10-24
+- lighten converter.js by using part of previous deps
+
 ## 0.13.0 - 2019-10-01
 - **BREAKING** throws on invalid `multisendCount` param
 - fix multisend fee calculation
