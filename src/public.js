@@ -1,6 +1,5 @@
 import secp256k1 from 'secp256k1';
-import {keccak} from 'ethereumjs-util';
-import { Buffer } from 'safe-buffer';
+import {keccak} from 'ethereumjs-util/dist/hash';
 import assert from 'assert';
 import { isValidPublicKeyString, mToBuffer, toBuffer } from './prefix';
 

@@ -1,3 +1,8 @@
+## 0.14.0 - 2019-11-12
+- **BREAKING** toBuffer accepts only Minter prefixed and `0x` prefixed string params now, you have to use `Buffer.from(str, 'utf-8')` if you want pass arbitrary string
+- update deps
+- drop safe-buffer dependency
+
 ## 0.13.1 - 2019-10-24
 - lighten converter.js by using part of previous deps
 

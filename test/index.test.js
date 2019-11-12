@@ -1,4 +1,3 @@
-import {Buffer} from 'safe-buffer';
 import secp256k1 from 'secp256k1';
 import {privateToPublic} from 'ethereumjs-util';
 import * as minterUtil from '~/src';

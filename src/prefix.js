@@ -1,5 +1,5 @@
-import { Buffer } from 'safe-buffer';
-import {toBuffer as ethToBuffer, privateToAddress as ethPrivateToAddress} from 'ethereumjs-util';
+import {toBuffer as ethToBuffer} from 'ethereumjs-util/dist/bytes';
+import {privateToAddress as ethPrivateToAddress} from 'ethereumjs-util/dist/account';
 
 /**
  * Replace Minter prefixes with hex prefix
