@@ -1,3 +1,4 @@
+import {isHexString} from 'ethjs-util';
 import {toBuffer as ethToBuffer} from 'ethereumjs-util/dist/bytes';
 import {privateToAddress as ethPrivateToAddress} from 'ethereumjs-util/dist/account';
 
@@ -44,6 +45,10 @@ export function mToBuffer(value) {
 export function toBuffer(value) {
     if (typeof value === 'string' && isMinterPrefixed(value)) {
         return mToBuffer(value);
+    }
+
+    if (typeof value === 'string' && !isHexString(value, 0)) {
+        throw new Error('Cannot convert string to buffer. toBuffer only supports Minter-prefixed or 0x-prefixed hex strings. You can pass buffer instead of string.');
     }
 
     return ethToBuffer(value);

@@ -1,3 +1,6 @@
+## 0.14.1 - 2019-11-13
+- update `toBuffer` error message on invalid string 
+
 ## 0.14.0 - 2019-11-12
 - **BREAKING** toBuffer accepts only Minter prefixed and `0x` prefixed string params now, you have to use `Buffer.from(str, 'utf-8')` if you want pass arbitrary string
 - update deps
