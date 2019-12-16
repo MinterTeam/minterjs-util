@@ -1,5 +1,10 @@
+## 0.15.0 - 2019-12-16
+- add `addressToString` method
+- add `checkToString` method
+- allow `publicToString` to accept `0x` prefixed strings
+
 ## 0.14.1 - 2019-11-13
-- update `toBuffer` error message on invalid string 
+- update `toBuffer` error message on invalid string
 
 ## 0.14.0 - 2019-11-12
 - **BREAKING** toBuffer accepts only Minter prefixed and `0x` prefixed string params now, you have to use `Buffer.from(str, 'utf-8')` if you want pass arbitrary string
@@ -17,8 +22,8 @@
 - **BREAKING** coin math functions now return string instead of number
 
 ## 0.11.0 - 2019-08-14
-- **BREAKING** update `getFeeValue`, `payloadLength` param changed to `payload` string and moved to options object, `coinSymbolLength` param changed to `coinSymbol` string  
-- **BREAKING** update `getCoinSymbolFee`, `coinSymbolLength` param changed to `coinSymbol` string 
+- **BREAKING** update `getFeeValue`, `payloadLength` param changed to `payload` string and moved to options object, `coinSymbolLength` param changed to `coinSymbol` string
+- **BREAKING** update `getCoinSymbolFee`, `coinSymbolLength` param changed to `coinSymbol` string
 
 ## 0.10.1 - 2019-07-30
 - fix browser usage of UMD module
@@ -46,10 +51,10 @@
 - Fixed: update CreateCoin tx commission according to minter-node [v0.19.0](https://github.com/MinterTeam/minter-go-node/blob/master/CHANGELOG.md#0190)
 
 # 0.7.1 - 2019-04-10
-- Changed: `getFeeValue` returns `false` instead of throwing 
+- Changed: `getFeeValue` returns `false` instead of throwing
 
 # 0.7.0 - 2019-04-09
-- Added: `getFeeValue` method 
+- Added: `getFeeValue` method
 
 # 0.6.1 - 2019-02-28
 - fix package.json "browser" field

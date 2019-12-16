@@ -29,10 +29,11 @@ export function publicToAddress(publicKey) {
 
 /**
  * Return Minter style public key string
- * @param {Buffer} publicKey
+ * @param {Buffer|string} publicKey
  * @return {string}
  */
 export function publicToString(publicKey) {
+    publicKey = toBuffer(publicKey);
     if (!Buffer.isBuffer(publicKey)) {
         throw new Error('Public key should be of type Buffer');
     }
@@ -44,10 +45,13 @@ export function publicToString(publicKey) {
         // uncompressed to compressed
         publicKey = secp256k1.publicKeyConvert(publicKey, true);
     }
+    if (publicKey.length === 33) {
+        publicKey = publicKey.slice(1);
+    }
 
-    assert(publicKey.length === 33);
+    assert(publicKey.length === 32);
 
-    return `Mp${publicKey.slice(1).toString('hex')}`;
+    return `Mp${publicKey.toString('hex')}`;
 }
 
 /**

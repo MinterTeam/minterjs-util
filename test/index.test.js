@@ -1,8 +1,4 @@
-import secp256k1 from 'secp256k1';
-import {privateToPublic} from 'ethereumjs-util';
 import * as minterUtil from '~/src';
-
-const PRIVATE_KEY = Buffer.from('5fa3a8b186f6cc2d748ee2d8c0eb7a905a7b73de0f2c34c5e7857c3b46f187da', 'hex');
 
 describe('mPrefixToHex()', () => {
     test('should work', () => {
@@ -15,131 +11,6 @@ describe('mPrefixStrip()', () => {
     test('should work', () => {
         expect(minterUtil.mPrefixStrip('Mx2f015c60e0be116b1f0cd534704db9c92118fb6a')).toBe('2f015c60e0be116b1f0cd534704db9c92118fb6a');
         expect(minterUtil.mPrefixStrip('Mh4eacb2e4bcc0514d5526895f4f699acf543081d2')).toBe('4eacb2e4bcc0514d5526895f4f699acf543081d2');
-    });
-});
-
-describe('publicToAddress()', () => {
-    const validAddress = Buffer.from('7633980c000139dd3bd24a3f54e06474fa941e16', 'hex');
-    test('correct public from private', () => {
-        const publicKey = privateToPublic(PRIVATE_KEY);
-        expect(publicKey.toString('hex')).toEqual('f9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3cb8a015b8031d02e79456aedb361fa20ec1a119d6009e5c08e9d1eeb5b29ad92');
-    });
-    test('should work with etherium style public', () => {
-        const publicKey = privateToPublic(PRIVATE_KEY);
-        const address = minterUtil.publicToAddress(publicKey);
-        expect(address).toEqual(validAddress);
-    });
-    test('should work with compressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, true);
-        const address = minterUtil.publicToAddress(publicKey);
-        expect(address).toEqual(validAddress);
-    });
-    test('should work with uncompressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, false);
-        const address = minterUtil.publicToAddress(publicKey);
-        expect(address).toEqual(validAddress);
-    });
-    test('should throw on Minter style public', () => {
-        const mPublicKey = minterUtil.mToBuffer('Mpf9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3');
-        expect(() => {
-            minterUtil.publicToAddress(mPublicKey);
-        }).toThrow();
-    });
-});
-
-describe('publicToString()', () => {
-    const validPublicString = 'Mpf9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3';
-    test('should work', () => {
-        const publicKey = privateToPublic(PRIVATE_KEY);
-        const publicKeyString = minterUtil.publicToString(publicKey);
-        expect(publicKeyString).toHaveLength(64 + 2);
-        expect(publicKeyString).toEqual(validPublicString);
-    });
-    test('should work with compressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, true);
-        const publicKeyString = minterUtil.publicToString(publicKey);
-        expect(publicKeyString).toEqual(validPublicString);
-    });
-    test('should work with uncompressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, false);
-        const publicKeyString = minterUtil.publicToString(publicKey);
-        expect(publicKeyString).toEqual(validPublicString);
-    });
-    test('should throw on string', () => {
-        expect(() => {
-            minterUtil.publicToString('f9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3');
-        }).toThrow();
-    });
-});
-
-
-describe('isValidPublic()', () => {
-    test('should fail on too short input', () => {
-        let pubKey = '3a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a001cf066d56a8156fc201cd5df8a36ef694eecd258903fca7086c1fae744';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
-    });
-    test('should fail on too big input', () => {
-        let pubKey = '3a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a001cf066d56a8156fc201cd5df8a36ef694eecd258903fca7086c1fae7441e1d00';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
-    });
-    test('should fail on SEC1 key', () => {
-        let pubKey = '043a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a001cf066d56a8156fc201cd5df8a36ef694eecd258903fca7086c1fae7441e1d';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
-    });
-    test('should fail on SEC1 key with sanitize enabled', () => {
-        let pubKey = '043a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a001cf066d56a8156fc201cd5df8a36ef694eecd258903fca7086c1fae7441e1d';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey, true)).toBe(false);
-    });
-    test('should fail with an invalid SEC1 public key', () => {
-        let pubKey = '023a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a001cf066d56a8156fc201cd5df8a36ef694eecd258903fca7086c1fae7441e1d';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey, true)).toBe(false);
-    });
-    test('should fail with compressed keys with sanitize enabled', () => {
-        let pubKey = '033a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey, true)).toBe(false);
-    });
-    test('should fail with sanitize enabled', () => {
-        let pubKey = '043a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a001cf066d56a8156fc201cd5df8a36ef694eecd258903fca7086c1fae7441e1d';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey, true)).toBe(false);
-    });
-    test('should fail on ethereum public', () => {
-        let pubKey = '3a443d8381a6798a70c6ff9304bdc8cb0163c23211d11628fae52ef9e0dca11a001cf066d56a8156fc201cd5df8a36ef694eecd258903fca7086c1fae7441e1d';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
-    });
-    // minter tests
-    test('should fail with minter uncompressed public', () => {
-        let pubKey = 'f9e036839a29f7fba2d5394bd489eda927ccb95acc99e506e688e4888082b3a3cb8a015b8031d02e79456aedb361fa20ec1a119d6009e5c08e9d1eeb5b29ad92';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
-    });
-    test('should work with minter public', () => {
-        let pubKey = '28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
-        pubKey = Buffer.from(pubKey, 'hex');
-        expect(minterUtil.isValidPublic(pubKey)).toBe(true);
-    });
-    test('should work with minter string public', () => {
-        const pubKey = 'Mp28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
-        expect(minterUtil.isValidPublic(pubKey)).toBe(true);
-    });
-    test('should work with minter string public 2', () => {
-        const pubKey = 'Mp21e1d043c6d9c0bb0929ab8d1dd9f3948de0f5ad7234ce773a501441d204aa9e';
-        expect(minterUtil.isValidPublic(pubKey)).toBe(true);
-    });
-    test('should fail with wrong string prefix', () => {
-        const pubKey = 'mp28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
-        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
-    });
-    test('should fail with wrong string prefix', () => {
-        const pubKey = '0x28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
-        expect(minterUtil.isValidPublic(pubKey)).toBe(false);
     });
 });
 
@@ -246,6 +117,29 @@ describe('toBuffer()', () => {
         const address = minterUtil.toBuffer('Mx2f015c60e0be116b1f0cd534704db9c92118fb6a').toString('hex');
         const buf = '2f015c60e0be116b1f0cd534704db9c92118fb6a';
         expect(address).toEqual(buf);
+    });
+});
+
+describe('addressToString()', () => {
+    test('should work with Buffer address', () => {
+        const address = Buffer.from('7633980c000139dd3bd24a3f54e06474fa941e16', 'hex');
+        expect(minterUtil.addressToString(address)).toEqual('Mx7633980c000139dd3bd24a3f54e06474fa941e16');
+    });
+    test('should work with 0x address', () => {
+        const address = '0x7633980c000139dd3bd24a3f54e06474fa941e16';
+        expect(minterUtil.addressToString(address)).toEqual('Mx7633980c000139dd3bd24a3f54e06474fa941e16');
+    });
+});
+
+describe('checkToString()', () => {
+    const checkHex = 'f8a03101830f423f8a4d4e5400000000000000888ac7230489e80000b84149eba2361855724bbd3d20eb97a54ea15ad7dc28c1111b8dcf3bb15db26f874f095803cad9f8fc88b2b4eec9ba706325a7929be31b6ccfef01260791a844cb55011ba06c63ad17bfe07b82be8a0144fd4daf8b4144281fdf88f313205ceacf37fd877fa03c243ad79cab6205f4b753bd402c4cfa5d570888659090b2f923071ac52bdf75';
+    test('should work with Buffer check', () => {
+        const check = Buffer.from(checkHex, 'hex');
+        expect(minterUtil.checkToString(check)).toEqual(`Mc${checkHex}`);
+    });
+    test('should work with 0x check', () => {
+        const check = `0x${checkHex}`;
+        expect(minterUtil.checkToString(check)).toEqual(`Mc${checkHex}`);
     });
 });
 

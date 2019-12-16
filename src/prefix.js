@@ -54,6 +54,16 @@ export function toBuffer(value) {
     return ethToBuffer(value);
 }
 
+export function addressToString(address) {
+    address = toBuffer(address);
+    return `Mx${address.toString('hex')}`;
+}
+
+export function checkToString(address) {
+    address = toBuffer(address);
+    return `Mc${address.toString('hex')}`;
+}
+
 /**
  * Returns the Minter style address string of a given private key
  * @param {Buffer} privateKey A private key must be 256 bits wide
