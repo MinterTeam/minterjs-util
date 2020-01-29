@@ -59,9 +59,9 @@ export function addressToString(address) {
     return `Mx${address.toString('hex')}`;
 }
 
-export function checkToString(address) {
-    address = toBuffer(address);
-    return `Mc${address.toString('hex')}`;
+export function checkToString(check) {
+    check = toBuffer(check);
+    return `Mc${check.toString('hex')}`;
 }
 
 /**

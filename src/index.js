@@ -1,12 +1,12 @@
-import {publicToAddress, publicToString, isValidPublic} from './public';
-import {convert, convertFromPip, convertToPip} from './converter';
+import {publicToAddress, publicToString, isValidPublic} from './public.js';
+import {convert, convertFromPip, convertToPip} from './converter.js';
 import {
     mPrefixToHex, mPrefixStrip, mToBuffer, toBuffer, addressToString, checkToString, privateToAddressString, isMinterPrefixed, isValidAddress, isValidCheck, isValidTransaction, isValidPublicKeyString,
-} from './prefix';
-import {getFeeValue} from './fee';
+} from './prefix.js';
+import {getFeeValue} from './fee.js';
 import {
     sellCoin, sellCoinByBip, buyCoin, buyCoinByCoin,
-} from './coin-math';
+} from './coin-math.js';
 
 export {
     convert,

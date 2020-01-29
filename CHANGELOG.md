@@ -1,3 +1,7 @@
+## 0.15.1 - 2020-01-29
+- fix naming typo
+- update deps
+
 ## 0.15.0 - 2019-12-16
 - add `addressToString` method
 - add `checkToString` method

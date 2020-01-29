@@ -1,10 +1,11 @@
+import Big from 'big.js';
 import {
     sellCoin, sellCoinByBip, buyCoin, buyCoinByCoin,
 } from '~/src';
 
 describe('coin math', () => {
     test('sellCoin', () => {
-        expect(sellCoin({supply: 100, reserve: 1000, crr: 0.1}, 1)).toEqual('95.6179249911957');
+        expect(new Big(sellCoin({supply: 100, reserve: 1000, crr: 0.1}, 1)).toFixed(12)).toEqual('95.617924991196');
     });
     test('sellCoin crr 0', () => {
         expect(sellCoin({supply: 100, reserve: 1000, crr: 0}, 1)).toEqual('0');
@@ -43,7 +44,7 @@ describe('coin math', () => {
     });
 
     test('buyCoinByCoin', () => {
-        expect(buyCoinByCoin({supply: 100, reserve: 1000, crr: 0.1}, 1)).toEqual('104.6221254112047');
+        expect(new Big(buyCoinByCoin({supply: 100, reserve: 1000, crr: 0.1}, 1)).toFixed(12)).toEqual('104.622125411205');
     });
     test('buyCoinByCoin crr 0', () => {
         expect(buyCoinByCoin({supply: 100, reserve: 1000, crr: 0}, 1)).toEqual('0');

@@ -1,7 +1,7 @@
 import secp256k1 from 'secp256k1';
-import {keccak} from 'ethereumjs-util/dist/hash';
+import {keccak} from 'ethereumjs-util/dist/hash.js';
 import assert from 'assert';
-import { isValidPublicKeyString, mToBuffer, toBuffer } from './prefix';
+import { isValidPublicKeyString, mToBuffer, toBuffer } from './prefix.js';
 
 /**
  * Returns the ethereum address of a given public key.
