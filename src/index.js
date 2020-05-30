@@ -1,5 +1,5 @@
 import {publicToAddress, publicToString, isValidPublic} from './public.js';
-import {convert, convertFromPip, convertToPip} from './converter.js';
+import {convert, convertFromPip, convertToPip, numToBig} from './converter.js';
 import {
     mPrefixToHex, mPrefixStrip, mToBuffer, toBuffer, addressToString, checkToString, privateToAddressString, isMinterPrefixed, isValidAddress, isValidCheck, isValidTransaction, isValidPublicKeyString,
 } from './prefix.js';
@@ -12,6 +12,7 @@ export {
     convert,
     convertFromPip,
     convertToPip,
+    numToBig,
     publicToAddress,
     publicToString,
     mPrefixToHex,

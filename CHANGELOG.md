@@ -1,6 +1,8 @@
+## 0.15.2 - 2020-05-30
+- export `numToBig` function
+
 ## 0.15.1 - 2020-01-29
 - fix naming typo
-- update deps
 
 ## 0.15.0 - 2019-12-16
 - add `addressToString` method
@@ -12,7 +14,6 @@
 
 ## 0.14.0 - 2019-11-12
 - **BREAKING** toBuffer accepts only Minter prefixed and `0x` prefixed string params now, you have to use `Buffer.from(str, 'utf-8')` if you want pass arbitrary string
-- update deps
 - drop safe-buffer dependency
 
 ## 0.13.1 - 2019-10-24

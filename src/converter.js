@@ -16,35 +16,20 @@ function convert(num, to, format) {
         throw new Error('Converting from pip to hex format doesn\'t supported');
     }
 
-    // if num is prefixed hex string
-    if (typeof num === 'string' && num.indexOf('0x') === 0) {
-        if (num === '0x') {
-            num = '0x0';
-        }
-
-        // convert prefixed hex to decimal string
-        num = new BN(num.substr(2), 16).toString(10);
-    }
-
-    // `big.js` already throws on invalid numbers
-    // if num is not numeric string
-    // if (typeof num === 'string' && !isNumericString(num)) {
-    //     throw new Error('Invalid number');
-    // }
-
+    const numBig = numToBig(num);
 
     const pow = new Big(10).pow(DECIMALS);
 
     let result;
     if (to === 'pip') {
-        result = new Big(num).times(pow).round().toFixed();
+        result = numBig.times(pow).round().toFixed();
         if (format === 'hex') {
             return padToEven(new BN(result, 10).toString(16));
         } else {
             return result;
         }
     } else if (to === 'bip') {
-        return new Big(num).div(pow).toFixed();
+        return numBig.div(pow).toFixed();
     } else {
         throw new Error('Unknown type');
     }
@@ -78,6 +63,34 @@ function convertFromPip(num) {
 //     return NUMERIC.test(str);
 // }
 
+/**
+ *
+ * @param {number,string,Big} num
+ * @return {Big}
+ */
+export function numToBig(num) {
+    // if num is prefixed hex string
+    if (typeof num === 'string' && num.indexOf('0x') === 0) {
+        if (num === '0x') {
+            num = '0x0';
+        }
+
+        // convert prefixed hex to decimal string
+        num = new BN(num.substr(2), 16).toString(10);
+    }
+
+    // `big.js` already throws on invalid numbers
+    // if num is not numeric string
+    // if (typeof num === 'string' && !isNumericString(num)) {
+    //     throw new Error('Invalid number');
+    // }
+
+    return new Big(num);
+}
+
+/**
+ * @deprecated
+ */
 export default {
     convert,
     bipToPip: convertToPip,

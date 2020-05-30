@@ -15,19 +15,18 @@ module.exports = {
   settings: {
     'import/resolver': {
       alias: [
-        ['~/src', './src']
+        ['~/src', './src'],
+        ['~/test', './test'],
       ]
     }
   },
-  // required to lint *.vue files
-  // plugins: [
-  //   'html'
-  // ],
   // // add your custom rules here
   rules: {
     'indent': ['error', 4],
     // allow paren-less arrow functions
     'arrow-parens': 0,
+    // allow braces around function body
+    'arrow-body-style': 0,
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
@@ -43,18 +42,30 @@ module.exports = {
     'no-else-return': 0,
     'no-unused-vars': ['warn', { 'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false }],
     'no-use-before-define' : 0,
+    // allow single line imports
+    'object-curly-newline': 0,
+    // allow Object.assign()
+    'prefer-object-spread': 0,
+    'prefer-const': 0,
+    // disable for nested destructuring
+    "prefer-destructuring": ["error", {
+      "AssignmentExpression": {
+        "array": false,
+        "object": false
+      }
+    }],
     'import/extensions': ['error', 'always', {ignorePackages: true} ],
   },
   overrides: [
     {
-      files: ['examples/*'],
+      files: ['examples/**/*', 'test/**/*'],
       rules: {
         'import/no-extraneous-dependencies': 0,
         'no-console': 0,
       }
     },
     {
-      files: ['test/*'],
+      files: ['test/**/*'],
       rules: {
         'import/extensions': 0,
       }
