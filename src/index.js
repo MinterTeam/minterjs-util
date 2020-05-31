@@ -9,6 +9,7 @@ import {
 } from './coin-math.js';
 import {coinToBuffer, bufferToCoin} from './coin-symbol.js';
 import {TX_TYPE, txTypeList, normalizeTxType} from './tx-types.js';
+import {COIN_MAX_AMOUNT, COIN_MAX_MAX_SUPPLY, COIN_MIN_MAX_SUPPLY} from './variables.js';
 
 export {
     convert,
@@ -40,4 +41,7 @@ export {
     TX_TYPE,
     txTypeList,
     normalizeTxType,
+    COIN_MAX_AMOUNT,
+    COIN_MAX_MAX_SUPPLY,
+    COIN_MIN_MAX_SUPPLY,
 };
