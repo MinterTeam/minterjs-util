@@ -7,6 +7,8 @@ import {getFeeValue} from './fee.js';
 import {
     sellCoin, sellCoinByBip, buyCoin, buyCoinByCoin,
 } from './coin-math.js';
+import {coinToBuffer, bufferToCoin} from './coin-symbol.js';
+import {TX_TYPE, txTypeList, normalizeTxType} from './tx-types.js';
 
 export {
     convert,
@@ -33,4 +35,9 @@ export {
     sellCoinByBip,
     buyCoin,
     buyCoinByCoin,
+    coinToBuffer,
+    bufferToCoin,
+    TX_TYPE,
+    txTypeList,
+    normalizeTxType,
 };

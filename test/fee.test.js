@@ -1,5 +1,4 @@
-import {TX_TYPE} from 'minterjs-tx';
-import { getFeeValue } from '~/src';
+import { getFeeValue, TX_TYPE } from '~/src';
 
 describe('getFeeValue', () => {
     test('number tx type', () => {

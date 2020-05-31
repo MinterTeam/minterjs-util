@@ -37,22 +37,21 @@ Params:
 - options.coinSymbol: string, coin symbol if tx is coin creation
 - options.multisendCount: number, count of recipients if tx is multisend
 ```
-import { getFeeValue } from 'minterjs-util';
-import {TX_TYPE_SEND, TX_TYPE_CREATE_COIN, TX_TYPE_MULTISEND} from 'minterjs-tx';
+import { getFeeValue, TX_TYPE } from 'minterjs-util';
 
-getFeeValue(1); 
+getFeeValue(1);
 // 0.01
 
-getFeeValue(TX_TYPE_SEND);
+getFeeValue(TX_TYPE.SEND);
 // 0.01
 
-getFeeValue(TX_TYPE_SEND, {payload: 'asé'});
+getFeeValue(TX_TYPE.SEND, {payload: 'asé'});
 // 0.018
 
-getFeeValue(TX_TYPE_CREATE_COIN, {coinSymbol: 'ABCDEFG'});
+getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'ABCDEFG'});
 // 100
 
-getFeeValue(TX_TYPE_MULTISEND, {multisendCount: 5});
+getFeeValue(TX_TYPE.MULTISEND, {multisendCount: 5});
 // 0.035
 ```
 

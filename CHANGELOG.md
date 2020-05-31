@@ -1,3 +1,6 @@
+## 0.16.0 - 2020-05-31
+- move here tx-types and coin helpers from [minterjs-tx](https://github.com/MinterTeam/minterjs-tx)
+
 ## 0.15.2 - 2020-05-30
 - export `numToBig` function
 

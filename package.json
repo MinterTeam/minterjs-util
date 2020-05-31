@@ -1,6 +1,6 @@
 {
   "name": "minterjs-util",
-  "version": "0.15.2",
+  "version": "0.16.0",
   "description": "Utils for Minter",
   "main": "dist/cjs/index.js",
   "module": "src/index.js",
@@ -53,13 +53,12 @@
     "ethereumjs-util": "^6.2.0",
     "ethjs-util": "^0.1.6",
     "jest-environment-jsdom": "^25.5.0",
-    "minterjs-tx": "^8.0.0",
     "secp256k1": "^3.7.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.1",
-    "@babel/preset-env": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
     "babel-jest": "^26.0.1",
     "coveralls": "^3.1.0",
     "eslint": "^7.1.0",
@@ -68,7 +67,7 @@
     "eslint-plugin-import": "^2.20.2",
     "jest": "^26.0.1",
     "pre-commit": "^1.2.2",
-    "rollup": "^2.11.2",
+    "rollup": "^2.12.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
