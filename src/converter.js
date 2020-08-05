@@ -4,7 +4,6 @@ import {padToEven} from 'ethjs-util';
 
 const DECIMALS = 18;
 
-
 /**
  * @param {number,string,Big} num
  * @param {'pip'|'bip'} to

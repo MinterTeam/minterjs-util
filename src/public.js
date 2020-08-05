@@ -1,12 +1,12 @@
-import secp256k1 from 'secp256k1';
-import {keccak} from 'ethereumjs-util/dist/hash.js';
+import {publicKeyConvert, publicKeyVerify} from 'secp256k1';
+import {keccak256 as keccak} from 'ethereum-cryptography/keccak';
 import assert from 'assert';
 import { isValidPublicKeyString, mToBuffer, toBuffer } from './prefix.js';
 
 /**
  * Returns the ethereum address of a given public key.
  * Accepts "Ethereum public keys" and SEC1 encoded keys.
- * @param {Buffer} publicKey
+ * @param {Buffer|Uint8Array} publicKey
  * @return {Buffer}
  */
 export function publicToAddress(publicKey) {
@@ -16,7 +16,7 @@ export function publicToAddress(publicKey) {
     }
     if (publicKey.length === 33) {
         // compressed to uncompressed
-        publicKey = secp256k1.publicKeyConvert(publicKey, false).slice(1);
+        publicKey = publicKeyConvert(publicKey, false).slice(1);
     }
     if (publicKey.length === 65) {
         // uncompressed to Ethereum
@@ -29,7 +29,7 @@ export function publicToAddress(publicKey) {
 
 /**
  * Return Minter style public key string
- * @param {Buffer|string} publicKey
+ * @param {Buffer|Uint8Array|string} publicKey
  * @return {string}
  */
 export function publicToString(publicKey) {
@@ -43,7 +43,7 @@ export function publicToString(publicKey) {
     }
     if (publicKey.length === 65) {
         // uncompressed to compressed
-        publicKey = secp256k1.publicKeyConvert(publicKey, true);
+        publicKey = publicKeyConvert(publicKey, true);
     }
     if (publicKey.length === 33) {
         publicKey = publicKey.slice(1);
@@ -73,5 +73,5 @@ export function isValidPublic(publicKey) {
     // convert Minter to compressed: add first byte
     const compressed = Buffer.concat([Buffer.from([3]), publicKey]);
 
-    return secp256k1.publicKeyVerify(compressed);
+    return publicKeyVerify(compressed);
 }

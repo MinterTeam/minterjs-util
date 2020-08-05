@@ -70,7 +70,6 @@ function one() {
     return new Big(1);
 }
 
-
 /**
  * @typedef {Object} Coin
  * @property {number|null} supply

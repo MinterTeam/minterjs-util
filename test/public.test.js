@@ -1,8 +1,12 @@
-import secp256k1 from 'secp256k1';
-import {privateToPublic} from 'ethereumjs-util';
+import {publicKeyCreate} from 'secp256k1';
+import {privateToPublic} from 'ethereumjs-util/dist/account.js';
 import * as minterUtil from '~/src';
 
 const PRIVATE_KEY = Buffer.from('5fa3a8b186f6cc2d748ee2d8c0eb7a905a7b73de0f2c34c5e7857c3b46f187da', 'hex');
+// const PRIVATE_KEY = fromHexString('5fa3a8b186f6cc2d748ee2d8c0eb7a905a7b73de0f2c34c5e7857c3b46f187da');
+function fromHexString(hexString) {
+    return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+}
 
 describe('publicToAddress()', () => {
     const validAddress = Buffer.from('7633980c000139dd3bd24a3f54e06474fa941e16', 'hex');
@@ -16,12 +20,12 @@ describe('publicToAddress()', () => {
         expect(address).toEqual(validAddress);
     });
     test('should work with compressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, true);
+        const publicKey = publicKeyCreate(PRIVATE_KEY, true);
         const address = minterUtil.publicToAddress(publicKey);
         expect(address).toEqual(validAddress);
     });
     test('should work with uncompressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, false);
+        const publicKey = publicKeyCreate(PRIVATE_KEY, false);
         const address = minterUtil.publicToAddress(publicKey);
         expect(address).toEqual(validAddress);
     });
@@ -42,12 +46,12 @@ describe('publicToString()', () => {
         expect(publicKeyString).toEqual(validPublicString);
     });
     test('should work with compressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, true);
+        const publicKey = publicKeyCreate(PRIVATE_KEY, true);
         const publicKeyString = minterUtil.publicToString(publicKey);
         expect(publicKeyString).toEqual(validPublicString);
     });
     test('should work with uncompressed public', () => {
-        const publicKey = secp256k1.publicKeyCreate(PRIVATE_KEY, false);
+        const publicKey = publicKeyCreate(PRIVATE_KEY, false);
         const publicKeyString = minterUtil.publicToString(publicKey);
         expect(publicKeyString).toEqual(validPublicString);
     });
@@ -61,7 +65,6 @@ describe('publicToString()', () => {
         }).toThrow();
     });
 });
-
 
 describe('isValidPublic()', () => {
     test('should fail on too short input', () => {
