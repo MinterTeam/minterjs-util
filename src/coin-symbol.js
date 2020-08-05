@@ -1,4 +1,3 @@
-
 /**
  * Make 10 bytes padded Buffer from coin symbol string
  * @param {string} coinSymbol

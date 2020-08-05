@@ -19,7 +19,6 @@ export function getFeeValue(txType, {payload, coinSymbol, multisendCount} = {}) 
         throw new Error('`multisendCount` should be positive integer when tx type is TX_TYPE.MULTISEND');
     }
 
-
     let payloadLength;
     if (!payload) {
         payloadLength = 0;

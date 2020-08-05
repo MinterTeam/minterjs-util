@@ -20,7 +20,6 @@ export const TX_TYPE = {
     EDIT_CANDIDATE: '0x0E',
 };
 
-
 /** @type {Array<{hex: string, name: string}>} */
 const txTypeList = [];
 

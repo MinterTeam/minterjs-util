@@ -1,3 +1,6 @@
+## 0.17.0 - 2020-08-7
+- update deps
+
 ## 0.16.2 - 2020-05-31
 - export variables
 
