@@ -18,6 +18,11 @@ export const TX_TYPE = {
     CREATE_MULTISIG: '0x0C',
     MULTISEND: '0x0D',
     EDIT_CANDIDATE: '0x0E',
+    SET_HALT_BLOCK: '0x0F',
+    RECREATE_COIN: '0x10',
+    CHANGE_COIN_OWNER: '0x11',
+    EDIT_MULTISIG_OWNER: '0x12',
+    PRICE_VOTE: '0x13',
 };
 
 /** @type {Array<{hex: string, name: string}>} */
@@ -52,6 +57,11 @@ fillList(TX_TYPE.SET_CANDIDATE_OFF, 'set candidate off');
 fillList(TX_TYPE.CREATE_MULTISIG, 'create multisig');
 fillList(TX_TYPE.MULTISEND, 'multisend');
 fillList(TX_TYPE.EDIT_CANDIDATE, 'edit candidate');
+fillList(TX_TYPE.SET_HALT_BLOCK, 'set halt block');
+fillList(TX_TYPE.RECREATE_COIN, 'recreate coin');
+fillList(TX_TYPE.CHANGE_COIN_OWNER, 'change coin owner');
+fillList(TX_TYPE.EDIT_MULTISIG_OWNER, 'edit multisig owner');
+fillList(TX_TYPE.PRICE_VOTE, 'price vote');
 
 export {txTypeList};
 
