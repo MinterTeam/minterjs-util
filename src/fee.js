@@ -32,7 +32,7 @@ export function getFeeValue(txType, {payload, coinSymbol, multisendCount} = {}) 
     const COIN_UNIT = 0.001;
     const COIN_UNIT_PART = 1 / COIN_UNIT; // negate js math quirks, ex.: 18 * 0.001 = 0.018000000000000002
     // multisend fee = base fee + extra fee based on count
-    const multisendExtraCountFee = txType === TX_TYPE.MULTISEND ? (multisendCount - 1) * 5 : 0;
+    const multisendExtraCountFee = txType === TX_TYPE.MULTISEND ? (multisendCount - 1) * MULTISEND_FEE_DELTA : 0;
     // coin symbol extra fee, value in base coin (not in units)
     const coinSymbolFee = txType === TX_TYPE.CREATE_COIN ? getCoinSymbolFee(coinSymbol) : 0;
     return (baseUnits + payloadLength * 2 + multisendExtraCountFee) / COIN_UNIT_PART + coinSymbolFee;
@@ -56,6 +56,8 @@ export const COIN_SYMBOL_FEES = {
     6: 1000,
 };
 
+export const MULTISEND_FEE_DELTA = 5;
+
 /**
  * Tx fees in units
  * @type {{string: number}}
@@ -75,4 +77,9 @@ export const BASE_FEES = {
     [TX_TYPE.CREATE_MULTISIG]: 100,
     [TX_TYPE.MULTISEND]: 10, // 10+(n-1)*5 units
     [TX_TYPE.EDIT_CANDIDATE]: 10000,
+    [TX_TYPE.SET_HALT_BLOCK]: 1000,
+    [TX_TYPE.RECREATE_COIN]: 10000000,
+    [TX_TYPE.CHANGE_COIN_OWNER]: 10000000,
+    [TX_TYPE.EDIT_MULTISIG_OWNER]: 1000,
+    [TX_TYPE.PRICE_VOTE]: 10,
 };
