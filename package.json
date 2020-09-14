@@ -1,6 +1,6 @@
 {
   "name": "minterjs-util",
-  "version": "0.18.0-alpha.2",
+  "version": "0.18.0-alpha.3",
   "description": "Utils for Minter",
   "main": "dist/cjs/index.js",
   "module": "src/index.js",
@@ -69,6 +69,7 @@
     "eslint-plugin-import": "^2.22.0",
     "jest": "^26.2.2",
     "jest-environment-jsdom": "^25",
+    "jest-expect-message": "^1.0.2",
     "pre-commit": "^1.2.2",
     "rollup": "^2.23.0",
     "rollup-plugin-babel": "^4.4.0",

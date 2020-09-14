@@ -1,4 +1,4 @@
-import { getFeeValue, TX_TYPE } from '~/src';
+import { getFeeValue, TX_TYPE, BASE_FEES } from '~/src';
 
 describe('getFeeValue', () => {
     test('number tx type', () => {
@@ -35,5 +35,12 @@ describe('getFeeValue', () => {
 
     test('multisend throws without multisendCount', () => {
         expect(() => getFeeValue(TX_TYPE.MULTISEND)).toThrow();
+    });
+
+    test('every tx type has corresponding fee', () => {
+        expect.assertions(Object.keys(TX_TYPE).length);
+        Object.keys(TX_TYPE).forEach((txKey) => {
+            expect(BASE_FEES[TX_TYPE[txKey]], `${txKey} ${TX_TYPE[txKey]}`).toEqual(expect.anything());
+        });
     });
 });

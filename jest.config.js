@@ -1,4 +1,5 @@
 module.exports = {
+    setupFilesAfterEnv: ["jest-expect-message"],
     moduleNameMapper: {
         '~(.*)$': '<rootDir>/$1',
     },

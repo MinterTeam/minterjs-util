@@ -23,9 +23,10 @@ export const TX_TYPE = {
     CHANGE_COIN_OWNER: '0x11',
     EDIT_MULTISIG_OWNER: '0x12',
     PRICE_VOTE: '0x13',
+    EDIT_CANDIDATE_PUBLIC_KEY: '0x14',
 };
 
-/** @type {Array<{hex: string, name: string}>} */
+/** @type {Array<{hex: string, name: string, number: number}>} */
 const txTypeList = [];
 
 /**
@@ -62,6 +63,7 @@ fillList(TX_TYPE.RECREATE_COIN, 'recreate coin');
 fillList(TX_TYPE.CHANGE_COIN_OWNER, 'change coin owner');
 fillList(TX_TYPE.EDIT_MULTISIG_OWNER, 'edit multisig owner');
 fillList(TX_TYPE.PRICE_VOTE, 'price vote');
+fillList(TX_TYPE.EDIT_CANDIDATE_PUBLIC_KEY, 'edit candidate public key');
 
 export {txTypeList};
 

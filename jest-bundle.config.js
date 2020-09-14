@@ -1,5 +1,8 @@
 module.exports = {
-    setupFilesAfterEnv: ["<rootDir>/jest-bundle-setup.js"],
+    setupFilesAfterEnv: [
+        "jest-expect-message",
+        "<rootDir>/jest-bundle-setup.js",
+    ],
     moduleNameMapper: {
         '~\/src$': '<rootDir>/dist/index.js',
     },

@@ -1,3 +1,7 @@
+## WIP
+- add chilinet tx types and fees
+
+
 ## 0.17.0 - 2020-08-7
 - update deps
 
