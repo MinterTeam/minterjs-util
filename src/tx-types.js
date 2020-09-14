@@ -20,7 +20,7 @@ export const TX_TYPE = {
     EDIT_CANDIDATE: '0x0E',
     SET_HALT_BLOCK: '0x0F',
     RECREATE_COIN: '0x10',
-    CHANGE_COIN_OWNER: '0x11',
+    EDIT_COIN_OWNER: '0x11',
     EDIT_MULTISIG_OWNER: '0x12',
     PRICE_VOTE: '0x13',
     EDIT_CANDIDATE_PUBLIC_KEY: '0x14',
@@ -60,7 +60,7 @@ fillList(TX_TYPE.MULTISEND, 'multisend');
 fillList(TX_TYPE.EDIT_CANDIDATE, 'edit candidate');
 fillList(TX_TYPE.SET_HALT_BLOCK, 'set halt block');
 fillList(TX_TYPE.RECREATE_COIN, 'recreate coin');
-fillList(TX_TYPE.CHANGE_COIN_OWNER, 'change coin owner');
+fillList(TX_TYPE.EDIT_COIN_OWNER, 'edit coin owner');
 fillList(TX_TYPE.EDIT_MULTISIG_OWNER, 'edit multisig owner');
 fillList(TX_TYPE.PRICE_VOTE, 'price vote');
 fillList(TX_TYPE.EDIT_CANDIDATE_PUBLIC_KEY, 'edit candidate public key');
