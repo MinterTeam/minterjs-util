@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-null */
+
 import * as minterUtil from '~/src';
 
 describe('mPrefixToHex()', () => {
@@ -110,7 +112,7 @@ describe('mToBuffer()', () => {
 describe('toBuffer()', () => {
     test('should work with null', () => {
         const address = minterUtil.toBuffer(null).toString('hex');
-        const buf = new Buffer([]).toString('hex');
+        const buf = Buffer.from([]).toString('hex');
         expect(address).toEqual(buf);
     });
     test('should work with address', () => {

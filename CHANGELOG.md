@@ -1,3 +1,6 @@
+## 0.18.1
+- deprecate `numToBig`, use `numberToBig` instead
+
 ## 0.18.0
 - add chilinet tx types and fees
 

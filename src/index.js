@@ -1,5 +1,6 @@
 import {publicToAddress, publicToString, isValidPublic} from './public.js';
-import {convert, convertFromPip, convertToPip, numToBig} from './converter.js';
+// eslint-disable-next-line unicorn/prevent-abbreviations
+import {convert, convertFromPip, convertToPip, numberToBig, numToBig} from './converter.js';
 import {
     mPrefixToHex, mPrefixStrip, mToBuffer, toBuffer, addressToString, checkToString, privateToAddressString, isMinterPrefixed, isValidAddress, isValidCheck, isValidTransaction, isValidPublicKeyString,
 } from './prefix.js';
@@ -15,6 +16,7 @@ export {
     convert,
     convertFromPip,
     convertToPip,
+    numberToBig,
     numToBig,
     publicToAddress,
     publicToString,

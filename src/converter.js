@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/prevent-abbreviations */
+
 import Big from 'big.js';
 import BN from 'bn.js';
 import {padToEven} from 'ethjs-util';
@@ -15,7 +17,7 @@ function convert(num, to, format) {
         throw new Error('Converting from pip to hex format doesn\'t supported');
     }
 
-    const numBig = numToBig(num);
+    const numBig = numberToBig(num);
 
     const pow = new Big(10).pow(DECIMALS);
 
@@ -67,7 +69,7 @@ function convertFromPip(num) {
  * @param {number,string,Big} num
  * @return {Big}
  */
-export function numToBig(num) {
+export function numberToBig(num) {
     // if num is prefixed hex string
     if (typeof num === 'string' && num.indexOf('0x') === 0) {
         if (num === '0x') {
@@ -75,7 +77,7 @@ export function numToBig(num) {
         }
 
         // convert prefixed hex to decimal string
-        num = new BN(num.substr(2), 16).toString(10);
+        num = new BN(num.slice(2), 16).toString(10);
     }
 
     // `big.js` already throws on invalid numbers
@@ -86,6 +88,12 @@ export function numToBig(num) {
 
     return new Big(num);
 }
+
+/**
+ * @deprecated
+ * @type {function((number|string|Big)): Big}
+ */
+export const numToBig = numberToBig;
 
 /**
  * @deprecated

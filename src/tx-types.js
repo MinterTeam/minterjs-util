@@ -74,13 +74,14 @@ export {txTypeList};
  */
 export function normalizeTxType(txType) {
     // Buffer or Uint8Array to TX_TYPE
+    // eslint-disable-next-line unicorn/explicit-length-check
     if (txType.length && typeof txType !== 'string') {
         txType = Buffer.from(txType).toString('hex');
         txType = `0x${txType}`;
     }
     // invalid string to number
     if (typeof txType === 'string' && txType.indexOf('0x') !== 0 && txType.indexOf('0X') !== 0) {
-        txType = parseInt(txType, 10);
+        txType = Number.parseInt(txType, 10);
     }
     // number to TX_TYPE
     if (typeof txType === 'number') {

@@ -35,7 +35,7 @@ export function publicToAddress(publicKey) {
 export function publicToString(publicKey) {
     publicKey = toBuffer(publicKey);
     if (!Buffer.isBuffer(publicKey)) {
-        throw new Error('Public key should be of type Buffer');
+        throw new TypeError('Public key should be of type Buffer');
     }
     if (publicKey.length === 64) {
         // Ethereum style to uncompressed

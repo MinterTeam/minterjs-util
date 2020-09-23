@@ -10,8 +10,17 @@ module.exports = {
     browser: true,
     jest: true,
   },
-  // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'airbnb-base',
+  plugins: [
+    'jest',
+    'security',
+    'unicorn',
+  ],
+  extends: [
+    'airbnb-base',
+    'plugin:jest/recommended',
+    'plugin:security/recommended',
+    'plugin:unicorn/recommended',
+  ],
   settings: {
     'import/resolver': {
       alias: [
@@ -68,6 +77,8 @@ module.exports = {
       files: ['test/**/*'],
       rules: {
         'import/extensions': 0,
+        // 'jest-expect-message' allow multiple arguments
+        'jest/valid-expect': 0,
       }
     },
   ]

@@ -122,11 +122,11 @@ describe('isValidPublic()', () => {
         const pubKey = 'Mp21e1d043c6d9c0bb0929ab8d1dd9f3948de0f5ad7234ce773a501441d204aa9e';
         expect(minterUtil.isValidPublic(pubKey)).toBe(true);
     });
-    test('should fail with wrong string prefix', () => {
+    test('should fail with wrong string prefix "mp"', () => {
         const pubKey = 'mp28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
         expect(minterUtil.isValidPublic(pubKey)).toBe(false);
     });
-    test('should fail with wrong string prefix', () => {
+    test('should fail with wrong string prefix "0x"', () => {
         const pubKey = '0x28c07651a5e9ee18d746aa322967afb0f6af6f1d614e1c0226e40d392f410544';
         expect(minterUtil.isValidPublic(pubKey)).toBe(false);
     });

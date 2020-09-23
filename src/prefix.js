@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/better-regex */
+
 import {isHexString} from 'ethjs-util';
 import {toBuffer as ethToBuffer} from 'ethereumjs-util/dist/bytes';
 import {privateToAddress as ethPrivateToAddress} from 'ethereumjs-util/dist/account';
@@ -25,7 +27,7 @@ export function mPrefixStrip(value) {
  */
 export function mToBuffer(value) {
     if (typeof value !== 'string') {
-        throw new Error('Type error: string expected');
+        throw new TypeError('Type error: string expected');
     }
     if (!isMinterPrefixed(value)) {
         throw new Error('Not minter prefixed');
@@ -48,6 +50,7 @@ export function toBuffer(value) {
     }
 
     if (typeof value === 'string' && !isHexString(value, 0)) {
+        // eslint-disable-next-line unicorn/prefer-type-error
         throw new Error('Cannot convert string to buffer. toBuffer only supports Minter-prefixed or 0x-prefixed hex strings. You can pass buffer instead of string.');
     }
 
