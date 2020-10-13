@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/better-regex */
-
 import {isHexString} from 'ethjs-util';
 import {toBuffer as ethToBuffer} from 'ethereumjs-util/dist/bytes';
 import {privateToAddress as ethPrivateToAddress} from 'ethereumjs-util/dist/account';

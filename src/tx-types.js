@@ -74,8 +74,7 @@ export {txTypeList};
  */
 export function normalizeTxType(txType) {
     // Buffer or Uint8Array to TX_TYPE
-    // eslint-disable-next-line unicorn/explicit-length-check
-    if (txType.length && typeof txType !== 'string') {
+    if (txType.length > 0 && typeof txType !== 'string') {
         txType = Buffer.from(txType).toString('hex');
         txType = `0x${txType}`;
     }
