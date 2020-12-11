@@ -1,5 +1,5 @@
 ## WIP
-- add v2.0 tx types and dummy tx fees
+- add v2.0 tx types and fees
 
 ## 0.18.1
 - deprecate `numToBig`, use `numberToBig` instead
