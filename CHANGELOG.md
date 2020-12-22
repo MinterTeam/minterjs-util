@@ -1,3 +1,6 @@
+## 0.19.0 - 2020.12.22
+- **BREAKING** change unit value, which is used in fee calculation, from 0.001 to 0.1
+
 ## 0.18.1
 - deprecate `numToBig`, use `numberToBig` instead
 

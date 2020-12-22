@@ -29,7 +29,8 @@ export function getFeeValue(txType, {payload, coinSymbol, multisendCount} = {}) 
     }
 
     const baseUnits = BASE_FEES[txType];
-    const COIN_UNIT = 0.001;
+    // commission multiplier
+    const COIN_UNIT = 0.1;
     const COIN_UNIT_PART = 1 / COIN_UNIT; // negate js math quirks, ex.: 18 * 0.001 = 0.018000000000000002
     // multisend fee = base fee + extra fee based on count
     const multisendExtraCountFee = txType === TX_TYPE.MULTISEND ? (multisendCount - 1) * MULTISEND_FEE_DELTA : 0;
