@@ -18,13 +18,14 @@ describe('getFeeValue', () => {
     });
 
     test('create coin', () => {
-        expect(getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'ABCDEFG'})).toEqual(100);
-        expect(getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'ABCDEFGHIJ'})).toEqual(100);
-        expect(getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'ABC'})).toEqual(1000000);
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'ABCDEFG'})).toEqual(10_000);
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'ABCDEFGHIJ'})).toEqual(10_000);
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'ABC'})).toEqual(100_000_000);
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbolLength: 4})).toEqual(10_000_000);
     });
 
-    test('create coin without coinSymbolLength', () => {
-        expect(getFeeValue(TX_TYPE.CREATE_COIN)).toEqual(100);
+    test('create coin without coin symbol', () => {
+        expect(getFeeValue(TX_TYPE.CREATE_COIN)).toEqual(10000);
     });
 
     test('multisend', () => {

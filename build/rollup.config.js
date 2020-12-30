@@ -8,6 +8,14 @@ import babel from 'rollup-plugin-babel';
 export default {
     input: 'src/index.js',
     plugins: [
+        babel({
+            babelrc: false,
+            configFile: false,
+            "plugins": [
+                "@babel/plugin-proposal-optional-chaining",
+                "@babel/plugin-proposal-numeric-separator",
+            ],
+        }),
         commonjs({
             // namedExports: {
             //     'node_modules/ethereumjs-util/dist/index.js': [ 'stripHexPrefix', 'padToEven' ],
