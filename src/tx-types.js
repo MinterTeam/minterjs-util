@@ -29,6 +29,12 @@ export const TX_TYPE = {
     SELL_SWAP_POOL: '0x17',
     BUY_SWAP_POOL: '0x18',
     SELL_ALL_SWAP_POOL: '0x19',
+    EDIT_CANDIDATE_COMMISSION: '0x20',
+    MOVE_STAKE: '0x21',
+    MINT_TOKEN: '0x22',
+    BURN_TOKEN: '0x23',
+    CREATE_TOKEN: '0x24',
+    RECREATE_TOKEN: '0x25',
 };
 
 /** @type {Array<{hex: string, name: string, number: number}>} */
@@ -74,6 +80,12 @@ fillList(TX_TYPE.REMOVE_SWAP_POOL, 'remove from swap pool');
 fillList(TX_TYPE.SELL_SWAP_POOL, 'sell with swap pool');
 fillList(TX_TYPE.BUY_SWAP_POOL, 'buy with swap pool');
 fillList(TX_TYPE.SELL_ALL_SWAP_POOL, 'sell all with swap pool');
+fillList(TX_TYPE.EDIT_CANDIDATE_COMMISSION, 'edit candidate commission');
+fillList(TX_TYPE.MOVE_STAKE, 'move stake');
+fillList(TX_TYPE.MINT_TOKEN, 'mint token');
+fillList(TX_TYPE.BURN_TOKEN, 'burn token');
+fillList(TX_TYPE.CREATE_TOKEN, 'create token');
+fillList(TX_TYPE.RECREATE_TOKEN, 'recreate token');
 
 export {txTypeList};
 
