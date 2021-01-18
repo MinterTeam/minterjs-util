@@ -24,8 +24,8 @@ export const TX_TYPE = {
     EDIT_MULTISIG: '0x12',
     PRICE_VOTE: '0x13',
     EDIT_CANDIDATE_PUBLIC_KEY: '0x14',
-    ADD_SWAP_POOL: '0x15',
-    REMOVE_SWAP_POOL: '0x16',
+    ADD_LIQUIDITY: '0x15',
+    REMOVE_LIQUIDITY: '0x16',
     SELL_SWAP_POOL: '0x17',
     BUY_SWAP_POOL: '0x18',
     SELL_ALL_SWAP_POOL: '0x19',
@@ -75,8 +75,8 @@ fillList(TX_TYPE.EDIT_COIN_OWNER, 'edit coin owner');
 fillList(TX_TYPE.EDIT_MULTISIG, 'edit multisig');
 fillList(TX_TYPE.PRICE_VOTE, 'price vote');
 fillList(TX_TYPE.EDIT_CANDIDATE_PUBLIC_KEY, 'edit candidate public key');
-fillList(TX_TYPE.ADD_SWAP_POOL, 'add to swap pool');
-fillList(TX_TYPE.REMOVE_SWAP_POOL, 'remove from swap pool');
+fillList(TX_TYPE.ADD_LIQUIDITY, 'add liquidity to pool');
+fillList(TX_TYPE.REMOVE_LIQUIDITY, 'remove liquidity from pool');
 fillList(TX_TYPE.SELL_SWAP_POOL, 'sell with swap pool');
 fillList(TX_TYPE.BUY_SWAP_POOL, 'buy with swap pool');
 fillList(TX_TYPE.SELL_ALL_SWAP_POOL, 'sell all with swap pool');
