@@ -1,6 +1,13 @@
 ## WIP
 - add v2.0 tx types and fees
 
+## 0.20.0 - 2020.12.30
+- **BREAKING** change fee calculation for Create Coin tx (now it depends on unit value)
+- add `coinSymbolLength` param to `getFeeValue`
+
+## 0.19.0 - 2020.12.22
+- **BREAKING** change unit value, which is used in fee calculation, from 0.001 to 0.1
+
 ## 0.18.1
 - deprecate `numToBig`, use `numberToBig` instead
 

@@ -6,10 +6,11 @@ import {TX_TYPE} from './tx-types.js';
  * @param txType
  * @param {string|Buffer} [payload]
  * @param {string} [coinSymbol]
+ * @param {number} [coinSymbolLength]
  * @param {number} [multisendCount]
  * @return {boolean|number}
  */
-export function getFeeValue(txType, {payload, coinSymbol, multisendCount} = {}) {
+export function getFeeValue(txType, {payload, coinSymbol, coinSymbolLength, multisendCount} = {}) {
     // txType to string
     if (!isHexString(txType)) {
         txType = `0x${padToEven(txType.toString(16)).toUpperCase()}`;
@@ -29,31 +30,45 @@ export function getFeeValue(txType, {payload, coinSymbol, multisendCount} = {}) 
     }
 
     const baseUnits = BASE_FEES[txType];
-    const COIN_UNIT = 0.001;
+    // commission multiplier
+    const COIN_UNIT = 0.1;
     const COIN_UNIT_PART = 1 / COIN_UNIT; // negate js math quirks, ex.: 18 * 0.001 = 0.018000000000000002
     // multisend fee = base fee + extra fee based on count
     const multisendExtraCountFee = txType === TX_TYPE.MULTISEND ? (multisendCount - 1) * MULTISEND_FEE_DELTA : 0;
-    // coin symbol extra fee, value in base coin (not in units)
-    const coinSymbolFee = txType === TX_TYPE.CREATE_COIN ? getCoinSymbolFee(coinSymbol) : 0;
-    return (baseUnits + payloadLength * 2 + multisendExtraCountFee) / COIN_UNIT_PART + coinSymbolFee;
+    // coin symbol extra fee, value in units (not in base coin)
+    const coinSymbolFee = txType === TX_TYPE.CREATE_COIN ? getCoinSymbolFee(coinSymbol, coinSymbolLength) : 0;
+    return (baseUnits + payloadLength * 2 + multisendExtraCountFee + coinSymbolFee) / COIN_UNIT_PART;
 }
 
 //
 /**
  * @param {string} ticker
+ * @param {number} [length]
  * @return {number} - value in base coin (not in units)
  */
-export function getCoinSymbolFee(ticker) {
-    return COIN_SYMBOL_FEES[ticker && ticker.length] || 100;
+export function getCoinSymbolFee(ticker, length) {
+    if (!length) {
+        length = ticker?.length;
+    }
+    if (!isValidLength(length)) {
+        length = 7;
+    }
+    return COIN_SYMBOL_FEES[length];
+
+    // eslint-disable-next-line unicorn/consistent-function-scoping, no-shadow
+    function isValidLength(length) {
+        return length >= 3 && length <= 7;
+    }
 }
 
-// value in base coin (not in units)
+// value in units (not in base coin)
 // @See https://github.com/MinterTeam/minter-go-node/blob/master/core/transaction/create_coin.go#L93
 export const COIN_SYMBOL_FEES = {
-    3: 1000000,
-    4: 100000,
-    5: 10000,
-    6: 1000,
+    3: 1_000_000_000,
+    4: 100_000_000,
+    5: 10_000_000,
+    6: 1_000_000,
+    7: 100_000,
 };
 
 export const MULTISEND_FEE_DELTA = 5;
