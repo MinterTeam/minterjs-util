@@ -1,112 +1,95 @@
-import {padToEven, isHexString, getBinarySize} from 'ethjs-util';
-import {TX_TYPE} from './tx-types.js';
+import Big from 'big.js';
+import {getBinarySize} from 'ethjs-util';
+import {TX_TYPE, normalizeTxType} from './tx-types.js';
+import {convertFromPip} from './converter.js';
 
 /**
+ * Accept current network fee values in pips.
+ * Provide instance to calculate fee for particular transaction based on its params.
  *
- * @param txType
- * @param {string|Buffer} [payload]
- * @param {string} [coinSymbol]
- * @param {number} [coinSymbolLength]
- * @param {number} [multisendCount]
- * @return {boolean|number}
+ * @param {BaseFeeList} baseFeeList
+ * @param {TickerFeeLest} tickerFeeList
+ * @param {number|string} payloadByteFee
+ * @param {number|string} multisendRecipientFee
+ * @constructor
  */
-export function getFeeValue(txType, {payload, coinSymbol, coinSymbolLength, multisendCount} = {}) {
-    // txType to string
-    if (!isHexString(txType)) {
-        txType = `0x${padToEven(txType.toString(16)).toUpperCase()}`;
+export function BaseCoinFee({baseFeeList, tickerFeeList, payloadByteFee, multisendRecipientFee}) {
+    if (typeof baseFeeList !== 'object') {
+        throw new TypeError('Invalid baseFeeList specified');
+    }
+    if (typeof tickerFeeList !== 'object') {
+        throw new TypeError('Invalid tickerFeeList specified');
+    }
+    if (typeof payloadByteFee === 'undefined') {
+        throw new TypeError('payloadByteFee is undefined');
+    }
+    if (typeof multisendRecipientFee === 'undefined') {
+        throw new TypeError('multisendRecipientFee is undefined');
     }
 
-    if (txType === TX_TYPE.MULTISEND && !(multisendCount >= 1)) {
-        throw new Error('`multisendCount` should be positive integer when tx type is TX_TYPE.MULTISEND');
-    }
+    this.baseFeeList = baseFeeList;
+    this.tickerFeeList = tickerFeeList;
+    this.payloadByteFee = payloadByteFee;
+    this.multisendRecipientFee = multisendRecipientFee;
 
-    let payloadLength;
-    if (!payload) {
-        payloadLength = 0;
-    } else if (Buffer.isBuffer(payload)) {
-        payloadLength = payload.length;
-    } else {
-        payloadLength = getBinarySize(payload.toString());
-    }
+    /**
+     * @param txType
+     * @param {string|Buffer} [payload]
+     * @param {number} [payloadLength]
+     * @param {string} [coinSymbol]
+     * @param {number} [coinSymbolLength]
+     * @param {number} [multisendCount]
+     * @return {number|string}
+     */
+    this.getFeeValue = (txType, {payload, payloadLength = 0, coinSymbol, coinSymbolLength, multisendCount} = {}) => {
+        // txType to string
+        txType = normalizeTxType(txType);
 
-    const baseUnits = BASE_FEES[txType];
-    // commission multiplier
-    const COIN_UNIT = 0.1;
-    const COIN_UNIT_PART = 1 / COIN_UNIT; // negate js math quirks, ex.: 18 * 0.001 = 0.018000000000000002
-    // multisend fee = base fee + extra fee based on count
-    const multisendExtraCountFee = txType === TX_TYPE.MULTISEND ? (multisendCount - 1) * MULTISEND_FEE_DELTA : 0;
-    // coin symbol extra fee, value in units (not in base coin)
-    const coinSymbolFee = txType === TX_TYPE.CREATE_COIN ? getCoinSymbolFee(coinSymbol, coinSymbolLength) : 0;
-    return (baseUnits + payloadLength * 2 + multisendExtraCountFee + coinSymbolFee) / COIN_UNIT_PART;
+        if (txType === TX_TYPE.MULTISEND && !(multisendCount >= 1)) {
+            throw new Error('`multisendCount` should be positive integer when tx type is TX_TYPE.MULTISEND');
+        }
+
+        if (Buffer.isBuffer(payload)) {
+            payloadLength = payload.length;
+        } else if (payload) {
+            payloadLength = getBinarySize(payload.toString());
+        }
+
+        const baseFee = this.baseFeeList[txType];
+        // multisend fee = base fee + extra fee based on count
+        const multisendExtraCountFee = txType === TX_TYPE.MULTISEND ? new Big(multisendCount - 1).times(this.multisendRecipientFee) : 0;
+        // coin symbol extra fee
+        const tickerLengthFee = txType === TX_TYPE.CREATE_COIN || txType === TX_TYPE.CREATE_TOKEN ? this.getCoinSymbolFee(coinSymbol, coinSymbolLength) : 0;
+        const payloadFee = new Big(this.payloadByteFee).times(payloadLength);
+
+        return convertFromPip(new Big(baseFee).plus(payloadFee).plus(multisendExtraCountFee).plus(tickerLengthFee));
+    };
+
+    /**
+     * @param {string} [ticker]
+     * @param {number} [length]
+     * @return {number|string} - value in pip
+     */
+    this.getCoinSymbolFee = (ticker, length) => {
+        length = ticker ? ticker.length : length;
+        if (!isValidLength(length)) {
+            length = 7;
+        }
+        return this.tickerFeeList[length];
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping, no-shadow
+        function isValidLength(length) {
+            return length >= 3 && length <= 7;
+        }
+    };
 }
 
-//
 /**
- * @param {string} ticker
- * @param {number} [length]
- * @return {number} - value in base coin (not in units)
+ * @typedef {Object} TickerFeeLest
+ * @type {{'3': number|string, '4': number|string, '5': number|string, '6': number|string, '7': number|string}}
  */
-export function getCoinSymbolFee(ticker, length) {
-    if (!length) {
-        length = ticker?.length;
-    }
-    if (!isValidLength(length)) {
-        length = 7;
-    }
-    return COIN_SYMBOL_FEES[length];
-
-    // eslint-disable-next-line unicorn/consistent-function-scoping, no-shadow
-    function isValidLength(length) {
-        return length >= 3 && length <= 7;
-    }
-}
-
-// value in units (not in base coin)
-// @See https://github.com/MinterTeam/minter-go-node/blob/master/core/transaction/create_coin.go#L93
-export const COIN_SYMBOL_FEES = {
-    3: 1_000_000_000,
-    4: 100_000_000,
-    5: 10_000_000,
-    6: 1_000_000,
-    7: 100_000,
-};
-
-export const MULTISEND_FEE_DELTA = 5;
 
 /**
- * Tx fees in units
- * @type {{string: number}}
+ * @typedef {Object} BaseFeeList
+ * @type {{TX_TYPE: number|string}}
  */
-export const BASE_FEES = {
-    [TX_TYPE.SEND]: 10,
-    [TX_TYPE.SELL]: 100,
-    [TX_TYPE.SELL_ALL]: 100, // same as SELL
-    [TX_TYPE.BUY]: 100, // same as SELL
-    [TX_TYPE.CREATE_COIN]: 0,
-    [TX_TYPE.DECLARE_CANDIDACY]: 10000,
-    [TX_TYPE.DELEGATE]: 200,
-    [TX_TYPE.UNBOND]: 200, // same as DELEGATE
-    [TX_TYPE.REDEEM_CHECK]: 30, // SEND * 3
-    [TX_TYPE.SET_CANDIDATE_ON]: 100,
-    [TX_TYPE.SET_CANDIDATE_OFF]: 100,
-    [TX_TYPE.CREATE_MULTISIG]: 100,
-    [TX_TYPE.MULTISEND]: 10, // 10+(n-1)*5 units
-    [TX_TYPE.EDIT_CANDIDATE]: 10000,
-    [TX_TYPE.SET_HALT_BLOCK]: 1000,
-    [TX_TYPE.RECREATE_COIN]: 10000000,
-    [TX_TYPE.EDIT_COIN_OWNER]: 10000000,
-    [TX_TYPE.EDIT_MULTISIG]: 1000,
-    [TX_TYPE.PRICE_VOTE]: 10,
-    [TX_TYPE.EDIT_CANDIDATE_PUBLIC_KEY]: 100000000,
-    [TX_TYPE.ADD_LIQUIDITY]: 100,
-    [TX_TYPE.REMOVE_LIQUIDITY]: 100,
-    [TX_TYPE.SELL_SWAP_POOL]: 100, // same as SELL
-    [TX_TYPE.BUY_SWAP_POOL]: 100, // same as SELL
-    [TX_TYPE.SELL_ALL_SWAP_POOL]: 100, // same as SELL
-    [TX_TYPE.EDIT_CANDIDATE_COMMISSION]: 10000,
-    [TX_TYPE.MOVE_STAKE]: 200, // DELEGATE * 3
-    [TX_TYPE.MINT_TOKEN]: 100, // same as SELL
-    [TX_TYPE.BURN_TOKEN]: 100, // same as SELL
-    [TX_TYPE.CREATE_TOKEN]: 0, // same as CREATE_COIN
-    [TX_TYPE.RECREATE_TOKEN]: 10000000, // same as RECREATE_COIN
-};

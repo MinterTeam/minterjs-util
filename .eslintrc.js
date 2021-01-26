@@ -62,6 +62,8 @@ module.exports = {
       }
     }],
     'import/extensions': ['error', 'always', {ignorePackages: true} ],
+    // named exports are not bad
+    'import/prefer-default-export': 0,
   },
   overrides: [
     {

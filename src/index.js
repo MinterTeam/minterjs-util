@@ -4,7 +4,7 @@ import {convert, convertFromPip, convertToPip, numberToBig, numToBig} from './co
 import {
     mPrefixToHex, mPrefixStrip, mToBuffer, toBuffer, addressToString, checkToString, privateToAddressString, isMinterPrefixed, isValidAddress, isValidCheck, isValidTransaction, isValidPublicKeyString,
 } from './prefix.js';
-import {getFeeValue, BASE_FEES} from './fee.js';
+import {BaseCoinFee} from './fee.js';
 import {
     sellCoin, sellCoinByBip, buyCoin, buyCoinByCoin,
 } from './coin-math.js';
@@ -33,7 +33,7 @@ export {
     isValidTransaction,
     isValidPublicKeyString,
     isValidPublic,
-    getFeeValue,
+    BaseCoinFee,
     sellCoin,
     sellCoinByBip,
     buyCoin,
@@ -43,7 +43,6 @@ export {
     TX_TYPE,
     txTypeList,
     normalizeTxType,
-    BASE_FEES,
     COIN_MAX_AMOUNT,
     COIN_MAX_MAX_SUPPLY,
     COIN_MIN_MAX_SUPPLY,

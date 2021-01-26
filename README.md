@@ -25,20 +25,24 @@ or from browser
 <script src="https://unpkg.com/minterjs-util"></script>
 <script>
 const pips = minterUtil.convertFromPip(1);
-const fee = minterUtil.getFeeValue('0x01');
+const fee = (new minterUtil.BaseCoinFee({/* ... */})).getFeeValue('0x01');
 </script>
 ```
 
-### getFeeValue()
+### BaseCoinFee.getFeeValue()
 Params:
 - txType: number or string, tx type
 - options: object
 - options.payload: string or Buffer, tx payload
+- options.payloadLength: number, length of payload
 - options.coinSymbol: string, coin symbol if tx is coin creation (can be replaced with `coinSymbolLength`)
 - options.coinSymbolLength: number, coin symbol length if tx is coin creation (can be replaced with `coinSymbol`)
 - options.multisendCount: number, count of recipients if tx is multisend
+
+Full example: [github.com/MinterTeam/minterjs-util/blob/master/test/fee.test.js](https://github.com/MinterTeam/minterjs-util/blob/master/test/fee.test.js)
 ```
-import { getFeeValue, TX_TYPE } from 'minterjs-util';
+import { BaseCoinFee, TX_TYPE } from 'minterjs-util';
+const getFeeValue = (new BaseCoinFee({/* ... */})).getFeeValue;
 
 getFeeValue(1);
 // 0.01

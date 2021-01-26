@@ -1,7 +1,7 @@
 import {padToEven} from 'ethjs-util';
 
 /**
- * @enum {string}
+ * @enum {string} TX_TYPE
  */
 export const TX_TYPE = {
     SEND: '0x01',
@@ -20,7 +20,7 @@ export const TX_TYPE = {
     EDIT_CANDIDATE: '0x0E',
     SET_HALT_BLOCK: '0x0F',
     RECREATE_COIN: '0x10',
-    EDIT_COIN_OWNER: '0x11',
+    EDIT_TICKER_OWNER: '0x11',
     EDIT_MULTISIG: '0x12',
     PRICE_VOTE: '0x13',
     EDIT_CANDIDATE_PUBLIC_KEY: '0x14',
@@ -29,12 +29,14 @@ export const TX_TYPE = {
     SELL_SWAP_POOL: '0x17',
     BUY_SWAP_POOL: '0x18',
     SELL_ALL_SWAP_POOL: '0x19',
-    EDIT_CANDIDATE_COMMISSION: '0x20',
-    MOVE_STAKE: '0x21',
-    MINT_TOKEN: '0x22',
-    BURN_TOKEN: '0x23',
-    CREATE_TOKEN: '0x24',
-    RECREATE_TOKEN: '0x25',
+    EDIT_CANDIDATE_COMMISSION: '0x1A',
+    MOVE_STAKE: '0x1B',
+    MINT_TOKEN: '0x1C',
+    BURN_TOKEN: '0x1D',
+    CREATE_TOKEN: '0x1E',
+    RECREATE_TOKEN: '0x1F',
+    PRICE_COMMISSION: '0x20',
+    UPDATE_NETWORK: '0x21',
 };
 
 /** @type {Array<{hex: string, name: string, number: number}>} */
@@ -71,7 +73,7 @@ fillList(TX_TYPE.MULTISEND, 'multisend');
 fillList(TX_TYPE.EDIT_CANDIDATE, 'edit candidate');
 fillList(TX_TYPE.SET_HALT_BLOCK, 'set halt block');
 fillList(TX_TYPE.RECREATE_COIN, 'recreate coin');
-fillList(TX_TYPE.EDIT_COIN_OWNER, 'edit coin owner');
+fillList(TX_TYPE.EDIT_TICKER_OWNER, 'edit ticker owner');
 fillList(TX_TYPE.EDIT_MULTISIG, 'edit multisig');
 fillList(TX_TYPE.PRICE_VOTE, 'price vote');
 fillList(TX_TYPE.EDIT_CANDIDATE_PUBLIC_KEY, 'edit candidate public key');
@@ -86,6 +88,8 @@ fillList(TX_TYPE.MINT_TOKEN, 'mint token');
 fillList(TX_TYPE.BURN_TOKEN, 'burn token');
 fillList(TX_TYPE.CREATE_TOKEN, 'create token');
 fillList(TX_TYPE.RECREATE_TOKEN, 'recreate token');
+fillList(TX_TYPE.PRICE_COMMISSION, 'PRICE_COMMISSION');
+fillList(TX_TYPE.UPDATE_NETWORK, 'UPDATE_NETWORK');
 
 export {txTypeList};
 

@@ -1,5 +1,8 @@
 ## WIP
-- add v2.0 tx types and fees
+- add v2.0 tx types
+- **BREAKING** fee module now designed as constructor, which accepts current network fee values and returns instance with method `getFeeValue`
+- add `payloadLength` param to `getFeeValue`
+- **BREAKING** TX_TYPE.EDIT_COIN_OWNER renamed to TX_TYPE.EDIT_TICKER_OWNER
 
 ## 0.20.0 - 2020.12.30
 - **BREAKING** change fee calculation for Create Coin tx (now it depends on unit value)
