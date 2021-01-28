@@ -12,7 +12,7 @@ const DECIMALS = 18;
  * @param {'hex'} [format]
  * @return {string}
  */
-function convert(num, to, format) {
+export function convert(num, to, format) {
     if (to === 'bip' && format === 'hex') {
         throw new Error('Converting from pip to hex format doesn\'t supported');
     }
@@ -42,7 +42,7 @@ function convert(num, to, format) {
  * @param {'hex'} [format]
  * @return {string}
  */
-function convertToPip(num, format) {
+export function convertToPip(num, format) {
     return convert(num, 'pip', format);
 }
 
@@ -51,7 +51,7 @@ function convertToPip(num, format) {
  * @param {number,string,Big} num
  * @return {string}
  */
-function convertFromPip(num) {
+export function convertFromPip(num) {
     return convert(num, 'bip');
 }
 
@@ -88,20 +88,3 @@ export function numberToBig(num) {
 
     return new Big(num);
 }
-
-/**
- * @deprecated
- * @type {function((number|string|Big)): Big}
- */
-export const numToBig = numberToBig;
-
-/**
- * @deprecated
- */
-export default {
-    convert,
-    bipToPip: convertToPip,
-    pipToBip: convertFromPip,
-};
-
-export {convert, convertToPip, convertFromPip};
