@@ -36,7 +36,7 @@ export const TX_TYPE = {
     CREATE_TOKEN: '0x1E',
     RECREATE_TOKEN: '0x1F',
     VOTE_COMMISSION: '0x20',
-    VOTE_NETWORK: '0x21',
+    VOTE_UPDATE: '0x21',
     CREATE_SWAP_POOL: '0x22',
 };
 
@@ -90,7 +90,7 @@ fillList(TX_TYPE.BURN_TOKEN, 'burn token');
 fillList(TX_TYPE.CREATE_TOKEN, 'create token');
 fillList(TX_TYPE.RECREATE_TOKEN, 'recreate token');
 fillList(TX_TYPE.VOTE_COMMISSION, 'vote for commission price');
-fillList(TX_TYPE.VOTE_NETWORK, 'vote for network update');
+fillList(TX_TYPE.VOTE_UPDATE, 'vote for network update');
 fillList(TX_TYPE.CREATE_SWAP_POOL, 'create swap pool');
 
 export {txTypeList};
