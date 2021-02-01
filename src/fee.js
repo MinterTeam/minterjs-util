@@ -1,6 +1,6 @@
 import Big from 'big.js';
 import {getBinarySize} from 'ethjs-util';
-import {TX_TYPE, normalizeTxType} from './tx-types.js';
+import {TX_TYPE, normalizeTxType, txTypeList} from './tx-types.js';
 import {convertFromPip} from './converter.js';
 
 /**
@@ -33,12 +33,13 @@ export function BaseCoinFee({baseFeeList, tickerFeeList, payloadByteFee, multise
     this.multisendRecipientFee = multisendRecipientFee;
 
     /**
-     * @param txType
-     * @param {string|Buffer} [payload]
-     * @param {number} [payloadLength]
-     * @param {string} [coinSymbol]
-     * @param {number} [coinSymbolLength]
-     * @param {number} [multisendCount]
+     * @param {TX_TYPE} txType
+     * @param {Object} [options]
+     * @param {string|Buffer} [options.payload]
+     * @param {number} [options.payloadLength]
+     * @param {string} [options.coinSymbol]
+     * @param {number} [options.coinSymbolLength]
+     * @param {number} [options.multisendCount]
      * @return {number|string}
      */
     this.getFeeValue = (txType, {payload, payloadLength = 0, coinSymbol, coinSymbolLength, multisendCount} = {}) => {
@@ -55,7 +56,11 @@ export function BaseCoinFee({baseFeeList, tickerFeeList, payloadByteFee, multise
             payloadLength = getBinarySize(payload.toString());
         }
 
-        const baseFee = this.baseFeeList[txType];
+        let baseFee = this.baseFeeList[txType];
+        if ((typeof baseFee !== 'number' && typeof baseFee !== 'string') || (typeof baseFee === 'string' && baseFee.length === 0)) {
+            console.warn(`No commission price specified for ${txType} tx type (${txTypeList[Number(txType)].name})`);
+            baseFee = 0;
+        }
         // multisend fee = base fee + extra fee based on count
         const multisendExtraCountFee = txType === TX_TYPE.MULTISEND ? new Big(multisendCount - 1).times(this.multisendRecipientFee) : 0;
         // coin symbol extra fee
