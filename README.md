@@ -44,9 +44,6 @@ Full example: [github.com/MinterTeam/minterjs-util/blob/master/test/fee.test.js]
 import { BaseCoinFee, TX_TYPE } from 'minterjs-util';
 const getFeeValue = (new BaseCoinFee({/* ... */})).getFeeValue;
 
-getFeeValue(1);
-// 0.01
-
 getFeeValue(TX_TYPE.SEND);
 // 0.01
 
@@ -59,7 +56,7 @@ getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'ABCDEFG'});
 getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbolLength: 6});
 // 100000
 
-getFeeValue(TX_TYPE.MULTISEND, {multisendCount: 5});
+getFeeValue(TX_TYPE.MULTISEND, {deltaItemCount: 5});
 // 0.035
 ```
 

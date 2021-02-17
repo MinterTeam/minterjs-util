@@ -44,17 +44,22 @@ export function BaseCoinFee(commissionPriceData) {
         }
 
         let baseFee = this.baseFeeList[txType];
-        if ((typeof baseFee !== 'number' && typeof baseFee !== 'string') || (typeof baseFee === 'string' && baseFee.length === 0)) {
-            console.warn(`No commission price specified for ${txType} tx type (${txTypeList[Number(txType)].name})`);
+        if (isFeeInvalid(baseFee)) {
+            console.warn(`No base commission price specified for ${txType} tx type (${txTypeList[Number(txType)].name})`);
             baseFee = 0;
         }
+        let deltaFee = this.deltaFeeList[txType];
+        if (isDeltaType && isFeeInvalid(deltaFee)) {
+            console.warn(`No delta commission price specified for ${txType} tx type (${txTypeList[Number(txType)].name})`);
+            deltaFee = 0;
+        }
         // extra fee based on count
-        const deltaExtraFee = isDeltaType ? new Big(deltaItemCount - 1).times(this.deltaFeeList[txType]) : 0;
+        const deltaTotalFee = isDeltaType ? new Big(deltaItemCount - 1).times(deltaFee) : 0;
         // coin symbol extra fee
         const tickerLengthFee = txType === TX_TYPE.CREATE_COIN || txType === TX_TYPE.CREATE_TOKEN ? this.getCoinSymbolFee(coinSymbol, coinSymbolLength) : 0;
         const payloadFee = new Big(this.payloadByteFee).times(payloadLength);
 
-        return convertFromPip(new Big(baseFee).plus(payloadFee).plus(deltaExtraFee).plus(tickerLengthFee));
+        return convertFromPip(new Big(baseFee).plus(payloadFee).plus(deltaTotalFee).plus(tickerLengthFee));
     };
 
     /**
@@ -74,6 +79,10 @@ export function BaseCoinFee(commissionPriceData) {
             return length >= 3 && length <= 7;
         }
     };
+}
+
+function isFeeInvalid(fee) {
+    return (typeof fee !== 'number' && typeof fee !== 'string') || (typeof fee === 'string' && fee.length === 0);
 }
 
 /**
