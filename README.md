@@ -25,11 +25,11 @@ or from browser
 <script src="https://unpkg.com/minterjs-util"></script>
 <script>
 const pips = minterUtil.convertFromPip(1);
-const fee = (new minterUtil.BaseCoinFee({/* ... */})).getFeeValue('0x01');
+const fee = (new minterUtil.FeePrice({/* ... */})).getFeeValue('0x01');
 </script>
 ```
 
-### BaseCoinFee.getFeeValue()
+### FeePrice.getFeeValue()
 Params:
 - txType: number or string, tx type
 - options: object
@@ -41,8 +41,8 @@ Params:
 
 Full example: [github.com/MinterTeam/minterjs-util/blob/master/test/fee.test.js](https://github.com/MinterTeam/minterjs-util/blob/master/test/fee.test.js)
 ```
-import { BaseCoinFee, TX_TYPE } from 'minterjs-util';
-const getFeeValue = (new BaseCoinFee({/* ... */})).getFeeValue;
+import { FeePrice, TX_TYPE } from 'minterjs-util';
+const getFeeValue = (new FeePrice({/* ... */})).getFeeValue;
 
 getFeeValue(TX_TYPE.SEND);
 // 0.01

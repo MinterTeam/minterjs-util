@@ -1,4 +1,4 @@
-import { BaseCoinFee, TX_TYPE } from '~/src';
+import { FeePrice, TX_TYPE } from '~/src';
 
 const commissionData = {
     coin: {id: '0', symbol: 'MNT'},
@@ -49,11 +49,11 @@ const commissionData = {
 };
 
 describe('getFeeValue', () => {
-    const baseCoinFee = new BaseCoinFee(commissionData);
+    const feePrice = new FeePrice(commissionData);
 
     function getFeeValue() {
         // eslint-disable-next-line prefer-rest-params
-        return parseFloat(baseCoinFee.getFeeValue(...arguments));
+        return parseFloat(feePrice.getFeeValue(...arguments));
     }
 
     test('number tx type', () => {

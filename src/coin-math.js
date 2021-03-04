@@ -1,7 +1,7 @@
 import Big from 'big.js';
 
 /**
- * Sell COIN, calculate received BIP
+ * Bancor sell COIN, calculate received BIP
  * @param {Coin} coin
  * @param {number} coinAmount - sell COIN
  * @return {string} - get BIP
@@ -16,7 +16,7 @@ export function sellCoin(coin, coinAmount) {
 }
 
 /**
- * Sell COIN, calculate needed COIN
+ * Bancor sell COIN, calculate needed COIN
  * @param {Coin} coin
  * @param {number} bipAmount - get BIP
  * @return {string} - sell COIN
@@ -31,7 +31,7 @@ export function sellCoinByBip(coin, bipAmount) {
 }
 
 /**
- * Buy COIN, calculate received COIN
+ * Bancor buy COIN, calculate received COIN
  * @param {Coin} coin
  * @param {number} bipAmount - pay BIP
  * @return {string} - get COIN
@@ -45,7 +45,7 @@ export function buyCoin(coin, bipAmount) {
 }
 
 /**
- * Buy COIN, calculate needed BIP
+ * Bancor buy COIN, calculate needed BIP
  * @param {Coin} coin
  * @param coinAmount - get COIN
  * @return {string} - pay BIP

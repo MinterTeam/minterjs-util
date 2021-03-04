@@ -10,7 +10,7 @@ import {convertFromPip} from './converter.js';
  * @param {CommissionPriceData} commissionPriceData
  * @constructor
  */
-export function BaseCoinFee(commissionPriceData) {
+export function FeePrice(commissionPriceData) {
     const {baseFeeList, deltaFeeList, tickerFeeList, payloadByteFee} = mapApiData(commissionPriceData);
 
     this.baseFeeList = baseFeeList;
@@ -206,12 +206,12 @@ function mapApiData(data) {
  * @property {string|number} set_halt_block
  * @property {string|number} edit_ticker_owner
  * @property {string|number} edit_multisig
- * @property {string|number} price_vote
+ * @property {string|number} [price_vote]
  * @property {string|number} edit_candidate_public_key
  * @property {string|number} add_liquidity
  * @property {string|number} remove_liquidity
  * @property {string|number} edit_candidate_commission
- * @property {string|number} move_stake
+ * @property {string|number} [move_stake]
  * @property {string|number} mint_token
  * @property {string|number} burn_token
  * @property {string|number} vote_commission
