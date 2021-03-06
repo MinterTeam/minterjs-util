@@ -20,12 +20,7 @@ export function FeePrice(commissionPriceData) {
 
     /**
      * @param {TX_TYPE} txType
-     * @param {Object} [options]
-     * @param {string|Buffer} [options.payload]
-     * @param {number} [options.payloadLength]
-     * @param {string} [options.coinSymbol]
-     * @param {number} [options.coinSymbolLength]
-     * @param {number} [options.deltaItemCount]
+     * @param {FeePriceOptions} [options]
      * @return {number|string}
      */
     this.getFeeValue = (txType, {payload, payloadLength = 0, coinSymbol, coinSymbolLength, deltaItemCount} = {}) => {
@@ -84,6 +79,15 @@ export function FeePrice(commissionPriceData) {
 function isFeeInvalid(fee) {
     return (typeof fee !== 'number' && typeof fee !== 'string') || (typeof fee === 'string' && fee.length === 0);
 }
+
+/**
+ * @typedef {Object} FeePriceOptions
+ * @param {string|Buffer} [payload]
+ * @param {number} [payloadLength]
+ * @param {string} [coinSymbol]
+ * @param {number} [coinSymbolLength]
+ * @param {number} [deltaItemCount]
+ */
 
 /**
  * @typedef {Object} TickerFeeList

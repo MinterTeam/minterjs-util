@@ -61,4 +61,23 @@ describe('converter', () => {
         const bips = '123asd';
         expect(() => convert(bips, 'pip')).toThrow();
     });
+
+    test('rounding to nearest even', () => {
+        expect(convert('0.000000000000000011', 'pip')).toEqual('11');
+        expect(convert('0.000000000000000012', 'pip')).toEqual('12');
+        expect(convert('0.0000000000000000111', 'pip')).toEqual('12');
+        expect(convert('0.0000000000000000115', 'pip')).toEqual('12');
+        expect(convert('0.0000000000000000119', 'pip')).toEqual('12');
+        expect(convert('0.0000000000000000121', 'pip')).toEqual('12');
+        expect(convert('0.0000000000000000125', 'pip')).toEqual('12');
+        expect(convert('0.0000000000000000129', 'pip')).toEqual('12');
+        expect(convert('0.000000000000000013', 'pip')).toEqual('13');
+        expect(convert('0.0000000000000000131', 'pip')).toEqual('14');
+
+        expect(convert('0.1', 'bip')).toEqual('0');
+        expect(convert('0.9', 'bip')).toEqual('0');
+        expect(convert('1', 'bip')).toEqual('0.000000000000000001');
+        expect(convert('1.1', 'bip')).toEqual('0.000000000000000002');
+        expect(convert('1.9', 'bip')).toEqual('0.000000000000000002');
+    });
 });
