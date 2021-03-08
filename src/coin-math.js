@@ -1,5 +1,7 @@
 import Big from 'big.js';
 
+Big.RM = 2;
+
 /**
  * Bancor sell COIN, calculate received BIP
  * @param {Coin} coin

@@ -6,7 +6,7 @@ import {padToEven} from 'ethjs-util';
 
 // use ROUND_HALF_EVEN to align with blockchain rounding
 // Rounds towards nearest neighbour. If equidistant, rounds towards even neighbour.
-// Big.RM = 2;
+Big.RM = 2;
 const DECIMALS = 18;
 
 /**
@@ -26,14 +26,14 @@ export function convert(num, to, format) {
 
     let result;
     if (to === 'pip') {
-        result = roundToEven(numBig.times(pow), 0);
+        result = numBig.times(pow).toFixed(0);
         if (format === 'hex') {
             return padToEven(new BN(result, 10).toString(16));
         } else {
             return result;
         }
     } else if (to === 'bip') {
-        return roundToEven(numBig.div(pow));
+        return numBig.round().div(pow).toFixed();
     } else {
         throw new Error('Unknown type');
     }
@@ -90,34 +90,4 @@ export function numberToBig(num) {
     // }
 
     return new Big(num);
-}
-
-/**
- * Round-to-even
- * It is used to align with blockchain rounding
- * @param {Big} value The number to round-to-even
- * @param {number} decimals The number of decimals in base10 to round the number at.
- * @return {string}
- */
-export function roundToEven(value, decimals = DECIMALS) {
-    if (isRounded(value, decimals)) {
-        // already rounded
-        return value.toFixed();
-    }
-    const power = new Big(10).pow(decimals);
-    const result = value.times(power).div(2).round().times(2)
-        .div(power);
-
-    return result.toFixed();
-}
-
-/**
- *
- * @param {Big} value
- * @param {number} decimals
- * @return {boolean}
- */
-function isRounded(value, decimals) {
-    const decimalPart = value.toFixed().split('.')[1];
-    return !decimalPart || decimalPart.length <= decimals;
 }

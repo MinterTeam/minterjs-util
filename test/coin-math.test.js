@@ -3,6 +3,8 @@ import {
     sellCoin, sellCoinByBip, buyCoin, buyCoinByCoin,
 } from '~/src';
 
+Big.RM = 2;
+
 describe('coin math', () => {
     test('sellCoin', () => {
         expect(new Big(sellCoin({supply: 100, reserve: 1000, crr: 0.1}, 1)).toFixed(12)).toEqual('95.617924991196');
@@ -44,7 +46,7 @@ describe('coin math', () => {
     });
 
     test('buyCoinByCoin', () => {
-        expect(new Big(buyCoinByCoin({supply: 100, reserve: 1000, crr: 0.1}, 1)).toFixed(12)).toEqual('104.622125411205');
+        expect(new Big(buyCoinByCoin({supply: 100, reserve: 1000, crr: 0.1}, 1)).toFixed(12)).toEqual('104.622125411204');
     });
     test('buyCoinByCoin crr 0', () => {
         expect(buyCoinByCoin({supply: 100, reserve: 1000, crr: 0}, 1)).toEqual('0');

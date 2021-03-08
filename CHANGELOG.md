@@ -5,7 +5,7 @@
 - add `roundToEven` method
 - **BREAKING** TX_TYPE.EDIT_COIN_OWNER renamed to TX_TYPE.EDIT_TICKER_OWNER
 - **BREAKING** remove deprecated `numToBig` and default export from converter module, use `numberToBig` and named exports instead
-- **BREAKING** converter now rounds to nearest even
+- **BREAKING** converter and coin-math now rounds to half even
 
 ## 0.20.0 - 2020.12.30
 - **BREAKING** change fee calculation for Create Coin tx (now it depends on unit value)
