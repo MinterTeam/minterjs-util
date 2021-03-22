@@ -151,9 +151,9 @@ function mapApiData(data) {
     };
     const deltaFeeList = {
         [TX_TYPE.MULTISEND]: data.multisend_delta,
-        [TX_TYPE.SELL_SWAP_POOL]: data.sell_pool_base,
-        [TX_TYPE.BUY_SWAP_POOL]: data.buy_pool_base,
-        [TX_TYPE.SELL_ALL_SWAP_POOL]: data.sell_all_pool_base,
+        [TX_TYPE.SELL_SWAP_POOL]: data.sell_pool_delta,
+        [TX_TYPE.BUY_SWAP_POOL]: data.buy_pool_delta,
+        [TX_TYPE.SELL_ALL_SWAP_POOL]: data.sell_all_pool_delta,
     };
 
     return {

@@ -4,7 +4,7 @@ Big.RM = 2;
 
 /**
  * Bancor sell COIN, calculate received BIP
- * @param {Coin} coin
+ * @param {BancorCoinParams} coin
  * @param {number} coinAmount - sell COIN
  * @return {string} - get BIP
  */
@@ -19,7 +19,7 @@ export function sellCoin(coin, coinAmount) {
 
 /**
  * Bancor sell COIN, calculate needed COIN
- * @param {Coin} coin
+ * @param {BancorCoinParams} coin
  * @param {number} bipAmount - get BIP
  * @return {string} - sell COIN
  */
@@ -34,7 +34,7 @@ export function sellCoinByBip(coin, bipAmount) {
 
 /**
  * Bancor buy COIN, calculate received COIN
- * @param {Coin} coin
+ * @param {BancorCoinParams} coin
  * @param {number} bipAmount - pay BIP
  * @return {string} - get COIN
  */
@@ -48,7 +48,7 @@ export function buyCoin(coin, bipAmount) {
 
 /**
  * Bancor buy COIN, calculate needed BIP
- * @param {Coin} coin
+ * @param {BancorCoinParams} coin
  * @param coinAmount - get COIN
  * @return {string} - pay BIP
  */
@@ -61,7 +61,7 @@ export function buyCoinByCoin(coin, coinAmount) {
 }
 
 /**
- * @param {Coin} coin
+ * @param {BancorCoinParams} coin
  * @return {boolean}
  */
 function isCoinValid(coin) {
@@ -73,7 +73,7 @@ function one() {
 }
 
 /**
- * @typedef {Object} Coin
+ * @typedef {Object} BancorCoinParams
  * @property {number|null} supply
  * @property {number|null} crr
  * @property {number|null} reserve - from 0 to 1
