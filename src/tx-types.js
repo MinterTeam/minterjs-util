@@ -72,7 +72,7 @@ fillList(TX_TYPE.SET_CANDIDATE_OFF, 'set candidate off');
 fillList(TX_TYPE.CREATE_MULTISIG, 'create multisig');
 fillList(TX_TYPE.MULTISEND, 'multisend');
 fillList(TX_TYPE.EDIT_CANDIDATE, 'edit candidate');
-fillList(TX_TYPE.SET_HALT_BLOCK, 'set halt block');
+fillList(TX_TYPE.SET_HALT_BLOCK, 'vote for halt block');
 fillList(TX_TYPE.RECREATE_COIN, 'recreate coin');
 fillList(TX_TYPE.EDIT_TICKER_OWNER, 'edit ticker owner');
 fillList(TX_TYPE.EDIT_MULTISIG, 'edit multisig');

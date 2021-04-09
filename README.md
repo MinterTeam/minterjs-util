@@ -11,9 +11,7 @@ Please note that this package is under active development and is subject to chan
 
 It is complemented by the following packages:
 - [minter-js-sdk](https://github.com/MinterTeam/minter-js-sdk) complete JS solution to work with Minter
-- [minter-js-org](https://github.com/MinterTeam/minter-js-org) communicate with minter.org user database
-- [minterjs-wallet](https://github.com/MinterTeam/minterjs-wallet) to create wallet
-- [minterjs-tx](https://github.com/MinterTeam/minterjs-tx) to create, manipulate and sign Minter transactions.
+- [minterjs-wallet](https://github.com/MinterTeam/minterjs-wallet) take care of BIP39 mnemonic phrase, private key and address
 
 ## Install
 
