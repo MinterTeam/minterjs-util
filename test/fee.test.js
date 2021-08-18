@@ -46,6 +46,8 @@ const commissionData = {
     burn_token: '10000000000000000000',
     vote_commission: '100000000000000000000',
     vote_update: '100000000000000000000',
+    add_limit_order: '100000000000000000000',
+    remove_limit_order: '100000000000000000000',
 };
 
 describe('getFeeValue', () => {

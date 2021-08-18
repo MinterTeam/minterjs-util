@@ -38,6 +38,8 @@ export const TX_TYPE = {
     VOTE_COMMISSION: '0x20',
     VOTE_UPDATE: '0x21',
     CREATE_SWAP_POOL: '0x22',
+    ADD_LIMIT_ORDER: '0x23',
+    REMOVE_LIMIT_ORDER: '0x24',
 };
 
 /** @type {Array<{hex: string, name: string, number: number}>} */
@@ -92,6 +94,8 @@ fillList(TX_TYPE.RECREATE_TOKEN, 'recreate token');
 fillList(TX_TYPE.VOTE_COMMISSION, 'vote for commission price');
 fillList(TX_TYPE.VOTE_UPDATE, 'vote for network update');
 fillList(TX_TYPE.CREATE_SWAP_POOL, 'create swap pool');
+fillList(TX_TYPE.ADD_LIMIT_ORDER, 'add limit order');
+fillList(TX_TYPE.REMOVE_LIMIT_ORDER, 'remove limit order');
 
 export {txTypeList};
 

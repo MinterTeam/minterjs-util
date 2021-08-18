@@ -148,6 +148,8 @@ function mapApiData(data) {
         [TX_TYPE.VOTE_COMMISSION]: data.vote_commission,
         [TX_TYPE.VOTE_UPDATE]: data.vote_update,
         [TX_TYPE.CREATE_SWAP_POOL]: data.create_swap_pool,
+        [TX_TYPE.ADD_LIMIT_ORDER]: data.add_limit_order,
+        [TX_TYPE.REMOVE_LIMIT_ORDER]: data.remove_limit_order,
     };
     const deltaFeeList = {
         [TX_TYPE.MULTISEND]: data.multisend_delta,
@@ -221,4 +223,7 @@ function mapApiData(data) {
  * @property {string|number} vote_commission
  * @property {string|number} vote_update
  * @property {string|number} create_swap_pool
+ * @property {string|number} failed_tx
+ * @property {string|number} add_limit_order
+ * @property {string|number} remove_limit_order
  */
