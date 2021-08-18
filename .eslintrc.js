@@ -2,7 +2,7 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   // parserOptions: {
   //   sourceType: 'module'
   // },
@@ -82,11 +82,18 @@ module.exports = {
         // allow lowercase hex number
         'unicorn/number-literal-case': 0,
         'unicorn/prefer-optional-catch-binding': 0,
+        'unicorn/prefer-ternary': 0,
+        // @see https://stackoverflow.com/questions/67263317/how-to-fix-eslint-error-when-using-the-node-protocol-when-importing-node-js-bui
+        // @see https://github.com/import-js/eslint-plugin-import/issues/2031
+        // waiting `node:` to be backported to node@14
+        'unicorn/prefer-node-protocol': 0,
+        // @see https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1463
+        'unicorn/require-number-to-fixed-digits-argument': 0,
         'unicorn/prevent-abbreviations': ['error', {
           replacements: {
             'params': false,
           },
-          whitelist: {
+          allowList: {
             'resData': true,
             'txParams': true,
             'txProps': true,

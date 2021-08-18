@@ -33,6 +33,7 @@ export function convert(num, to, format) {
             return result;
         }
     } else if (to === 'bip') {
+        // eslint-disable-next-line unicorn/require-number-to-fixed-digits-argument
         return numBig.round().div(pow).toFixed();
     } else {
         throw new Error('Unknown type');

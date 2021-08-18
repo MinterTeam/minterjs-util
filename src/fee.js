@@ -40,11 +40,13 @@ export function FeePrice(commissionPriceData) {
 
         let baseFee = this.baseFeeList[txType];
         if (isFeeInvalid(baseFee)) {
+            // eslint-disable-next-line no-console
             console.warn(`No base commission price specified for ${txType} tx type (${txTypeList[Number(txType)].name})`);
             baseFee = 0;
         }
         let deltaFee = this.deltaFeeList[txType];
         if (isDeltaType && isFeeInvalid(deltaFee)) {
+            // eslint-disable-next-line no-console
             console.warn(`No delta commission price specified for ${txType} tx type (${txTypeList[Number(txType)].name})`);
             deltaFee = 0;
         }
