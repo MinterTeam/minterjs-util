@@ -87,6 +87,7 @@ module.exports = {
         // @see https://github.com/import-js/eslint-plugin-import/issues/2031
         // waiting `node:` to be backported to node@14
         'unicorn/prefer-node-protocol': 0,
+        'unicorn/no-array-for-each': 0,
         // @see https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1463
         'unicorn/require-number-to-fixed-digits-argument': 0,
         'unicorn/prevent-abbreviations': ['error', {
