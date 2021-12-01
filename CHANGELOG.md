@@ -1,4 +1,4 @@
-WIP
+## 0.22.0 - 2021.12.01
 - add `add_limit_order`, `remove_limit_order` tx types
 
 ## 0.21.0 - 2021.04.09
