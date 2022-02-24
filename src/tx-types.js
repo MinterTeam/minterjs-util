@@ -40,6 +40,8 @@ export const TX_TYPE = {
     CREATE_SWAP_POOL: '0x22',
     ADD_LIMIT_ORDER: '0x23',
     REMOVE_LIMIT_ORDER: '0x24',
+    LOCK: '0x25',
+    LOCK_STAKE: '0x26',
 };
 
 /** @type {Array<{hex: string, name: string, number: number}>} */
@@ -96,6 +98,8 @@ fillList(TX_TYPE.VOTE_UPDATE, 'vote for network update');
 fillList(TX_TYPE.CREATE_SWAP_POOL, 'create swap pool');
 fillList(TX_TYPE.ADD_LIMIT_ORDER, 'add limit order');
 fillList(TX_TYPE.REMOVE_LIMIT_ORDER, 'remove limit order');
+fillList(TX_TYPE.LOCK, 'lock');
+fillList(TX_TYPE.LOCK_STAKE, 'lock stake');
 
 export {txTypeList};
 
