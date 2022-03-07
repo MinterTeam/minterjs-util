@@ -26,4 +26,7 @@ describe('coinToBuffer', () => {
     test('from uppercase string', () => {
         expect(normalizeTxType('0X0D')).toEqual(TX_TYPE.MULTISEND);
     });
+    test('throw on falsy value', () => {
+        expect(() => normalizeTxType(null)).toThrow(new Error('Invalid tx type: null'));
+    });
 });

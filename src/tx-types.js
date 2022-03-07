@@ -109,6 +109,9 @@ export {txTypeList};
  * @return {TX_TYPE}
  */
 export function normalizeTxType(txType) {
+    if (!txType) {
+        throw new Error(`Invalid tx type: ${txType}`);
+    }
     // Buffer or Uint8Array to TX_TYPE
     if (txType.length > 0 && typeof txType !== 'string') {
         txType = Buffer.from(txType).toString('hex');
