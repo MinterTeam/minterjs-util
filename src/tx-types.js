@@ -44,17 +44,21 @@ export const TX_TYPE = {
     LOCK: '0x26',
 };
 
-/** @type {Array<{hex: string, name: string, number: number}>} */
+// swap: keys <=> values
+const txTypeKeys = Object.fromEntries(Object.entries(TX_TYPE).map(([key, hexValue]) => [hexValue, key]));
+
+/** @type {Array<{hex: string, name: string, number: number, key: string}>} */
 const txTypeList = [];
 
 /**
  * @param hex
- * @param name
+ * @param [name]
  */
 function fillList(hex, name) {
     const result = {};
 
-    result.name = name;
+    result.key = txTypeKeys[hex].toLowerCase();
+    result.name = name || result.key.replace(/_/g, ' ');
     result.number = Number(hex);
     result.hex = hex;
 
@@ -62,44 +66,44 @@ function fillList(hex, name) {
 
     return result;
 }
-fillList(TX_TYPE.SEND, 'send');
-fillList(TX_TYPE.SELL, 'sell');
-fillList(TX_TYPE.SELL_ALL, 'sell all');
-fillList(TX_TYPE.BUY, 'buy');
-fillList(TX_TYPE.CREATE_COIN, 'create coin');
-fillList(TX_TYPE.DECLARE_CANDIDACY, 'declare candidacy');
-fillList(TX_TYPE.DELEGATE, 'delegate');
-fillList(TX_TYPE.UNBOND, 'unbond');
-fillList(TX_TYPE.REDEEM_CHECK, 'redeem check');
-fillList(TX_TYPE.SET_CANDIDATE_ON, 'set candidate on');
-fillList(TX_TYPE.SET_CANDIDATE_OFF, 'set candidate off');
-fillList(TX_TYPE.CREATE_MULTISIG, 'create multisig');
-fillList(TX_TYPE.MULTISEND, 'multisend');
-fillList(TX_TYPE.EDIT_CANDIDATE, 'edit candidate');
+fillList(TX_TYPE.SEND);
+fillList(TX_TYPE.SELL);
+fillList(TX_TYPE.SELL_ALL);
+fillList(TX_TYPE.BUY);
+fillList(TX_TYPE.CREATE_COIN);
+fillList(TX_TYPE.DECLARE_CANDIDACY);
+fillList(TX_TYPE.DELEGATE);
+fillList(TX_TYPE.UNBOND);
+fillList(TX_TYPE.REDEEM_CHECK);
+fillList(TX_TYPE.SET_CANDIDATE_ON);
+fillList(TX_TYPE.SET_CANDIDATE_OFF);
+fillList(TX_TYPE.CREATE_MULTISIG);
+fillList(TX_TYPE.MULTISEND);
+fillList(TX_TYPE.EDIT_CANDIDATE);
 fillList(TX_TYPE.SET_HALT_BLOCK, 'vote for halt block');
-fillList(TX_TYPE.RECREATE_COIN, 'recreate coin');
-fillList(TX_TYPE.EDIT_TICKER_OWNER, 'edit ticker owner');
-fillList(TX_TYPE.EDIT_MULTISIG, 'edit multisig');
-fillList(TX_TYPE.PRICE_VOTE, 'price vote');
-fillList(TX_TYPE.EDIT_CANDIDATE_PUBLIC_KEY, 'edit candidate public key');
+fillList(TX_TYPE.RECREATE_COIN);
+fillList(TX_TYPE.EDIT_TICKER_OWNER);
+fillList(TX_TYPE.EDIT_MULTISIG);
+fillList(TX_TYPE.PRICE_VOTE, 'vote for price');
+fillList(TX_TYPE.EDIT_CANDIDATE_PUBLIC_KEY);
 fillList(TX_TYPE.ADD_LIQUIDITY, 'add liquidity to pool');
 fillList(TX_TYPE.REMOVE_LIQUIDITY, 'remove liquidity from pool');
 fillList(TX_TYPE.SELL_SWAP_POOL, 'sell within pool');
 fillList(TX_TYPE.BUY_SWAP_POOL, 'buy within pool');
 fillList(TX_TYPE.SELL_ALL_SWAP_POOL, 'sell all within pool');
-fillList(TX_TYPE.EDIT_CANDIDATE_COMMISSION, 'edit candidate commission');
-fillList(TX_TYPE.MOVE_STAKE, 'move stake');
-fillList(TX_TYPE.MINT_TOKEN, 'mint token');
-fillList(TX_TYPE.BURN_TOKEN, 'burn token');
-fillList(TX_TYPE.CREATE_TOKEN, 'create token');
-fillList(TX_TYPE.RECREATE_TOKEN, 'recreate token');
+fillList(TX_TYPE.EDIT_CANDIDATE_COMMISSION);
+fillList(TX_TYPE.MOVE_STAKE);
+fillList(TX_TYPE.MINT_TOKEN);
+fillList(TX_TYPE.BURN_TOKEN);
+fillList(TX_TYPE.CREATE_TOKEN);
+fillList(TX_TYPE.RECREATE_TOKEN);
 fillList(TX_TYPE.VOTE_COMMISSION, 'vote for commission price');
 fillList(TX_TYPE.VOTE_UPDATE, 'vote for network update');
-fillList(TX_TYPE.CREATE_SWAP_POOL, 'create swap pool');
-fillList(TX_TYPE.ADD_LIMIT_ORDER, 'add limit order');
-fillList(TX_TYPE.REMOVE_LIMIT_ORDER, 'remove limit order');
-fillList(TX_TYPE.LOCK_STAKE, 'lock stake');
-fillList(TX_TYPE.LOCK, 'lock');
+fillList(TX_TYPE.CREATE_SWAP_POOL);
+fillList(TX_TYPE.ADD_LIMIT_ORDER);
+fillList(TX_TYPE.REMOVE_LIMIT_ORDER);
+fillList(TX_TYPE.LOCK_STAKE);
+fillList(TX_TYPE.LOCK);
 
 export {txTypeList};
 

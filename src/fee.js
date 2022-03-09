@@ -115,44 +115,22 @@ function mapApiData(data) {
         6: data.create_ticker6,
         7: data.create_ticker7_10,
     };
-    const baseFeeList = {
-        [TX_TYPE.SEND]: data.send,
+    const customKeysFeeList = {
         [TX_TYPE.SELL]: data.sell_bancor,
         [TX_TYPE.SELL_ALL]: data.sell_all_bancor,
         [TX_TYPE.BUY]: data.buy_bancor,
-        [TX_TYPE.CREATE_COIN]: data.create_coin,
-        [TX_TYPE.DECLARE_CANDIDACY]: data.declare_candidacy,
-        [TX_TYPE.DELEGATE]: data.delegate,
-        [TX_TYPE.UNBOND]: data.unbond,
-        [TX_TYPE.REDEEM_CHECK]: data.redeem_check,
-        [TX_TYPE.SET_CANDIDATE_ON]: data.set_candidate_on,
-        [TX_TYPE.SET_CANDIDATE_OFF]: data.set_candidate_off,
-        [TX_TYPE.CREATE_MULTISIG]: data.create_multisig,
         [TX_TYPE.MULTISEND]: data.multisend_base,
-        [TX_TYPE.EDIT_CANDIDATE]: data.edit_candidate,
-        [TX_TYPE.SET_HALT_BLOCK]: data.set_halt_block,
-        [TX_TYPE.RECREATE_COIN]: data.recreate_coin,
-        [TX_TYPE.EDIT_TICKER_OWNER]: data.edit_ticker_owner,
-        [TX_TYPE.EDIT_MULTISIG]: data.edit_multisig,
-        [TX_TYPE.PRICE_VOTE]: data.price_vote,
-        [TX_TYPE.EDIT_CANDIDATE_PUBLIC_KEY]: data.edit_candidate_public_key,
-        [TX_TYPE.ADD_LIQUIDITY]: data.add_liquidity,
-        [TX_TYPE.REMOVE_LIQUIDITY]: data.remove_liquidity,
         [TX_TYPE.SELL_SWAP_POOL]: data.sell_pool_base,
         [TX_TYPE.BUY_SWAP_POOL]: data.buy_pool_base,
         [TX_TYPE.SELL_ALL_SWAP_POOL]: data.sell_all_pool_base,
-        [TX_TYPE.EDIT_CANDIDATE_COMMISSION]: data.edit_candidate_commission,
-        [TX_TYPE.MOVE_STAKE]: data.move_stake,
-        [TX_TYPE.MINT_TOKEN]: data.mint_token,
-        [TX_TYPE.BURN_TOKEN]: data.burn_token,
-        [TX_TYPE.CREATE_TOKEN]: data.create_token,
-        [TX_TYPE.RECREATE_TOKEN]: data.recreate_token,
-        [TX_TYPE.VOTE_COMMISSION]: data.vote_commission,
-        [TX_TYPE.VOTE_UPDATE]: data.vote_update,
-        [TX_TYPE.CREATE_SWAP_POOL]: data.create_swap_pool,
-        [TX_TYPE.ADD_LIMIT_ORDER]: data.add_limit_order,
-        [TX_TYPE.REMOVE_LIMIT_ORDER]: data.remove_limit_order,
     };
+    function getBaseFeeForTypeItem(typeItem) {
+        return customKeysFeeList[typeItem.hex] || data[typeItem.key];
+    }
+    const baseFeeListEntries = txTypeList
+        .map((typeItem) => [typeItem.hex, getBaseFeeForTypeItem(typeItem)])
+        .filter((item) => !!item);
+    const baseFeeList = Object.fromEntries(baseFeeListEntries);
     const deltaFeeList = {
         [TX_TYPE.MULTISEND]: data.multisend_delta,
         [TX_TYPE.SELL_SWAP_POOL]: data.sell_pool_delta,
@@ -219,7 +197,7 @@ function mapApiData(data) {
  * @property {string|number} add_liquidity
  * @property {string|number} remove_liquidity
  * @property {string|number} edit_candidate_commission
- * @property {string|number} [move_stake]
+ * @property {string|number} move_stake
  * @property {string|number} mint_token
  * @property {string|number} burn_token
  * @property {string|number} vote_commission
@@ -228,4 +206,6 @@ function mapApiData(data) {
  * @property {string|number} failed_tx
  * @property {string|number} add_limit_order
  * @property {string|number} remove_limit_order
+ * @property {string|number} lock_stake
+ * @property {string|number} lock
  */

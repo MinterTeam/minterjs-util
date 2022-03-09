@@ -48,6 +48,8 @@ const commissionData = {
     vote_update: '100000000000000000000',
     add_limit_order: '100000000000000000000',
     remove_limit_order: '100000000000000000000',
+    lock_stake: '20000000000000000000',
+    lock: '20000000000000000000',
 };
 
 describe('getFeeValue', () => {
@@ -97,9 +99,9 @@ describe('getFeeValue', () => {
     });
 
     test('every tx type has corresponding fee', () => {
-        // expect.assertions(Object.keys(TX_TYPE).length);
-        // Object.keys(TX_TYPE).forEach((txKey) => {
-        //     expect(BASE_FEES[TX_TYPE[txKey]], `${txKey} ${TX_TYPE[txKey]}`).toEqual(expect.anything());
-        // });
+        expect.assertions(Object.keys(TX_TYPE).length);
+        Object.keys(TX_TYPE).forEach((txKey) => {
+            expect(feePrice.baseFeeList[TX_TYPE[txKey]], `${txKey} ${TX_TYPE[txKey]}`).toEqual(expect.anything());
+        });
     });
 });
