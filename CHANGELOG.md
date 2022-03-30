@@ -1,5 +1,7 @@
 ## WIP
 - add `lock` and `lock_stake` tx types
+- **BREAKING** change `isMinterPrefixed` to accept prefix without value
+- **BREAKING** change `coinToBuffer' to accept undefined and treat it as empty string
 
 ## 0.22.0 - 2021.12.01
 - add `add_limit_order`, `remove_limit_order` tx types

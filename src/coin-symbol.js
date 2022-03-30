@@ -1,9 +1,9 @@
 /**
  * Make 10 bytes padded Buffer from coin symbol string
- * @param {string} coinSymbol
+ * @param {string} [coinSymbol='']
  * @returns {Buffer}
  */
-export function coinToBuffer(coinSymbol) {
+export function coinToBuffer(coinSymbol = '') {
     const buf = Buffer.alloc(10);
     Buffer.from(coinSymbol.toUpperCase()).copy(buf, 0, 0, 10);
 

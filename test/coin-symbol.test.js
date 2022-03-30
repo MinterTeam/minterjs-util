@@ -15,6 +15,10 @@ describe('coinToBuffer', () => {
         expect(coinToBuffer('')).toEqual(Buffer.alloc(10));
     });
 
+    test('treat undefined as empty string', () => {
+        expect(coinToBuffer()).toEqual(coinToBuffer(''));
+    });
+
     test('to MNT', () => {
         expect(bufferToCoin(mntBuffer)).toEqual('MNT');
     });

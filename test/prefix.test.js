@@ -31,8 +31,15 @@ describe('prefix', () => {
         expect(privateToAddressString(PRIVATE_KEY)).toEqual('Mx7633980c000139dd3bd24a3f54e06474fa941e16');
     });
 
-    test('isMinterPrefixed', () => {
-        expect(isMinterPrefixed('Mx01')).toEqual(true);
+    describe('isMinterPrefixed', () => {
+        test('works', () => {
+            expect(isMinterPrefixed('Mx01')).toEqual(true);
+            expect(isMinterPrefixed('0x01')).toEqual(false);
+            expect(isMinterPrefixed('01')).toEqual(false);
+        });
+        test('prefix without value', () => {
+            expect(isMinterPrefixed('Mx')).toEqual(true);
+        });
     });
 
     test('isValidPublicKeyString', () => {

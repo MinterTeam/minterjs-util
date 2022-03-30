@@ -74,8 +74,12 @@ export function privateToAddressString(privateKey) {
     return `Mx${ethPrivateToAddress(privateKey).toString('hex')}`;
 }
 
+/**
+ * @param value
+ * @returns {boolean}
+ */
 export function isMinterPrefixed(value) {
-    return /^(Mx|Mp|Mt|Mc|Mh)[0-9a-fA-F]+$/.test(value);
+    return /^(Mx|Mp|Mt|Mc|Mh)[0-9a-fA-F]*$/.test(value);
 }
 
 /**
