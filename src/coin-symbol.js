@@ -22,5 +22,5 @@ export function bufferToCoin(buf) {
     }
     buf = buf.slice(0, sliceEnd);
 
-    return buf.toString('utf-8');
+    return buf.toString('utf8');
 }

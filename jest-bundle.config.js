@@ -12,4 +12,7 @@ module.exports = {
     transformIgnorePatterns: [
         'node_modules/(?!(buffer-es6)/)',
     ],
+    // testEnvironment: 'jsdom',
+    // @see https://github.com/facebook/jest/issues/12586#issuecomment-1073298261
+    testEnvironment: '<rootDir>/jest-env-jsdom-custom.js',
 };
