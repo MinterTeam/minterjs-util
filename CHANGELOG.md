@@ -1,5 +1,6 @@
 ## WIP
 - add `lock` and `lock_stake` tx types
+- add `isDisabled` property to `txTypeList`
 - **BREAKING** change `isMinterPrefixed` to accept prefix without value
 - **BREAKING** change `coinToBuffer' to accept undefined and treat it as empty string
 

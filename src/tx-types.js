@@ -44,15 +44,29 @@ export const TX_TYPE = {
     LOCK: '0x26',
 };
 
+const DISABLED_TYPES = {
+    [TX_TYPE.PRICE_VOTE]: true,
+};
+
 // swap: keys <=> values
 const txTypeKeys = Object.fromEntries(Object.entries(TX_TYPE).map(([key, hexValue]) => [hexValue, key]));
 
-/** @type {Array<{hex: string, name: string, number: number, key: string}>} */
+/**
+ * @typedef {Object} TxTypeItem
+ * @property {TX_TYPE} hex
+ * @property {string} name
+ * @property {number} number
+ * @property {string} key
+ * @property {boolean} isDisabled
+ */
+
+/** @type {Array<TxTypeItem>} */
 const txTypeList = [];
 
 /**
  * @param hex
  * @param [name]
+ * @return {TxTypeItem}
  */
 function fillList(hex, name) {
     const result = {};
@@ -61,6 +75,7 @@ function fillList(hex, name) {
     result.name = name || result.key.replace(/_/g, ' ');
     result.number = Number(hex);
     result.hex = hex;
+    result.isDisabled = !!DISABLED_TYPES[hex];
 
     txTypeList[result.number] = result;
 
