@@ -1,4 +1,4 @@
-## WIP
+## 0.23.0 - 2022.04.12
 - add `lock` and `lock_stake` tx types
 - add `isDisabled` property to `txTypeList`
 - **BREAKING** change `isMinterPrefixed` to accept prefix without value
