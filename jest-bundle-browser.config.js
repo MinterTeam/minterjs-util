@@ -1,7 +1,10 @@
 module.exports = {
+    // testEnvironment: 'jsdom',
+    // @see https://github.com/facebook/jest/issues/12586#issuecomment-1073298261
+    testEnvironment: '<rootDir>/jest-bundle-browser-env.js',
     setupFilesAfterEnv: [
         "jest-expect-message",
-        "<rootDir>/jest-bundle-setup.js",
+        "<rootDir>/jest-bundle-browser-setup.js",
     ],
     moduleNameMapper: {
         '~\/src$': '<rootDir>/dist/index.js',
@@ -12,7 +15,4 @@ module.exports = {
     transformIgnorePatterns: [
         'node_modules/(?!(buffer-es6)/)',
     ],
-    // testEnvironment: 'jsdom',
-    // @see https://github.com/facebook/jest/issues/12586#issuecomment-1073298261
-    testEnvironment: '<rootDir>/jest-env-jsdom-custom.js',
 };

@@ -1,4 +1,4 @@
-import { FeePrice, TX_TYPE } from '~/src';
+import { FeePrice, TX_TYPE, txTypeList } from '~/src';
 
 const commissionData = {
     coin: {id: '0', symbol: 'MNT'},
@@ -52,14 +52,18 @@ const commissionData = {
     lock: '20000000000000000000',
 };
 
+const feePrice = new FeePrice(commissionData);
+/**
+ * @param {TX_TYPE} txType
+ * @param {FeePriceOptions} [options]
+ * @return {number|string}
+ */
+function getFeeValue(txType, options) {
+    // eslint-disable-next-line prefer-rest-params
+    return parseFloat(feePrice.getFeeValue(txType, options));
+}
+
 describe('getFeeValue', () => {
-    const feePrice = new FeePrice(commissionData);
-
-    function getFeeValue() {
-        // eslint-disable-next-line prefer-rest-params
-        return parseFloat(feePrice.getFeeValue(...arguments));
-    }
-
     test('number tx type', () => {
         expect(getFeeValue(1)).toEqual(1);
     });
@@ -84,8 +88,19 @@ describe('getFeeValue', () => {
         expect(getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbolLength: 4})).toEqual(10_000_000);
     });
 
-    test('create coin without coin symbol', () => {
-        expect(getFeeValue(TX_TYPE.CREATE_COIN)).toEqual(10000);
+    test('invalid create coin', () => {
+        expect(() => getFeeValue(TX_TYPE.CREATE_COIN)).toThrow();
+        expect(() => getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'A'})).toThrow();
+        expect(() => getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'AB'})).toThrow();
+        expect(() => getFeeValue(TX_TYPE.CREATE_COIN, {coinSymbol: 'A1234567890'})).toThrow();
+    });
+
+    test('invalid create coin with fallback', () => {
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {fallbackOnInvalidInput: true})).toEqual(10000);
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {fallbackOnInvalidInput: true, coinSymbol: 'A'})).toEqual(10000);
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {fallbackOnInvalidInput: true, coinSymbol: 'AB'})).toEqual(10000);
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {fallbackOnInvalidInput: true, coinSymbol: 'A1234567890'})).toEqual(10000);
+        expect(getFeeValue(TX_TYPE.CREATE_COIN, {fallbackOnInvalidInput: true, coinSymbolLength: 11})).toEqual(10000);
     });
 
     test('multisend', () => {
@@ -94,14 +109,53 @@ describe('getFeeValue', () => {
         expect(getFeeValue(TX_TYPE.MULTISEND, {deltaItemCount: 5})).toEqual(3);
     });
 
-    test('multisend throws without deltaItemCount', () => {
+    test('invalid multisend', () => {
         expect(() => getFeeValue(TX_TYPE.MULTISEND)).toThrow();
+        expect(() => getFeeValue(TX_TYPE.MULTISEND, {deltaItemCount: 0})).toThrow();
     });
 
-    test('every tx type has corresponding fee', () => {
-        expect.assertions(Object.keys(TX_TYPE).length);
-        Object.keys(TX_TYPE).forEach((txKey) => {
-            expect(feePrice.baseFeeList[TX_TYPE[txKey]], `${txKey} ${TX_TYPE[txKey]}`).toEqual(expect.anything());
+    test('invalid multisend with fallback', () => {
+        expect(getFeeValue(TX_TYPE.MULTISEND, {fallbackOnInvalidInput: true})).toEqual(1);
+        expect(getFeeValue(TX_TYPE.MULTISEND, {fallbackOnInvalidInput: true, deltaItemCount: 0})).toEqual(1);
+    });
+
+    test('swap pool', () => {
+        expect(getFeeValue(TX_TYPE.SELL_SWAP_POOL, {deltaItemCount: 1})).toEqual(10);
+        expect(getFeeValue(TX_TYPE.SELL_SWAP_POOL, {deltaItemCount: 2})).toEqual(15);
+        expect(getFeeValue(TX_TYPE.SELL_SWAP_POOL, {deltaItemCount: 5})).toEqual(30);
+    });
+
+    test('invalid swap pool', () => {
+        expect(() => getFeeValue(TX_TYPE.SELL_SWAP_POOL)).toThrow();
+        expect(() => getFeeValue(TX_TYPE.SELL_SWAP_POOL, {deltaItemCount: 0})).toThrow();
+    });
+
+    test('invalid swap pool with fallback', () => {
+        expect(getFeeValue(TX_TYPE.SELL_SWAP_POOL, {fallbackOnInvalidInput: true})).toEqual(10);
+        expect(getFeeValue(TX_TYPE.SELL_SWAP_POOL, {fallbackOnInvalidInput: true, deltaItemCount: 0})).toEqual(10);
+    });
+});
+
+/** @type {Array<TxTypeItem>} */
+const typeList = txTypeList
+    .filter((typeItem) => !typeItem.isDisabled)
+    .map((typeItem) => {
+        return {
+            ...typeItem,
+            toString: () => `${typeItem.hex} ${typeItem.key}`,
+        };
+    });
+
+describe('each tx type', () => {
+    describe.each(typeList)('%s', ({hex: txType, key: txKey}) => {
+        test('baseFeeList have value', () => {
+            // console.log(txKey, txType, feePrice.baseFeeList[txType]);
+            expect(feePrice.baseFeeList[txType]).toEqual(expect.anything());
+        });
+
+        test('getFeeValue returns valid value', () => {
+            // console.log(txKey, txType, getFeeValue(txType, {fallbackOnInvalidInput: true}));
+            expect(getFeeValue(txType, {fallbackOnInvalidInput: true})).toBeGreaterThan(0);
         });
     });
 });

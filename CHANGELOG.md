@@ -1,3 +1,7 @@
+## 0.24.0
+- **BREAKING** change `FeePrice#getFeeValue` to throw by default on invalid coinSymbol length for coin creation tx
+- add `options.fallbackOnInvalidInput` field to `FeePrice#getFeeValue` to fallback if invalid coinSymbol or deltaItemCount
+
 ## 0.23.0 - 2022.04.12
 - add `lock` and `lock_stake` tx types
 - add `isDisabled` property to `txTypeList`

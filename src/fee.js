@@ -23,13 +23,17 @@ export function FeePrice(commissionPriceData) {
      * @param {FeePriceOptions} [options]
      * @return {number|string}
      */
-    this.getFeeValue = (txType, {payload, payloadLength = 0, coinSymbol, coinSymbolLength, deltaItemCount} = {}) => {
+    this.getFeeValue = (txType, {payload, payloadLength = 0, coinSymbol, coinSymbolLength, deltaItemCount, fallbackOnInvalidInput} = {}) => {
         // txType to string
         txType = normalizeTxType(txType);
 
         const isDeltaType = txType === TX_TYPE.MULTISEND || txType === TX_TYPE.BUY_SWAP_POOL || txType === TX_TYPE.SELL_SWAP_POOL || txType === TX_TYPE.SELL_ALL_SWAP_POOL;
         if (isDeltaType && !(deltaItemCount >= 1)) {
-            throw new Error(`\`deltaItemCount\` should be positive integer when tx type is ${txType} (${txTypeList[Number(txType)].name})`);
+            if (fallbackOnInvalidInput) {
+                deltaItemCount = 1;
+            } else {
+                throw new Error(`\`deltaItemCount\` should be positive integer when tx type is ${txType} (${txTypeList[Number(txType)].name})`);
+            }
         }
 
         if (Buffer.isBuffer(payload)) {
@@ -53,7 +57,7 @@ export function FeePrice(commissionPriceData) {
         // extra fee based on count
         const deltaTotalFee = isDeltaType ? new Big(deltaItemCount - 1).times(deltaFee) : 0;
         // coin symbol extra fee
-        const tickerLengthFee = txType === TX_TYPE.CREATE_COIN || txType === TX_TYPE.CREATE_TOKEN ? this.getCoinSymbolFee(coinSymbol, coinSymbolLength) : 0;
+        const tickerLengthFee = txType === TX_TYPE.CREATE_COIN || txType === TX_TYPE.CREATE_TOKEN ? this.getCoinSymbolFee(coinSymbol, coinSymbolLength, fallbackOnInvalidInput) : 0;
         const payloadFee = new Big(this.payloadByteFee).times(payloadLength);
 
         return convertFromPip(new Big(baseFee).plus(payloadFee).plus(deltaTotalFee).plus(tickerLengthFee));
@@ -62,18 +66,23 @@ export function FeePrice(commissionPriceData) {
     /**
      * @param {string} [ticker]
      * @param {number} [length]
+     * @param {boolean} [fallbackOnInvalidInput]
      * @return {number|string} - value in pip
      */
-    this.getCoinSymbolFee = (ticker, length) => {
+    this.getCoinSymbolFee = (ticker, length, fallbackOnInvalidInput) => {
         length = ticker ? ticker.length : length;
         if (!isValidLength(length)) {
-            length = 7;
+            if (fallbackOnInvalidInput) {
+                length = 7;
+            } else {
+                throw new Error('Coin symbol length should be between 3 and 10');
+            }
         }
         return this.tickerFeeList[length];
 
         // eslint-disable-next-line unicorn/consistent-function-scoping, no-shadow
         function isValidLength(length) {
-            return length >= 3 && length <= 7;
+            return length >= 3 && length <= 10;
         }
     };
 }
@@ -83,17 +92,18 @@ function isFeeInvalid(fee) {
 }
 
 /**
- * @typedef {Object} FeePriceOptions
- * @param {string|Buffer} [payload]
- * @param {number} [payloadLength]
- * @param {string} [coinSymbol]
- * @param {number} [coinSymbolLength]
- * @param {number} [deltaItemCount]
+ * @typedef {object} FeePriceOptions
+ * @property {string|Buffer} [payload]
+ * @property {number} [payloadLength]
+ * @property {string} [coinSymbol]
+ * @property {number} [coinSymbolLength]
+ * @property {number} [deltaItemCount]
+ * @property {boolean} [fallbackOnInvalidInput]
  */
 
 /**
  * @typedef {Object} TickerFeeList
- * @type {{'3': number|string, '4': number|string, '5': number|string, '6': number|string, '7': number|string}}
+ * @type {{'3': number|string, '4': number|string, '5': number|string, '6': number|string, '7': number|string, '8': number|string, '9': number|string, '10': number|string}}
  */
 
 /**
@@ -114,6 +124,9 @@ function mapApiData(data) {
         5: data.create_ticker5,
         6: data.create_ticker6,
         7: data.create_ticker7_10,
+        8: data.create_ticker7_10,
+        9: data.create_ticker7_10,
+        10: data.create_ticker7_10,
     };
     const customKeysFeeList = {
         [TX_TYPE.SELL]: data.sell_bancor,
