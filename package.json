@@ -21,13 +21,13 @@
     "precommit": "echo 'Pre-commit checks...' && npm run lint",
     "lint": "eslint --ext .js ./src/ ./test/",
     "lint:fix": "eslint --ext .js ./src/ ./test/ --fix",
-    "test": "npm run jest && npm run test:bundle-browser && npm run test:bundle-cjs",
+    "test": "npm run jest-coverage && npm run build && npm run jest:bundle-browser && npm run jest:bundle-cjs",
     "test:bundle-browser": "npm run build:browser && npm run jest:bundle-browser",
     "test:bundle-cjs": "npm run build:cjs && npm run jest:bundle-cjs",
     "jest": "jest",
     "jest:bundle-browser": "jest --config jest-bundle-browser.config.js",
     "jest:bundle-cjs": "jest --config jest-bundle-cjs.config.js",
-    "coverage": "jest --coverage"
+    "jest-coverage": "jest --coverage"
   },
   "pre-commit": [
     "precommit"

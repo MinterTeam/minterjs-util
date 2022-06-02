@@ -9,4 +9,7 @@ module.exports = {
     transformIgnorePatterns: [
         'node_modules/(?!(minterjs-tx|minterjs-util|minterjs-wallet)/)',
     ],
+    // collectCoverage: true,
+    collectCoverageFrom: ["./src/**"],
+    coverageReporters: ["lcov", "text"]
 };
