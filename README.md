@@ -1,9 +1,9 @@
 # minterjs-util
 
 [![NPM Package](https://img.shields.io/npm/v/minterjs-util.svg?style=flat-square)](https://www.npmjs.org/package/minterjs-util)
-[![Build Status](https://github.com/minterteam/minterjs-util/actions/workflows/test-with-coverage.yml/badge.svg)](https://github.com/MinterTeam/minterjs-util/actions/workflows/test-with-coverage.yml)
-[![Coverage Status](https://coveralls.io/repos/github/MinterTeam/minterjs-util/badge.svg?branch=master)](https://coveralls.io/github/MinterTeam/minterjs-util?branch=master)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/MinterTeam/minterjs-util/blob/master/LICENSE)
+[![Build Status](https://img.shields.io/github/workflow/status/MinterTeam/minterjs-util/Test?label=test&style=flat-square)](https://github.com/MinterTeam/minterjs-util/actions/workflows/test-with-coverage.yml)
+[![Coverage Status](https://img.shields.io/coveralls/github/MinterTeam/minterjs-util/master.svg?style=flat-square)](https://coveralls.io/github/MinterTeam/minterjs-util?branch=master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square&label=license)](https://github.com/MinterTeam/minterjs-util/blob/master/LICENSE)
 
 A collection of utility functions for Minter
 
