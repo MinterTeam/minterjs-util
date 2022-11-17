@@ -1,3 +1,6 @@
+## 0.24.2 - 2022.11.17
+- add new variables
+
 ## 0.24.0 - 2022.06.02
 - **BREAKING** change `FeePrice#getFeeValue` to throw by default on invalid coinSymbol length for coin creation tx
 - add `options.fallbackOnInvalidInput` field to `FeePrice#getFeeValue` to fallback if invalid coinSymbol or deltaItemCount
