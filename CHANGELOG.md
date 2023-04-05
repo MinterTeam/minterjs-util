@@ -1,3 +1,6 @@
+## 0.25.1 - 2023.04.05
+- add estimation limit calculation methods
+
 ## 0.25.0 - 2023.04.05
 - add wrapped Big.js
 - update deps
