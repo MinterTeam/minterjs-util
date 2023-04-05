@@ -1,16 +1,13 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 
-import Big from 'big.js';
 import BN from 'bn.js';
 import {padToEven} from 'ethjs-util';
+import Big from './big.js';
 
-// use ROUND_HALF_EVEN to align with blockchain rounding
-// Rounds towards nearest neighbour. If equidistant, rounds towards even neighbour.
-Big.RM = 2;
 const DECIMALS = 18;
 
 /**
- * @param {number,string,Big} num
+ * @param {number|string|Big} num
  * @param {'pip'|'bip'} to
  * @param {'hex'} [format]
  * @return {string}
@@ -42,7 +39,7 @@ export function convert(num, to, format) {
 
 /**
  * Multiply value by 10^18
- * @param {number,string,Big} num
+ * @param {number|string|Big} num
  * @param {'hex'} [format]
  * @return {string}
  */
@@ -52,7 +49,7 @@ export function convertToPip(num, format) {
 
 /**
  * Multiply value by 10^-18
- * @param {number,string,Big} num
+ * @param {number|string|Big} num
  * @return {string}
  */
 export function convertFromPip(num) {
@@ -70,7 +67,7 @@ export function convertFromPip(num) {
 
 /**
  *
- * @param {number,string,Big} num
+ * @param {number|string|Big} num
  * @return {Big}
  */
 export function numberToBig(num) {

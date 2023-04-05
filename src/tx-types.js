@@ -52,7 +52,7 @@ const DISABLED_TYPES = {
 const txTypeKeys = Object.fromEntries(Object.entries(TX_TYPE).map(([key, hexValue]) => [hexValue, key]));
 
 /**
- * @typedef {Object} TxTypeItem
+ * @typedef {object} TxTypeItem
  * @property {TX_TYPE} hex
  * @property {string} name
  * @property {number} number
@@ -64,8 +64,8 @@ const txTypeKeys = Object.fromEntries(Object.entries(TX_TYPE).map(([key, hexValu
 const txTypeList = [];
 
 /**
- * @param hex
- * @param [name]
+ * @param {string} hex
+ * @param {string} [name]
  * @return {TxTypeItem}
  */
 function fillList(hex, name) {
@@ -124,15 +124,22 @@ export {txTypeList};
 
 /**
  *
- * @param {TX_TYPE|number|string|Buffer|Uint8Array} txType
+ * @param {TX_TYPE|number|string|Buffer|Uint8Array|Array<number>} txType
  * @return {TX_TYPE}
  */
 export function normalizeTxType(txType) {
-    if (!txType) {
+    function throwInvalid() {
         throw new Error(`Invalid tx type: ${txType}`);
     }
+
+    if (!txType) {
+        throwInvalid();
+    }
     // Buffer or Uint8Array to TX_TYPE
-    if (txType.length > 0 && typeof txType !== 'string') {
+    if (txType instanceof Uint8Array || Array.isArray(txType)) {
+        if (txType.length === 0) {
+            throwInvalid();
+        }
         txType = Buffer.from(txType).toString('hex');
         txType = `0x${txType}`;
     }

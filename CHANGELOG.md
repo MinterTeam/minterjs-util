@@ -1,3 +1,8 @@
+## 0.25.0 - 2023.04.05
+- add wrapped Big.js
+- update deps
+- **BREAKING** maybe breaking if used cjs version with node version not supported es modules
+
 ## 0.24.2 - 2022.11.17
 - add new variables
 

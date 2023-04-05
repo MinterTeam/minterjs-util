@@ -1,9 +1,6 @@
-import Big from 'big.js';
 import {
-    sellCoin, sellCoinByBip, buyCoin, buyCoinByCoin,
+    Big, sellCoin, sellCoinByBip, buyCoin, buyCoinByCoin,
 } from '~/src';
-
-Big.RM = 2;
 
 describe('coin math', () => {
     test('sellCoin', () => {

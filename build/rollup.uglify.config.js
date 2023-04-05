@@ -1,6 +1,6 @@
-import baseConfig from './rollup.config';
+import baseConfig from './rollup.config.js';
 
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 
 
 const config = Object.assign({}, baseConfig, {output: Object.assign({}, baseConfig.output)});

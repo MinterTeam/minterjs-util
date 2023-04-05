@@ -14,6 +14,7 @@ module.exports = {
     'jest',
     'security',
     'unicorn',
+    'jsdoc',
   ],
   extends: [
     'airbnb-base',
@@ -24,11 +25,17 @@ module.exports = {
         ['~/src', './src'],
         ['~/test', './test'],
       ]
-    }
+    },
+    'jsdoc': {
+      mode: 'jsdoc', // instead of 'typescript'
+      tagNamePreference: {
+        // "return": "return",
+      },
+    },
   },
   // // add your custom rules here
   rules: {
-    'indent': ['error', 4],
+    'indent': ['error', 4, {SwitchCase: 1}],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow braces around function body
@@ -47,7 +54,9 @@ module.exports = {
     'no-underscore-dangle': 0,
     'no-else-return': 0,
     'no-unused-vars': ['warn', { 'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false }],
+    'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
     'no-use-before-define' : 0,
+    'no-multiple-empty-lines': ["error", { "max": 3, "maxEOF": 1 }],
     // allow single line imports
     'object-curly-newline': 0,
     'prefer-arrow-callback': 0,
@@ -61,9 +70,16 @@ module.exports = {
         "object": false
       }
     }],
+    'space-before-function-paren': ['error', {
+      anonymous: 'never',
+      named: 'never',
+      asyncArrow: 'always'
+    }],
     'import/extensions': ['error', 'always', {ignorePackages: true} ],
     // named exports are not bad
     'import/prefer-default-export': 0,
+    // allow `export {default} from '...'`
+    'no-restricted-exports': 0,
   },
   overrides: [
     {
@@ -71,6 +87,7 @@ module.exports = {
       extends: [
         'plugin:security/recommended',
         'plugin:unicorn/recommended',
+        'plugin:jsdoc/recommended',
       ],
       rules: {
         'security/detect-object-injection': 0,
@@ -81,25 +98,49 @@ module.exports = {
         'unicorn/prefer-includes': 0,
         // allow lowercase hex number
         'unicorn/number-literal-case': 0,
+        // allow explicitly return undefined
+        'unicorn/no-useless-undefined': 0,
+        // allow forEach
+        'unicorn/no-array-for-each': 0,
         'unicorn/prefer-optional-catch-binding': 0,
         'unicorn/prefer-ternary': 0,
+        // waiting `node:` to be backported to node@14
         // @see https://stackoverflow.com/questions/67263317/how-to-fix-eslint-error-when-using-the-node-protocol-when-importing-node-js-bui
         // @see https://github.com/import-js/eslint-plugin-import/issues/2031
         // waiting `node:` to be backported to node@14
         'unicorn/prefer-node-protocol': 0,
         'unicorn/no-array-for-each': 0,
+        // incorrectly treat `Big` as `Number`
         // @see https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1463
         'unicorn/require-number-to-fixed-digits-argument': 0,
+        // not supported yet
+        'unicorn/numeric-separators-style': 0,
         'unicorn/prevent-abbreviations': ['error', {
           replacements: {
             'params': false,
           },
           allowList: {
+            'fn': true,
+            'otherArgs': true,
             'resData': true,
             'txParams': true,
             'txProps': true,
           }
         }],
+        // jsdoc
+        'jsdoc/require-param-description': 0,
+        'jsdoc/require-returns-description': 0,
+        'jsdoc/require-property-description': 0,
+        'jsdoc/newline-after-description': 0,
+        // poor syntax validator
+        'jsdoc/valid-types': 0,
+        'jsdoc/require-jsdoc': ['warn', {publicOnly: true}],
+        // @TODO allow both return and returns
+        'jsdoc/require-returns': 0,
+        // @TODO allow both return and returns
+        'jsdoc/check-tag-names': 0,
+        // @TODO all custom types treated as undefined
+        'jsdoc/no-undefined-types': 0,
       },
     },
     {
@@ -119,6 +160,8 @@ module.exports = {
         'import/extensions': 0,
         // 'jest-expect-message' allow multiple arguments
         'jest/valid-expect': 0,
+        // allow `expect` inside `then`
+        'jest/no-conditional-expect': 0,
       }
     },
   ]

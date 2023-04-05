@@ -1,6 +1,4 @@
-import Big from 'big.js';
-
-Big.RM = 2;
+import Big from './big.js';
 
 /**
  * Bancor sell COIN, calculate received BIP
@@ -49,7 +47,7 @@ export function buyCoin(coin, bipAmount) {
 /**
  * Bancor buy COIN, calculate needed BIP
  * @param {BancorCoinParams} coin
- * @param coinAmount - get COIN
+ * @param {number|string} coinAmount - get COIN
  * @return {string} - pay BIP
  */
 export function buyCoinByCoin(coin, coinAmount) {
@@ -73,7 +71,7 @@ function one() {
 }
 
 /**
- * @typedef {Object} BancorCoinParams
+ * @typedef {object} BancorCoinParams
  * @property {number|null} supply
  * @property {number|null} crr
  * @property {number|null} reserve - from 0 to 1

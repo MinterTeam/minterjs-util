@@ -58,7 +58,7 @@ export function publicToString(publicKey) {
  * Checks if the public key satisfies the rules of the curve secp256k1
  * and the requirements of Minter.
  * @param {string|Buffer} publicKey - Compressed key without first byte, starts with `Mp` if is string
- * @return {Boolean}
+ * @return {boolean}
  */
 export function isValidPublic(publicKey) {
     if (typeof publicKey === 'string') {

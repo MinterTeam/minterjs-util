@@ -55,14 +55,20 @@ export function toBuffer(value) {
     return ethToBuffer(value);
 }
 
+/**
+ * @param {string} address
+ * @return {string}
+ */
 export function addressToString(address) {
-    address = toBuffer(address);
-    return `Mx${address.toString('hex')}`;
+    return `Mx${toBuffer(address).toString('hex')}`;
 }
 
+/**
+ * @param {string} check
+ * @return {string}
+ */
 export function checkToString(check) {
-    check = toBuffer(check);
-    return `Mc${check.toString('hex')}`;
+    return `Mc${toBuffer(check).toString('hex')}`;
 }
 
 /**
@@ -75,7 +81,7 @@ export function privateToAddressString(privateKey) {
 }
 
 /**
- * @param value
+ * @param {string} value
  * @returns {boolean}
  */
 export function isMinterPrefixed(value) {
@@ -92,14 +98,26 @@ export function isValidPublicKeyString(publicKey) {
     return /^Mp[0-9a-fA-F]{64}$/.test(publicKey);
 }
 
+/**
+ * @param {string} address
+ * @return {boolean}
+ */
 export function isValidAddress(address) {
     return /^Mx[0-9a-fA-F]{40}$/.test(address);
 }
 
+/**
+ * @param {string} check
+ * @return {boolean}
+ */
 export function isValidCheck(check) {
     return /^Mc[0-9a-fA-F]+$/.test(check);
 }
 
+/**
+ * @param {string} tx
+ * @return {boolean}
+ */
 export function isValidTransaction(tx) {
     return /^Mt[0-9a-fA-F]{64}$/.test(tx);
 }

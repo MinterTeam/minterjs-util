@@ -1,3 +1,4 @@
+export {default as Big, BIG_ROUND_DOWN, BIG_ROUND_UP, BIG_ROUND_HALF_EVEN, VISIBLE_PRECISION, COMPUTATION_PRECISION} from './big.js';
 export {publicToAddress, publicToString, isValidPublic} from './public.js';
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export {convert, convertFromPip, convertToPip, numberToBig} from './converter.js';

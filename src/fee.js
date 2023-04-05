@@ -1,5 +1,5 @@
-import Big from 'big.js';
 import {getBinarySize} from 'ethjs-util';
+import Big from './big.js';
 import {TX_TYPE, normalizeTxType, txTypeList} from './tx-types.js';
 import {convertFromPip} from './converter.js';
 
@@ -102,13 +102,11 @@ function isFeeInvalid(fee) {
  */
 
 /**
- * @typedef {Object} TickerFeeList
- * @type {{'3': number|string, '4': number|string, '5': number|string, '6': number|string, '7': number|string, '8': number|string, '9': number|string, '10': number|string}}
+ * @typedef {{'3': number|string, '4': number|string, '5': number|string, '6': number|string, '7': number|string, '8': number|string, '9': number|string, '10': number|string}} TickerFeeList
  */
 
 /**
- * @typedef {Object} FeeList
- * @type {{TX_TYPE: number|string}}
+ * @typedef {Record<TX_TYPE, number|string>} FeeList
  */
 
 /**
@@ -161,7 +159,7 @@ function mapApiData(data) {
 }
 
 /**
- * @typedef {Object} CommissionPriceMapped
+ * @typedef {object} CommissionPriceMapped
  * @property {Coin} coin
  * @property {FeeList} baseFeeList
  * @property {FeeList} deltaFeeList
@@ -170,7 +168,7 @@ function mapApiData(data) {
  */
 
 /**
- * @typedef {Object} CommissionPriceData
+ * @typedef {object} CommissionPriceData
  * @property {Coin} coin
  * @property {string|number} payload_byte
  * @property {string|number} send

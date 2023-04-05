@@ -29,4 +29,8 @@ describe('coinToBuffer', () => {
     test('throw on falsy value', () => {
         expect(() => normalizeTxType(null)).toThrow(new Error('Invalid tx type: null'));
     });
+    test('throw on invalid value', () => {
+        expect(() => normalizeTxType(Buffer.from([]))).toThrow();
+        expect(() => normalizeTxType('0x')).toThrow();
+    });
 });
